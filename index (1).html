@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeDev — растим своих разработчиков</title>
+<meta name="description" content="CodeDev нанимает junior-разработчиков, тестировщиков, менеджеров и обучает программированию с нуля. 6 открытых вакансий, обучение бесплатное.">
+<meta property="og:title" content="CodeDev — растим своих разработчиков">
+<meta property="og:description" content="6 открытых вакансий. Обучение бесплатное, опыт не обязателен.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22w%22%3E%3Crect%20x%3D%22238%22%20y%3D%22318%22%20width%3D%22104%22%20height%3D%2296%22/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22%230B0F0E%22/%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-width%3D%2252%22%3E%3Cpath%20id%3D%22c%22%20d%3D%22M278.4%20360.8A128%20128%200%201%201%20278.4%20151.2%22%20stroke%3D%22%2300FF88%22/%3E%3Cpath%20d%3D%22M290%20118V394%22%20stroke%3D%22%23E8F1EC%22/%3E%3Cpath%20d%3D%22M290%20118A138%20138%200%200%201%20290%20394%22%20stroke%3D%22%23E8F1EC%22/%3E%3Cuse%20href%3D%22%23c%22%20stroke%3D%22%2300FF88%22%20clip-path%3D%22url%28%23w%29%22/%3E%3C/g%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* KodeckDev — общие стили */
+
+
+
+:root {
+  --bg:        #080B0A;
+  --bg-2:      #0E1312;
+  --surface:   #121917;
+  --border:    #1F2A26;
+  --border-hi: #2E3F38;
+  --text:      #E8F1EC;
+  --muted:     #7C8B84;
+  --accent:    #00FF88;
+  --accent-dk: #00C46A;
+  --accent-gl: rgba(0, 255, 136, 0.12);
+
+  --display: 'Space Grotesk', system-ui, sans-serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --wrap: 1140px;
+  --r: 14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Фоновая сетка */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: .25;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+a { color: inherit; text-decoration: none; }
+
+::selection { background: var(--accent); color: #04150C; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Шапка ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(8, 11, 10, .82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.02em; }
+.logo-mark {
+  width: 34px; height: 34px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 14px var(--accent-gl));
+}
+.logo span { color: var(--accent); }
+
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-size: 14.5px; color: var(--muted); transition: color .18s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a.active { color: var(--accent); }
+
+.burger { display: none; background: none; border: 1px solid var(--border-hi); border-radius: 8px; width: 40px; height: 40px; color: var(--text); cursor: pointer; font-size: 18px; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 14px 26px; border-radius: 10px;
+  font-family: var(--display); font-weight: 600; font-size: 15px;
+  cursor: pointer; border: 1px solid transparent;
+  transition: transform .16s, box-shadow .16s, background .16s, border-color .16s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #04150C; box-shadow: 0 0 0 rgba(0,255,136,0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,255,136,.22); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--border-hi); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.btn-sm { padding: 10px 18px; font-size: 14px; }
+.btn-full { width: 100%; }
+
+/* ---------- Метки ---------- */
+.eyebrow {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px;
+}
+.eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+
+.chip {
+  display: inline-block; padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--border-hi); background: var(--bg-2);
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+}
+.chip-on { border-color: var(--accent); color: var(--accent); background: var(--accent-gl); }
+
+/* ---------- Секции ---------- */
+.sec { padding: 96px 0; position: relative; z-index: 1; }
+.sec-tight { padding: 64px 0; }
+.sec-head { max-width: 720px; margin-bottom: 52px; }
+
+h1, h2, h3, h4 { font-family: var(--display); letter-spacing: -.03em; line-height: 1.12; font-weight: 700; }
+h1 { font-size: clamp(38px, 6vw, 66px); }
+h2 { font-size: clamp(28px, 4vw, 42px); }
+h3 { font-size: 21px; letter-spacing: -.02em; }
+.lead { color: var(--muted); font-size: 17.5px; line-height: 1.7; margin-top: 18px; }
+
+/* ---------- Герой ---------- */
+.hero { padding: 92px 0 72px; position: relative; z-index: 1; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+.hero h1 { margin-bottom: 4px; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-cta { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+.hero-note { margin-top: 22px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+/* Терминал */
+.term {
+  background: var(--bg-2); border: 1px solid var(--border-hi); border-radius: var(--r);
+  overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.5);
+}
+.term-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border-hi); }
+.dot.g { background: var(--accent); }
+.term-file { margin-left: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.term-body { padding: 22px 20px; font-family: var(--mono); font-size: 13.5px; line-height: 2; }
+.tk-key { color: #6FA8FF; }
+.tk-str { color: var(--accent); }
+.tk-num { color: #FFD166; }
+.tk-com { color: var(--muted); }
+.caret { display: inline-block; width: 8px; height: 15px; background: var(--accent); vertical-align: -2px; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- Карточки ---------- */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 28px;
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: var(--border-hi); transform: translateY(-3px); }
+.card h3 { margin-bottom: 10px; }
+.card p { color: var(--muted); font-size: 15px; }
+.card-ico {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--accent-gl);
+  border: 1px solid var(--border-hi); display: grid; place-items: center;
+  font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 18px;
+}
+
+/* Статистика */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+.stat { background: var(--bg-2); padding: 30px 24px; }
+.stat-n { font-family: var(--display); font-size: 32px; font-weight: 700; color: var(--accent); letter-spacing: -.03em; }
+.stat-l { font-family: var(--mono); font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-top: 6px; }
+
+/* ---------- Карточка вакансии ---------- */
+.vac {
+  display: grid; grid-template-columns: 1fr auto; gap: 26px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 28px 30px; margin-bottom: 16px;
+  transition: border-color .2s, transform .2s, background .2s;
+}
+.vac:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--bg-2); }
+.vac-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.vac h3 { margin-bottom: 8px; }
+.vac p { color: var(--muted); font-size: 15px; }
+.vac-pay { font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--accent); margin-top: 12px; letter-spacing: -.02em; }
+.vac-pay small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; }
+.vac-side { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+
+/* ---------- Лестница грейдов (фирменный элемент) ---------- */
+.ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+.rung { padding: 32px 28px; background: var(--bg-2); border-right: 1px solid var(--border); position: relative; }
+.rung:last-child { border-right: 0; }
+.rung-bar { height: 3px; border-radius: 2px; background: var(--border-hi); margin-bottom: 22px; }
+.rung:nth-child(1) .rung-bar { background: var(--accent); width: 34%; }
+.rung:nth-child(2) .rung-bar { background: var(--accent); width: 68%; opacity: .7; }
+.rung:nth-child(3) .rung-bar { background: var(--accent); width: 100%; opacity: .45; }
+.rung-t { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.rung h3 { font-size: 24px; margin-bottom: 6px; }
+.rung .pay { font-family: var(--display); font-weight: 600; color: var(--accent); font-size: 16px; }
+.rung p { color: var(--muted); font-size: 14.5px; margin-top: 12px; }
+
+/* ---------- Списки ---------- */
+.ticks { list-style: none; display: grid; gap: 13px; }
+.ticks li { position: relative; padding-left: 28px; color: var(--muted); font-size: 15.5px; }
+.ticks li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-gl);
+}
+.ticks li strong { color: var(--text); font-weight: 600; }
+
+/* Таблица условий */
+.terms { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+.term-row { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 20px 26px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.term-row:last-child { border-bottom: 0; }
+.term-row dt { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); padding-top: 3px; }
+.term-row dd { color: var(--text); font-size: 15.5px; }
+
+/* ---------- Форма ---------- */
+.form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 34px; }
+.field { margin-bottom: 20px; }
+.field label { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
+.field label .req { color: var(--accent); }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 14px 16px;
+  background: var(--bg); border: 1px solid var(--border-hi); border-radius: 10px;
+  color: var(--text); font-family: var(--body); font-size: 15px;
+  transition: border-color .18s, box-shadow .18s;
+}
+.field input::placeholder, .field textarea::placeholder { color: #566159; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-gl);
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.field select { appearance: none; background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C8B84' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 18px; padding-right: 42px; }
+.form-hint { font-size: 13.5px; color: var(--muted); margin-top: 16px; text-align: center; line-height: 1.6; }
+.form-hint a { color: var(--accent); }
+.err { color: #FF6B6B; font-size: 13px; margin-top: 7px; display: none; }
+.field.invalid input, .field.invalid select { border-color: #FF6B6B; }
+.field.invalid .err { display: block; }
+
+.done { display: none; text-align: center; padding: 20px 0; }
+.done.on { display: block; }
+.done-ico { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-gl); border: 1px solid var(--accent); display: grid; place-items: center; margin: 0 auto 18px; font-size: 24px; color: var(--accent); }
+
+/* ---------- CTA-полоса ---------- */
+.cta-band {
+  border: 1px solid var(--border-hi); border-radius: var(--r);
+  background: linear-gradient(135deg, var(--surface), var(--bg-2));
+  padding: 52px; text-align: center; position: relative; overflow: hidden;
+}
+.cta-band::after {
+  content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+  width: 480px; height: 480px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-gl), transparent 68%);
+  pointer-events: none;
+}
+.cta-band > * { position: relative; z-index: 1; }
+.cta-band p { color: var(--muted); max-width: 560px; margin: 16px auto 30px; }
+
+/* ---------- Подвал ---------- */
+.foot { border-top: 1px solid var(--border); padding: 56px 0 34px; margin-top: 40px; position: relative; z-index: 1; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.foot p { color: var(--muted); font-size: 14.5px; margin-top: 14px; max-width: 320px; }
+.foot h4 { font-size: 13px; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-weight: 500; }
+.foot ul { list-style: none; display: grid; gap: 10px; }
+.foot ul a { color: var(--text); font-size: 14.5px; opacity: .8; }
+.foot ul a:hover { color: var(--accent); opacity: 1; }
+.foot-bot { border-top: 1px solid var(--border); padding-top: 26px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+/* Хлебные крошки */
+.crumbs { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding: 30px 0 0; }
+.crumbs a:hover { color: var(--accent); }
+.crumbs span { margin: 0 8px; opacity: .5; }
+
+/* Появление */
+.rise { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.rise.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .rise { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+  .grid-3, .grid-4, .ladder { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .rung { border-right: 0; border-bottom: 1px solid var(--border); }
+  .rung:last-child { border-bottom: 0; }
+  .foot-grid { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 760px) {
+  .nav-links {
+    display: none; position: absolute; top: 68px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg-2); border-bottom: 1px solid var(--border); padding: 8px 24px 18px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 15.5px; }
+  .nav-links .btn { margin-top: 14px; border-bottom: 0; }
+  .burger { display: block; }
+  .sec { padding: 66px 0; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .vac { grid-template-columns: 1fr; }
+  .vac-side { align-items: flex-start; }
+  .term-row { grid-template-columns: 1fr; gap: 6px; }
+  .cta-band { padding: 36px 24px; }
+  .form { padding: 24px; }
+  .hero { padding: 56px 0; }
+}
+
+.page[hidden]{display:none}
+.logo-mark{width:34px;height:34px;display:block;filter:drop-shadow(0 0 14px var(--accent-gl))}
+</style>
+</head>
+<body>
+<div class="page" data-slug="home" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo">
+      <svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span>
+    </a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home" class="active">Главная</a>
+      <a href="#/team">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ГЕРОЙ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Набор открыт · 2026</div>
+      <h1>Мы не ищем сеньоров.<br>Мы <em>выращиваем</em> своих.</h1>
+      <p class="lead">
+        CodeDev берёт junior-разработчиков и людей вообще без опыта в коде — и за 1–2 года
+        доводит до уровня middle. Не курсы, не стажировка «за спасибо». Работа в команде,
+        боевые задачи и зарплата с первого месяца.
+      </p>
+      <div class="hero-cta">
+        <a href="#/team" class="btn btn-primary">Собираем команду →</a>
+        <a href="#growth" class="btn btn-ghost">Как устроен рост</a>
+      </div>
+      <p class="hero-note">6 открытых позиций · Обучение бесплатное · Опыт не обязателен</p>
+    </div>
+
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
+        <span class="term-file">hiring.json</span>
+      </div>
+      <div class="term-body">
+<span class="tk-com">// открытый набор CodeDev</span><br>
+{<br>
+&nbsp;&nbsp;<span class="tk-key">"backend"</span>: <span class="tk-str">"junior"</span>,<br>
+&nbsp;&nbsp;<span class="tk-key">"frontend"</span>: <span class="tk-str">"junior"</span>,<br>
+&nbsp;&nbsp;<span class="tk-key">"старт, ₽/мес"</span>: [<span class="tk-num">110000</span>, <span class="tk-num">130000</span>],<br>
+&nbsp;&nbsp;<span class="tk-key">"опыт"</span>: <span class="tk-str">"не обязателен"</span>,<br>
+&nbsp;&nbsp;<span class="tk-key">"обучение"</span>: <span class="tk-str">"за счёт компании"</span>,<br>
+&nbsp;&nbsp;<span class="tk-key">"до middle"</span>: <span class="tk-str">"1–2 года"</span><br>
+}<span class="caret"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЦИФРЫ -->
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="stats rise">
+      <div class="stat"><div class="stat-n">2025</div><div class="stat-l">год основания</div></div>
+      <div class="stat"><div class="stat-n">110–130k</div><div class="stat-l">старт junior, ₽/мес</div></div>
+      <div class="stat"><div class="stat-n">1–2 года</div><div class="stat-l">путь до middle</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">открытые позиции</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ВАКАНСИИ -->
+<section class="sec" id="jobs">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Кого ищем прямо сейчас</div>
+      <h2>Шесть открытых позиций</h2>
+      <p class="lead">Разработка, тестирование, поддержка, работа с партнёрами и обучение с нуля.
+      Общий принцип один: обучение за наш счёт, а грейд пересматривается по результатам, а не по выслуге лет.</p>
+    </div>
+
+    <a class="vac rise" href="#/vacancy-backend">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Junior</span>
+          <span class="chip">Разработка</span>
+          <span class="chip">Обучение внутри</span>
+        </div>
+        <h3>Backend-разработчик</h3>
+        <p>Серверная логика, API и работа с базой. Берём тех, кто уже что-то писал сам — пусть даже пет-проекты.</p>
+        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте, до вычета</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-frontend">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Junior</span>
+          <span class="chip">Разработка</span>
+          <span class="chip">Обучение внутри</span>
+        </div>
+        <h3>Frontend-разработчик</h3>
+        <p>Интерфейсы веб-приложений: вёрстка, компоненты, связка с backend. Аккуратность важнее количества фреймворков в резюме.</p>
+        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте, до вычета</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-analyst">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">Обучение 2–3 недели</span>
+        </div>
+        <h3>Тестировщик / аналитик веб-приложений</h3>
+        <p>Проверяете сайты до клиента: кнопки, формы, поведение с VPN и без. Находите баги и описываете их команде.</p>
+        <div class="vac-pay">от 65 000 ₽<small>обучение бесплатное · опыт не нужен</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-partner">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">Обучение 1 месяц</span>
+          <span class="chip">Наставник</span>
+        </div>
+        <h3>Менеджер по работе с партнёрами</h3>
+        <p>Говорите с будущими партнёрами: задача, дедлайн, бюджет. Собираете вводные и передаёте проект дальше.</p>
+        <div class="vac-pay">от 90 000 ₽<small>после обучения · наставник 2–3 месяца</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-support">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">С телефона или ПК</span>
+        </div>
+        <h3>Оператор чат-поддержки / чат-менеджер</h3>
+        <p>Отвечаете людям в переписке — кандидатам и партнёрам. Звонить и продавать не нужно, ответы есть в инструкции.</p>
+        <div class="vac-pay">55 000 – 60 000 ₽<small>обучение бесплатное · опыт не нужен</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-trainee">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">С нуля</span>
+          <span class="chip">Обучение</span>
+          <span class="chip">Опыт не нужен</span>
+        </div>
+        <h3>Обучение программированию — с опытом и без</h3>
+        <p>Отдельный трек для тех, кто хочет войти в разработку. Мы вкладываемся в человека и растим его под свои задачи.</p>
+        <div class="vac-pay">Грейд и оплата — по итогам обучения<small>условия обсуждаются лично</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
+    </a>
+
+    <div style="margin-top:26px" class="rise">
+      <a href="#/team" class="btn btn-primary">Все открытые вакансии →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЛЕСТНИЦА ГРЕЙДОВ -->
+<section class="sec" id="growth" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Карьерный рост</div>
+      <h2>Грейд — это не обещание, а маршрут</h2>
+      <p class="lead">У каждой ступени есть понятный набор задач и критериев. Вы всегда знаете,
+      что именно нужно закрыть, чтобы перейти на следующую.</p>
+    </div>
+
+    <div class="ladder rise">
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 1 · старт</div>
+        <h3>Junior</h3>
+        <div class="pay">110 000 – 130 000 ₽</div>
+        <p>Работаете в паре с наставником, закрываете первые задачи в проде, разбираетесь в кодовой базе.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 2 · через 6–12 мес</div>
+        <h3>Junior+</h3>
+        <div class="pay">Пересмотр вилки</div>
+        <p>Ведёте задачи самостоятельно, участвуете в ревью, отвечаете за свой участок системы.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 3 · через 1–2 года</div>
+        <h3>Middle</h3>
+        <div class="pay">Уровень рынка middle</div>
+        <p>Берёте фичу целиком — от обсуждения до релиза. Наставничество над новыми джунами.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПОЧЕМУ МЫ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Что мы даём</div>
+      <h2>Условия, которые не приходится выпрашивать</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card rise">
+        <div class="card-ico">01</div>
+        <h3>Наставник с первого дня</h3>
+        <p>За каждым новичком закреплён разработчик, к которому можно прийти с любым вопросом без чувства неловкости.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">02</div>
+        <h3>Обучение за счёт компании</h3>
+        <p>Мы не берём деньги за обучение и не требуем «отработать» его. Это наша инвестиция, а не ваш долг.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">03</div>
+        <h3>Зарплата с первого месяца</h3>
+        <p>Никаких бесплатных стажировок и испытательных «на энтузиазме». Работаете — получаете.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">04</div>
+        <h3>Понятный процесс</h3>
+        <p>Задачи в трекере, инструкции, ревью. Вы не гадаете, что от вас хотят.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">05</div>
+        <h3>Пересмотр по результатам</h3>
+        <p>Грейд растёт от того, что вы умеете, а не от того, сколько месяцев просидели в кресле.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">06</div>
+        <h3>Молодая команда</h3>
+        <p>Компания основана в 2025 году. Здесь ещё можно влиять на то, как всё устроено.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Следующий шаг</div>
+      <h2>Резюме не обязательно</h2>
+      <p>Заполните короткую анкету — это формальность. Дальше с вами свяжется наш HR-менеджер и всё расскажет живым языком.</p>
+      <a href="#/apply" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="team" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>Собираем команду</div>
+
+<section class="sec-tight" style="padding-top:44px">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:0">
+      <div class="eyebrow">Открытые вакансии · 6</div>
+      <h1 style="font-size:clamp(34px,5vw,52px)">Собираем команду</h1>
+      <p class="lead">
+        Мы растём и добираем людей в разработку, в контроль качества, в поддержку, в работу с партнёрами и на обучение с нуля.
+        Общий принцип у всех позиций один: опыт желателен, но необучаемость — единственное,
+        чего мы не сможем исправить.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:44px">
+  <div class="wrap">
+
+    <a class="vac rise" href="#/vacancy-backend">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Junior</span>
+          <span class="chip">Разработка</span>
+          <span class="chip">Наставник</span>
+        </div>
+        <h3>Backend-разработчик (junior)</h3>
+        <p>Серверная логика, API, база данных. Пишете код, который держит продукт изнутри.
+        Ждём базовое знание любого серверного языка и желание разбираться.</p>
+        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте · рост до middle за 1–2 года</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-frontend">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Junior</span>
+          <span class="chip">Разработка</span>
+          <span class="chip">Наставник</span>
+        </div>
+        <h3>Frontend-разработчик (junior)</h3>
+        <p>Интерфейсы веб-приложений: вёрстка, компоненты, состояние, связка с API.
+        Важнее аккуратность и внимание к деталям, чем длинный список технологий.</p>
+        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте · рост до middle за 1–2 года</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-analyst">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">Обучение 2–3 недели</span>
+          <span class="chip">Поддержка</span>
+        </div>
+        <h3>Тестировщик / аналитик веб-приложений</h3>
+        <p>Проверяете сайты до того, как их увидит клиент: какие кнопки работают, как всё ведёт себя
+        с VPN и без, отправляется ли форма и куда она ведёт. Находите баги и описываете их команде.</p>
+        <div class="vac-pay">от 65 000 ₽<small>обучение 2–3 недели · бесплатно · опыт не нужен</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-partner">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">Обучение 1 месяц</span>
+          <span class="chip">Наставник</span>
+        </div>
+        <h3>Менеджер по работе с партнёрами</h3>
+        <p>Первый человек, с которым говорит будущий партнёр. Выясняете задачу, дедлайн и бюджет,
+        собираете вводные и передаёте проект техническому директору.</p>
+        <div class="vac-pay">от 90 000 ₽<small>после обучения · наставник ещё 2–3 месяца</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-support">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">Без опыта</span>
+          <span class="chip">Обучение</span>
+          <span class="chip">С телефона или ПК</span>
+        </div>
+        <h3>Оператор чат-поддержки / чат-менеджер</h3>
+        <p>Отвечаете людям в переписке: кандидатам — на вопросы по вакансии, партнёрам — на текущие
+        вопросы по проекту. Ничего продавать и звонить не нужно, все ответы есть в инструкции.</p>
+        <div class="vac-pay">55 000 – 60 000 ₽<small>опыт не нужен · работа с телефона, ПК или ноутбука</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+    <a class="vac rise" href="#/vacancy-trainee">
+      <div>
+        <div class="vac-tags">
+          <span class="chip chip-on">С нуля</span>
+          <span class="chip">Обучение</span>
+          <span class="chip">Карьерный рост</span>
+        </div>
+        <h3>Обучение программированию — с опытом и без</h3>
+        <p>Трек для тех, кто хочет войти в разработку. Наша цель — вырастить собственных программистов,
+        поэтому мы учим под свои задачи и ведём человека по грейдам.</p>
+        <div class="vac-pay">Грейд и оплата — по итогам обучения<small>условия обсуждаются лично</small></div>
+      </div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- КАК ПРОХОДИТ ОТБОР -->
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding-top:80px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Как проходит отбор</div>
+      <h2>Четыре шага, без марафона собеседований</h2>
+    </div>
+    <div class="grid-4">
+      <div class="card rise">
+        <div class="card-ico">01</div>
+        <h3>Заявка</h3>
+        <p>Заполняете короткую анкету на сайте. Резюме прикладывать не обязательно.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">02</div>
+        <h3>Разговор с HR</h3>
+        <p>Кирилл связывается с вами в Telegram, отвечает на вопросы и рассказывает про условия.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">03</div>
+        <h3>Встреча с командой</h3>
+        <p>Смотрим, как вы рассуждаете. Не гоняем по алгоритмам ради алгоритмов.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">04</div>
+        <h3>Оффер и обучение</h3>
+        <p>Фиксируем условия, закрепляем наставника и вводим в проект.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Не нашли свою позицию?</div>
+      <h2>Напишите всё равно</h2>
+      <p>Если вы хотите работать в IT, но не понимаете, к какой вакансии себя отнести — оставьте заявку и опишите ситуацию словами. Разберёмся вместе.</p>
+      <a href="#/apply" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-analyst" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=analyst" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Тестировщик / аналитик
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">Без опыта</span>
+      <span class="chip">Обучение 2–3 недели</span>
+      <span class="chip">Поддержка</span>
+      <span class="chip">Понятный процесс</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px); max-width:840px">Тестировщик / аналитик веб-приложений</h1>
+    <p class="lead" style="max-width:760px">
+      Вы первым видите продукт глазами пользователя — и находите всё, что сломано, раньше,
+      чем это найдёт клиент. Опыт не нужен: мы обучаем с нуля за 2–3 недели и даём чёткие
+      инструкции, по которым понятно, что и как проверять.
+    </p>
+    <div class="vac-pay" style="font-size:28px; margin-top:26px">от 65 000 ₽<small>обучение 2–3 недели · бесплатно · опыт не требуется</small></div>
+    <div class="hero-cta">
+      <a href="#/apply?role=analyst" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЧТО ДЕЛАТЬ -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Что предстоит делать</div>
+      <h2>Ломать сайт раньше, чем его сломает пользователь</h2>
+    </div>
+
+    <div class="grid-2" style="align-items:start; gap:28px">
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">01</div>
+        <h3>Проверка интерфейса</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Заходить на сайт и <strong>проверять каждую кнопку</strong> — какие работают, какие нет</li>
+          <li>Проверять все ссылки: ведут ли они туда, куда должны, нет ли «битых» переходов</li>
+          <li>Смотреть, как сайт открывается <strong>с VPN и без VPN</strong>, в разных регионах</li>
+          <li>Проверять работу в разных браузерах: Chrome, Safari, Firefox, Яндекс</li>
+          <li>Открывать сайт с телефона и с компьютера — не «поехала» ли вёрстка</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">02</div>
+        <h3>Проверка форм и сценариев</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Проверять, <strong>отправляется ли форма</strong> и приходят ли данные</li>
+          <li>Проверять, <strong>перекидывает ли на аккаунт менеджера</strong> после отправки</li>
+          <li>Отправлять формы с пустыми и заведомо неверными данными — ловится ли ошибка</li>
+          <li>Проходить сценарий пользователя целиком: от входа до финального действия</li>
+          <li>Проверять скорость загрузки страниц и что тормозит</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">03</div>
+        <h3>Работа с багами</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Находить баги и <strong>описывать их понятно</strong>: что нажал, что ожидал, что получил</li>
+          <li>Прикладывать скриншоты и видео, чтобы разработчик воспроизвёл проблему с первого раза</li>
+          <li>Заводить задачи в трекере и вести их до закрытия</li>
+          <li><strong>Перепроверять исправления</strong> — действительно ли баг ушёл</li>
+          <li>Прогонять регресс: не сломалось ли старое из-за нового</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">04</div>
+        <h3>Аналитика и заказы</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Принимать и обрабатывать входящие заказы</li>
+          <li>Проверять информацию по инструкции и передавать данные на следующий этап</li>
+          <li>Работать в понятной внутренней системе</li>
+          <li>Сверять готовый сайт с тем, что изначально просил клиент</li>
+          <li>Собирать замечания в один список и передавать команде разработки</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧТО ВАЖНО -->
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Что важно</div>
+      <ul class="ticks">
+        <li><strong>Внимательность</strong> — заметить, что кнопка на телефоне съехала на 3 пикселя</li>
+        <li>Ответственность: пропущенный баг увидит клиент</li>
+        <li>Готовность пройти обучение</li>
+        <li>Уверенное использование телефона или компьютера</li>
+        <li>Умение <strong>внятно описать проблему</strong> текстом</li>
+        <li>Спокойное общение с людьми</li>
+        <li>Терпение: одну и ту же форму иногда надо проверить двадцать раз</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Чего НЕ нужно</div>
+      <ul class="ticks">
+        <li>Не нужно уметь программировать</li>
+        <li>Не нужно техническое образование</li>
+        <li>Не нужен опыт работы в IT</li>
+        <li>Не нужно резюме и портфолио</li>
+        <li>Не нужно платить за обучение — оно бесплатное</li>
+      </ul>
+      <p style="color:var(--muted); font-size:15px; margin-top:22px">
+        Всему, что перечислено выше в задачах, мы научим за 2–3 недели. От вас — только
+        внимательность и желание разбираться.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- УСЛОВИЯ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Условия</div>
+      <h2>Что фиксируем на входе</h2>
+      <p class="lead">Часть условий зависит от проекта — мы проговариваем их с вами лично до старта, а не постфактум.</p>
+    </div>
+
+    <dl class="terms rise">
+      <div class="term-row"><dt>Зарплата</dt><dd><strong style="color:var(--accent)">от 65 000 ₽</strong> — дальше зависит от объёма и результата</dd></div>
+      <div class="term-row"><dt>Опыт</dt><dd>Не обязателен</dd></div>
+      <div class="term-row"><dt>Обучение</dt><dd>2–3 недели, предоставляется бесплатно</dd></div>
+      <div class="term-row"><dt>Формат</dt><dd>Зависит от проекта и региона</dd></div>
+      <div class="term-row"><dt>Оформление</dt><dd>Уточняется до начала работы</dd></div>
+      <div class="term-row"><dt>Выплаты</dt><dd>Зависят от графика и предложения</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- РОСТ -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Куда отсюда расти</div>
+      <h2>Это вход, а не потолок</h2>
+      <p class="lead">Тестирование — самый честный способ понять, как устроен продукт изнутри.
+      Многие приходят сюда, чтобы осмотреться, и уходят дальше внутри компании.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Аналитик</h3>
+        <p>Работа с требованиями: что именно хочет клиент и как это описать команде.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Автотестирование</h3>
+        <p>Учитесь писать код, который проверяет продукт за вас. Первый шаг в разработку.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Разработка</h3>
+        <p>Переходите на трек обучения программированию и идёте по грейдам до middle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Заявка занимает минуту</h2>
+      <p>Анкета — формальность. После отправки вас переведёт на нашего HR-менеджера, и дальше вы просто разговариваете с живым человеком.</p>
+      <a href="#/apply?role=analyst" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Тестировщик / аналитик</a></li>
+          <li><a href="#/vacancy-partner">Менеджер по работе с партнёрами</a></li>
+          <li><a href="#/vacancy-support">Оператор чат-поддержки</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Открытых вакансий: 6</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-partner" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=partner" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Менеджер по работе с партнёрами
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">Без опыта</span>
+      <span class="chip">Обучение с нуля</span>
+      <span class="chip">Наставник 2–3 месяца</span>
+      <span class="chip">Карьерный рост</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px); max-width:860px">Менеджер по работе с партнёрами</h1>
+    <p class="lead" style="max-width:780px">
+      Вы — первый человек, с которым разговаривает будущий партнёр. К нам приходят с запросом
+      «хотим сайт, сделаете?» — и ваша работа в том, чтобы за один разговор понять, что человеку
+      на самом деле нужно, сколько это стоит и берёмся ли мы. Опыта не требуем: учим с нуля.
+    </p>
+    <div class="vac-pay" style="font-size:28px; margin-top:26px">от 90 000 ₽<small>после окончания обучения · обучение 1 месяц, бесплатно</small></div>
+    <div class="hero-cta">
+      <a href="#/apply?role=partner" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<!-- КАК ЭТО ВЫГЛЯДИТ -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Как выглядит рабочий день</div>
+      <h2>Пример реального обращения</h2>
+    </div>
+
+    <div class="term rise" style="max-width:760px">
+      <div class="term-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
+        <span class="term-file">входящее обращение</span>
+      </div>
+      <div class="term-body" style="font-family:var(--body); font-size:15px; line-height:1.8">
+        <span class="tk-com">Партнёр:</span><br>
+        «Здравствуйте! Хотим сайт — точнее, веб-приложение. Можете сделать?»<br><br>
+        <span class="tk-str">Вы:</span><br>
+        И дальше ваша задача — не сказать «да, конечно» и не сказать «сколько у вас денег»,
+        а разобраться. Что за бизнес. Какую задачу должен решать сайт. Когда нужно.
+        Сколько готовы вложить. Есть ли примеры того, что нравится.<span class="caret"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАДАЧИ -->
+<section class="sec" style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Что предстоит делать</div>
+      <h2>Задачи по шагам</h2>
+    </div>
+
+    <div class="grid-2" style="align-items:start; gap:28px">
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">01</div>
+        <h3>Принять обращение</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Отвечать на входящие заявки — из Telegram, с сайта, по рекомендации</li>
+          <li>Быстро выходить на связь: тёплый партнёр остывает за сутки</li>
+          <li>Вести себя как человек, а не как скрипт продаж</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">02</div>
+        <h3>Выяснить задачу</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li><strong>Что за бизнес</strong> и какую проблему должен решить сайт</li>
+          <li>Кто будет пользоваться: клиенты, сотрудники, партнёры</li>
+          <li><strong>Что именно хотят видеть</strong>: страницы, разделы, функции</li>
+          <li>Сайт-визитка, интернет-магазин или полноценное веб-приложение</li>
+          <li>Нужна ли интеграция: оплата, CRM, Telegram-бот, база данных</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">03</div>
+        <h3>Собрать вводные</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li><strong>Дедлайн</strong> — к какому числу нужен результат и почему именно к нему</li>
+          <li><strong>Бюджет</strong> — сколько партнёр готов вложить</li>
+          <li><strong>Есть ли шаблон</strong> или референсы: сайты, которые нравятся, и чем именно</li>
+          <li>Есть ли своё представление о дизайне или доверяют нам</li>
+          <li>Готовы ли материалы: логотип, тексты, фото, описания — или всё с нуля</li>
+          <li>Есть ли уже домен и хостинг</li>
+          <li>Кто со стороны партнёра принимает решения и согласовывает</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">04</div>
+        <h3>Оценить и передать</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Зафиксировать всё в карточке партнёра — ничего не держать в голове</li>
+          <li><strong>Понять, подходит ли проект нам</strong>: реальны ли сроки, адекватен ли бюджет</li>
+          <li>Честно сказать «нет», если задача не наша — это тоже часть работы</li>
+          <li>Если всё устраивает обе стороны — <strong>передать партнёра техническому директору</strong> для обсуждения технической части</li>
+          <li>Оставаться на связи и следить, чтобы партнёр не потерялся между этапами</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧТО ВАЖНО -->
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Что важно</div>
+      <ul class="ticks">
+        <li><strong>Умение слушать</strong> и задавать уточняющие вопросы</li>
+        <li>Спокойное общение — в том числе с теми, кто сам не знает, чего хочет</li>
+        <li>Аккуратность в деталях: перепутанный дедлайн стоит дорого</li>
+        <li>Готовность пройти обучение и признавать, что чего-то не знаешь</li>
+        <li>Внятная письменная речь: половина общения идёт текстом</li>
+        <li>Ответственность — партнёр на вас рассчитывает</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Чего НЕ нужно</div>
+      <ul class="ticks">
+        <li>Не нужен опыт в продажах</li>
+        <li>Не нужно разбираться в коде — техническую часть возьмёт на себя тех. директор</li>
+        <li>Не нужно «впаривать» и давить: это не холодные звонки</li>
+        <li>Не нужен опыт в IT вообще</li>
+        <li>Не нужно платить за обучение</li>
+      </ul>
+      <p style="color:var(--muted); font-size:15px; margin-top:22px">
+        Всё, что нужно знать о наших услугах, сроках и ценах, вы получите на обучении.
+        Дальше 2–3 месяца рядом с вами будет наставник.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ПУТЬ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Как проходит вход в работу</div>
+      <h2>Три этапа, без «плыви сам»</h2>
+    </div>
+    <div class="ladder rise">
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 1 · 1 месяц</div>
+        <h3>Обучение</h3>
+        <div class="pay">С нуля, бесплатно</div>
+        <p>Разбираетесь, что мы делаем, сколько это стоит и сколько занимает. Учитесь вести разговор с партнёром и собирать вводные.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 2 · 2–3 месяца</div>
+        <h3>Под наставником</h3>
+        <div class="pay">от 90 000 ₽</div>
+        <p>Ведёте настоящих партнёров, но рядом всегда есть наставник: подстрахует, разберёт разговор, поправит.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 3 · дальше</div>
+        <h3>Самостоятельно</h3>
+        <div class="pay">Пересмотр по результатам</div>
+        <p>Ведёте партнёров сами, влияете на условия сделок и растёте вместе с потоком заказов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- УСЛОВИЯ -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Условия</div>
+      <h2>Что фиксируем на входе</h2>
+    </div>
+    <dl class="terms rise">
+      <div class="term-row"><dt>Зарплата</dt><dd><strong style="color:var(--accent)">от 90 000 ₽</strong> после окончания обучения</dd></div>
+      <div class="term-row"><dt>Опыт</dt><dd>Не обязателен — обучаем с нуля</dd></div>
+      <div class="term-row"><dt>Обучение</dt><dd>1 месяц, предоставляется бесплатно</dd></div>
+      <div class="term-row"><dt>Наставник</dt><dd>Ещё 2–3 месяца работы под присмотром после обучения</dd></div>
+      <div class="term-row"><dt>Формат</dt><dd>Зависит от проекта и региона</dd></div>
+      <div class="term-row"><dt>Оформление</dt><dd>Уточняется до начала работы</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Заявка занимает минуту</h2>
+      <p>Анкета — формальность. После отправки вас переведёт на нашего HR-менеджера, и дальше вы просто разговариваете с живым человеком.</p>
+      <a href="#/apply?role=partner" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Тестировщик / аналитик</a></li>
+          <li><a href="#/vacancy-partner">Менеджер по работе с партнёрами</a></li>
+          <li><a href="#/vacancy-support">Оператор чат-поддержки</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Открытых вакансий: 6</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-support" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=support" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Оператор чат-поддержки
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">Без опыта</span>
+      <span class="chip">Обучение</span>
+      <span class="chip">Поддержка</span>
+      <span class="chip">Понятный процесс</span>
+      <span class="chip">С телефона или компьютера</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px); max-width:840px">Оператор чат-поддержки <span style="color:var(--muted)">/ чат-менеджер</span></h1>
+    <p class="lead" style="max-width:780px">
+      Если вы умеете спокойно и вежливо переписываться — вы уже умеете эту работу.
+      Здесь не нужно ничего продавать, никого убеждать и ни в чём разбираться технически.
+      Нужно отвечать людям в чате: понятно, по-человечески и вовремя.
+    </p>
+    <div class="vac-pay" style="font-size:28px; margin-top:26px">55 000 – 60 000 ₽<small>опыт не требуется · обучение бесплатное</small></div>
+    <div class="hero-cta">
+      <a href="#/apply?role=support" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЧЕСТНО О РАБОТЕ -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="term rise" style="max-width:780px">
+      <div class="term-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
+        <span class="term-file">как это выглядит на практике</span>
+      </div>
+      <div class="term-body" style="font-family:var(--body); font-size:15px; line-height:1.85">
+        <span class="tk-com">Приходит сообщение:</span><br>
+        «Здравствуйте, я оставлял заявку на вакансию, что дальше?»<br><br>
+        <span class="tk-str">Вы отвечаете:</span><br>
+        Здороваетесь, смотрите в системе, на каком этапе человек, и говорите ему это простыми словами.
+        Если вопрос сложный — передаёте тому, кто в нём разбирается. Всё.<br><br>
+        <span class="tk-com">Не нужно знать код. Не нужно ничего продавать. Не нужно спорить.</span><span class="caret"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ЗАДАЧИ -->
+<section class="sec" style="padding-top:44px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Что предстоит делать</div>
+      <h2>Три простых направления</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="card rise" style="padding:32px">
+        <div class="card-ico">01</div>
+        <h3>Общение с кандидатами</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Отвечать людям, которые откликнулись на вакансию</li>
+          <li>Подсказывать, на каком они этапе и что дальше</li>
+          <li>Напоминать о встрече, если человек забыл</li>
+          <li>Отвечать на частые вопросы — <strong>ответы есть в инструкции</strong></li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:32px">
+        <div class="card-ico">02</div>
+        <h3>Сопровождение партнёров</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Подхватываете партнёра <strong>после того</strong>, как с ним поговорил менеджер</li>
+          <li>Остаётесь на связи, пока идёт работа над проектом</li>
+          <li>Отвечаете на текущие вопросы: «как дела», «когда будет готово»</li>
+          <li>Сложный вопрос — передаёте дальше по инструкции</li>
+        </ul>
+      </div>
+
+      <div class="card rise" style="padding:32px">
+        <div class="card-ico">03</div>
+        <h3>Работа в системе</h3>
+        <ul class="ticks" style="margin-top:16px">
+          <li>Принимать и обрабатывать входящие обращения</li>
+          <li>Проверять информацию по инструкции</li>
+          <li>Передавать данные на следующий этап</li>
+          <li>Работать в понятной внутренней системе</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-band rise" style="margin-top:32px; text-align:left; padding:36px 40px">
+      <div class="eyebrow">Про «поддержка в любое время»</div>
+      <p style="margin:0; max-width:760px; color:var(--text)">
+        Это <strong>не значит</strong>, что вы сидите в чате круглосуточно. Это значит, что
+        поддержка работает посменно — и у каждого оператора есть свой график.
+        Мы обсуждаем его с вами заранее, а не ставим перед фактом.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ЧТО ВАЖНО -->
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Что важно</div>
+      <ul class="ticks">
+        <li><strong>Внимательность</strong> и ответственность</li>
+        <li>Готовность пройти обучение</li>
+        <li>Уверенное использование телефона или компьютера</li>
+        <li>Спокойное общение с людьми — в том числе с теми, кто нервничает</li>
+        <li>Грамотная письменная речь: без сложных слов, но и без «прив, чо надо»</li>
+        <li>Не пропадать: если написали — ответьте</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px; background:var(--surface)">
+      <div class="eyebrow">Чего НЕ нужно</div>
+      <ul class="ticks">
+        <li>Не нужно уметь программировать</li>
+        <li>Не нужно разбираться в технике</li>
+        <li>Не нужен опыт работы</li>
+        <li>Не нужно звонить по телефону — общение только в переписке</li>
+        <li>Не нужно ничего продавать</li>
+        <li>Не нужно платить за обучение</li>
+      </ul>
+      <p style="color:var(--muted); font-size:15px; margin-top:22px">
+        Работать можно <strong style="color:var(--text)">с телефона, компьютера или ноутбука</strong> —
+        что вам удобнее. Отдельная техника не нужна.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- УСЛОВИЯ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Условия</div>
+      <h2>Что фиксируем на входе</h2>
+      <p class="lead">Часть условий зависит от проекта — мы проговариваем их с вами лично до старта, а не постфактум.</p>
+    </div>
+
+    <dl class="terms rise">
+      <div class="term-row"><dt>Зарплата</dt><dd><strong style="color:var(--accent)">55 000 – 60 000 ₽</strong></dd></div>
+      <div class="term-row"><dt>Оборудование</dt><dd>Телефон, компьютер или ноутбук — на ваш выбор</dd></div>
+      <div class="term-row"><dt>Формат</dt><dd>Зависит от проекта и региона</dd></div>
+      <div class="term-row"><dt>Опыт</dt><dd>Не обязателен</dd></div>
+      <div class="term-row"><dt>Обучение</dt><dd>Предоставляется бесплатно</dd></div>
+      <div class="term-row"><dt>Оформление</dt><dd>Уточняется до начала работы</dd></div>
+      <div class="term-row"><dt>Выплаты</dt><dd>Зависят от графика и предложения</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- РОСТ -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Куда отсюда расти</div>
+      <h2>Это вход, а не потолок</h2>
+      <p class="lead">Чат-поддержка — самый спокойный способ попасть в IT-компанию и осмотреться изнутри.
+      Дальше многие уходят на другие направления — и мы это только поддерживаем.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Менеджер по партнёрам</h3>
+        <p>От сопровождения — к первому разговору с партнёром и сбору задачи.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Тестировщик</h3>
+        <p>Проверяете продукт до клиента: кнопки, формы, баги. Обучение 2–3 недели.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">→</div>
+        <h3>Разработка</h3>
+        <p>Переходите на трек обучения программированию и идёте по грейдам до middle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Заявка занимает минуту</h2>
+      <p>Анкета — формальность. После отправки вас переведёт на нашего HR-менеджера, и дальше вы просто разговариваете с живым человеком.</p>
+      <a href="#/apply?role=support" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Тестировщик / аналитик</a></li>
+          <li><a href="#/vacancy-partner">Менеджер по работе с партнёрами</a></li>
+          <li><a href="#/vacancy-support">Оператор чат-поддержки</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Открытых вакансий: 6</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-backend" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=backend" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Backend (junior)
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">Junior</span>
+      <span class="chip">Разработка</span>
+      <span class="chip">Наставник</span>
+      <span class="chip">Рост до middle</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px)">Backend-разработчик <span style="color:var(--muted)">(junior)</span></h1>
+    <p class="lead" style="max-width:720px">
+      Вы пишете серверную часть веб-приложений: логику, API и работу с данными.
+      Мы не ждём от джуна готовых архитектурных решений — ждём аккуратного кода и вопросов,
+      когда что-то непонятно.
+    </p>
+    <div class="vac-pay" style="font-size:28px; margin-top:26px">110 000 – 130 000 ₽<small>на старте, до вычета налогов</small></div>
+    <div class="hero-cta">
+      <a href="#/apply?role=backend" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:30px">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Что предстоит делать</div>
+      <ul class="ticks">
+        <li>Писать серверную логику и разбирать чужой код</li>
+        <li>Разрабатывать и поддерживать API для фронтенда</li>
+        <li>Работать с базой данных: запросы, схема, миграции</li>
+        <li>Закрывать задачи в трекере и проходить код-ревью</li>
+        <li>Покрывать свой код тестами</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Что важно</div>
+      <ul class="ticks">
+        <li>Базовое знание <strong>любого серверного языка</strong> — Python, Go, Java, PHP, Node.js</li>
+        <li>Понимание, что такое HTTP, API и реляционная база</li>
+        <li>Git на уровне повседневной работы</li>
+        <li>Свои пет-проекты или учебные работы — вместо опыта в найме</li>
+        <li>Готовность спрашивать, а не молча буксовать неделю</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Условия</div>
+      <h2>Что фиксируем на входе</h2>
+    </div>
+    <dl class="terms rise">
+      <div class="term-row"><dt>Зарплата</dt><dd>110 000 – 130 000 ₽ на старте, дальше — пересмотр по результатам</dd></div>
+      <div class="term-row"><dt>Опыт</dt><dd>Коммерческий не обязателен, достаточно собственных проектов</dd></div>
+      <div class="term-row"><dt>Обучение</dt><dd>Внутри команды, за счёт компании, с закреплённым наставником</dd></div>
+      <div class="term-row"><dt>Карьерный рост</dt><dd>До middle-разработчика за 1–2 года при нормальном темпе</dd></div>
+      <div class="term-row"><dt>Формат</dt><dd>Зависит от проекта и региона</dd></div>
+      <div class="term-row"><dt>Оформление</dt><dd>Уточняется до начала работы</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Готовы попробовать?</h2>
+      <p>Заполните короткую анкету — после отправки вас переведёт на HR-менеджера, и вы обсудите детали лично.</p>
+      <a href="#/apply?role=backend" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-frontend" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=frontend" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Frontend (junior)
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">Junior</span>
+      <span class="chip">Разработка</span>
+      <span class="chip">Наставник</span>
+      <span class="chip">Рост до middle</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px)">Frontend-разработчик <span style="color:var(--muted)">(junior)</span></h1>
+    <p class="lead" style="max-width:720px">
+      Вы делаете то, что пользователь видит и трогает: интерфейсы веб-приложений, компоненты,
+      состояния, связку с backend. Аккуратность здесь ценится выше, чем длина списка фреймворков в резюме.
+    </p>
+    <div class="vac-pay" style="font-size:28px; margin-top:26px">110 000 – 130 000 ₽<small>на старте, до вычета налогов</small></div>
+    <div class="hero-cta">
+      <a href="#/apply?role=frontend" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:30px">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Что предстоит делать</div>
+      <ul class="ticks">
+        <li>Вёрстка интерфейсов по макету — адаптивно и без «поехало на телефоне»</li>
+        <li>Разработка компонентов и работа с состоянием приложения</li>
+        <li>Подключение API и обработка ошибок на стороне клиента</li>
+        <li>Закрывать задачи в трекере и проходить код-ревью</li>
+        <li>Чинить баги, которые приходят от тестировщиков</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Что важно</div>
+      <ul class="ticks">
+        <li>Уверенные <strong>HTML, CSS, JavaScript</strong> — фундамент важнее фреймворка</li>
+        <li>Знакомство с любым современным фреймворком: React, Vue или Svelte</li>
+        <li>Git на уровне повседневной работы</li>
+        <li>Внимание к деталям: отступы, состояния кнопок, поведение на мобильном</li>
+        <li>Свои проекты — вместо опыта в найме</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Условия</div>
+      <h2>Что фиксируем на входе</h2>
+    </div>
+    <dl class="terms rise">
+      <div class="term-row"><dt>Зарплата</dt><dd>110 000 – 130 000 ₽ на старте, дальше — пересмотр по результатам</dd></div>
+      <div class="term-row"><dt>Опыт</dt><dd>Коммерческий не обязателен, достаточно собственных проектов</dd></div>
+      <div class="term-row"><dt>Обучение</dt><dd>Внутри команды, за счёт компании, с закреплённым наставником</dd></div>
+      <div class="term-row"><dt>Карьерный рост</dt><dd>До middle-разработчика за 1–2 года при нормальном темпе</dd></div>
+      <div class="term-row"><dt>Формат</dt><dd>Зависит от проекта и региона</dd></div>
+      <div class="term-row"><dt>Оформление</dt><dd>Уточняется до начала работы</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Готовы попробовать?</h2>
+      <p>Заполните короткую анкету — после отправки вас переведёт на HR-менеджера, и вы обсудите детали лично.</p>
+      <a href="#/apply?role=frontend" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="vacancy-trainee" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team" class="active">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply?role=trainee" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs">
+  <a href="#/home">Главная</a><span>/</span><a href="#/team">Собираем команду</a><span>/</span>Обучение программированию
+</div>
+
+<section class="sec-tight" style="padding-top:40px; padding-bottom:40px">
+  <div class="wrap">
+    <div class="vac-tags" style="margin-bottom:20px">
+      <span class="chip chip-on">С нуля</span>
+      <span class="chip">Обучение</span>
+      <span class="chip">Карьерный рост</span>
+    </div>
+    <h1 style="font-size:clamp(32px,5vw,50px); max-width:860px">Обучение программированию — с опытом и без</h1>
+    <p class="lead" style="max-width:760px">
+      Наша цель — вырастить собственных программистов. Поэтому мы берём людей, которые
+      хотят научиться писать код, и ведём их по грейдам: за 1–2 года реально дорасти
+      до middle-разработчика. Обучение бесплатное — это наша инвестиция, а не ваш долг перед нами.
+    </p>
+    <div class="hero-cta">
+      <a href="#/apply?role=trainee" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
+    </div>
+  </div>
+</section>
+
+<!-- ЛЕСТНИЦА -->
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Маршрут</div>
+      <h2>От первой строчки кода до middle</h2>
+    </div>
+    <div class="ladder rise">
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 1 · обучение</div>
+        <h3>База</h3>
+        <div class="pay">Бесплатно, от компании</div>
+        <p>Основы языка, Git, как вообще устроена разработка. Учебные задачи с разбором от наставника.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 2 · первые задачи</div>
+        <h3>Junior</h3>
+        <div class="pay">110 000 – 130 000 ₽</div>
+        <p>Выходите в проект, берёте настоящие задачи под присмотром, проходите код-ревью.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Этап 3 · через 1–2 года</div>
+        <h3>Middle</h3>
+        <div class="pay">Уровень рынка middle</div>
+        <p>Ведёте фичи целиком и сами становитесь наставником для новых ребят.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap grid-2" style="align-items:start; gap:28px">
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Кого мы ждём</div>
+      <ul class="ticks">
+        <li>Тех, кто <strong>уже пробовал учиться</strong> сам — курсы, книги, YouTube, неважно</li>
+        <li>И тех, кто <strong>не написал ещё ни строчки</strong>, но твёрдо решил войти в IT</li>
+        <li>Людей из других профессий, которые готовы менять сферу всерьёз</li>
+        <li>Тех, кто умеет доводить начатое до конца, а не бросать на второй неделе</li>
+      </ul>
+    </div>
+    <div class="card rise" style="padding:34px">
+      <div class="eyebrow">Что даём</div>
+      <ul class="ticks">
+        <li>Наставника, к которому можно прийти с «глупым» вопросом</li>
+        <li>Программу обучения под реальные задачи компании, а не абстрактные примеры</li>
+        <li>Понятные критерии перехода на следующий грейд</li>
+        <li>Оплачиваемую работу, как только вы готовы к боевым задачам</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Честно о главном</div>
+      <h2>Чего здесь не будет</h2>
+      <p class="lead">
+        Мы не обещаем «зарплату 300к через полгода» и не продаём курс. Обучение — это работа,
+        и она требует времени и упорства. Часть людей отсеивается сама — это нормально.
+        Зато тем, кто доходит, мы даём место в команде, а не сертификат в PDF.
+      </p>
+    </div>
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Отклик</div>
+      <h2>Начните с анкеты</h2>
+      <p>Опишите словами, где вы сейчас и чего хотите. HR-менеджер свяжется с вами и честно скажет, подходим ли мы друг другу.</p>
+      <a href="#/apply?role=trainee" class="btn btn-primary">Оставить заявку</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="about" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team">Собираем команду</a>
+      <a href="#/about" class="active">О компании</a>
+      <a href="#/apply">Заявка</a>
+      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>О компании</div>
+
+<section class="sec-tight" style="padding-top:44px">
+  <div class="wrap">
+    <div class="eyebrow">Основаны в 2025 году</div>
+    <h1 style="font-size:clamp(34px,5vw,54px); max-width:900px">
+      Компания, которая решила не покупать разработчиков, а растить их
+    </h1>
+    <p class="lead" style="max-width:740px">
+      CodeDev появился в 2025 году. Мы делаем веб-продукты и довольно быстро упёрлись
+      в ту же стену, что и все: сеньоров мало, они дороги, и они уходят.
+      Мы выбрали другой путь — брать людей на входе и доводить их до нужного уровня внутри.
+    </p>
+  </div>
+</section>
+
+<section class="sec-tight">
+  <div class="wrap">
+    <div class="stats rise">
+      <div class="stat"><div class="stat-n">2025</div><div class="stat-l">год основания</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">открытые позиции</div></div>
+      <div class="stat"><div class="stat-n">1–2 года</div><div class="stat-l">от junior до middle</div></div>
+      <div class="stat"><div class="stat-n">0 ₽</div><div class="stat-l">стоимость обучения</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Как мы работаем</div>
+      <h2>Принципы, а не лозунги на стене</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">01</div>
+        <h3>Растить дешевле, чем перекупать</h3>
+        <p>Это не благотворительность, а расчёт. Человек, которого вырастили внутри, знает систему,
+        разделяет процессы и не уходит через полгода за +10%. Поэтому мы вкладываемся в джунов всерьёз.</p>
+      </div>
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">02</div>
+        <h3>Грейд — это критерии, а не настроение</h3>
+        <p>У каждой ступени есть список того, что нужно уметь. Вы не гадаете, когда вам поднимут:
+        вы видите, что осталось закрыть.</p>
+      </div>
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">03</div>
+        <h3>Вопрос — это нормально</h3>
+        <p>Джун, который два дня молча тонет в задаче, обходится дороже, чем джун, который спросил через час.
+        У каждого новичка есть наставник ровно для этого.</p>
+      </div>
+      <div class="card rise" style="padding:34px">
+        <div class="card-ico">04</div>
+        <h3>Говорим условия до старта</h3>
+        <p>Формат, оформление, график и выплаты проговариваются с вами до первого рабочего дня.
+        Никаких «ой, мы забыли сказать».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Чем занимаемся</div>
+      <h2>Направления</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card rise">
+        <div class="card-ico">&lt;/&gt;</div>
+        <h3>Веб-разработка</h3>
+        <p>Frontend и backend веб-приложений: интерфейсы, серверная логика, API, работа с данными.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">✓</div>
+        <h3>Тестирование и аналитика</h3>
+        <p>Проверяем продукт до того, как его увидит клиент: кнопки, формы, сценарии, баги.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">◈</div>
+        <h3>Работа с партнёрами</h3>
+        <p>Разбираемся в задаче партнёра до старта: что нужно, к какому сроку и в каком бюджете.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">↗</div>
+        <h3>Внутренняя школа</h3>
+        <p>Собственный трек обучения: от нуля до боевых задач в проекте и дальше по грейдам.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-band rise">
+      <div class="eyebrow" style="justify-content:center">Присоединиться</div>
+      <h2>Мы всё ещё маленькие — и это ваш шанс</h2>
+      <p>В компании 2025 года рождения ещё можно влиять на то, как всё устроено, а не встраиваться в готовую машину.</p>
+      <a href="#/team" class="btn btn-primary">Смотреть вакансии →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<div class="page" data-slug="apply" hidden>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/apply" class="active">Заявка</a>
+      <a href="#/team" class="btn btn-primary btn-sm">Вакансии</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>Заявка</div>
+
+<section class="sec" style="padding-top:40px">
+  <div class="wrap hero-grid" style="align-items:start">
+
+    <!-- Левая колонка -->
+    <div>
+      <div class="eyebrow">Отклик</div>
+      <h1 style="font-size:clamp(32px,4.6vw,48px)">Оставить заявку</h1>
+      <p class="lead">
+        Анкета нужна как формальность — чтобы HR-менеджер знал, с кем разговаривает.
+        Резюме и портфолио не обязательны. После отправки вас автоматически переведёт в Telegram к нашему HR-менеджеру.
+      </p>
+
+      <div class="terms rise" style="margin-top:34px">
+        <div class="term-row"><dt>Шаг 1</dt><dd>Заполняете анкету ниже</dd></div>
+        <div class="term-row"><dt>Шаг 2</dt><dd>Анкета копируется в буфер обмена</dd></div>
+        <div class="term-row"><dt>Шаг 3</dt><dd>Открывается чат с HR — вставляете и отправляете</dd></div>
+        <div class="term-row"><dt>Шаг 4</dt><dd>Кирилл отвечает и рассказывает про условия</dd></div>
+      </div>
+    </div>
+
+    <!-- Форма -->
+    <div class="form rise">
+      <form id="applyForm" novalidate>
+        <div class="field" id="f-name">
+          <label for="name">Как вас зовут <span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Имя и фамилия" autocomplete="name">
+          <div class="err">Укажите имя</div>
+        </div>
+
+        <div class="field" id="f-contact">
+          <label for="contact">Telegram или телефон <span class="req">*</span></label>
+          <input type="text" id="contact" name="contact" placeholder="@username или +7 900 000-00-00">
+          <div class="err">Нужен контакт, чтобы с вами связались</div>
+        </div>
+
+        <div class="field" id="f-role">
+          <label for="role">Направление <span class="req">*</span></label>
+          <select id="role" name="role">
+            <option value="">Выберите позицию</option>
+            <option value="Backend-разработчик (junior)">Backend-разработчик (junior)</option>
+            <option value="Frontend-разработчик (junior)">Frontend-разработчик (junior)</option>
+            <option value="Тестировщик / аналитик веб-приложений">Тестировщик / аналитик веб-приложений</option>
+            <option value="Менеджер по работе с партнёрами">Менеджер по работе с партнёрами</option>
+            <option value="Оператор чат-поддержки / чат-менеджер">Оператор чат-поддержки / чат-менеджер</option>
+            <option value="Обучение программированию с нуля">Обучение программированию с нуля</option>
+            <option value="Пока не определился">Пока не определился</option>
+          </select>
+          <div class="err">Выберите направление</div>
+        </div>
+
+        <div class="field">
+          <label for="exp">Опыт</label>
+          <select id="exp" name="exp">
+            <option value="Опыта нет">Опыта нет</option>
+            <option value="Учусь сам: курсы, пет-проекты">Учусь сам: курсы, пет-проекты</option>
+            <option value="Меньше года коммерческого опыта">Меньше года коммерческого опыта</option>
+            <option value="Больше года коммерческого опыта">Больше года коммерческого опыта</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="city">Город</label>
+          <input type="text" id="city" name="city" placeholder="Не обязательно">
+        </div>
+
+        <div class="field">
+          <label for="about">Пара слов о себе</label>
+          <textarea id="about" name="about" placeholder="Что уже пробовали, чему хотите научиться, ссылки на проекты — если есть. Не обязательно."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Отправить и перейти к HR →</button>
+        <p class="form-hint">
+          Нажимая кнопку, вы соглашаетесь на обработку указанных данных.<br>
+          Сразу после отправки откроется чат с нашим HR-менеджером в Telegram.
+        </p>
+      </form>
+
+      <!-- Успех -->
+      <div class="done" id="done">
+        <div class="done-ico">✓</div>
+        <h3 style="margin-bottom:10px">Анкета скопирована</h3>
+        <p style="color:var(--muted); font-size:15px; margin-bottom:24px">
+          Мы открываем чат с HR-менеджером. Вставьте текст в поле сообщения
+          (Ctrl+V или долгое нажатие → «Вставить») и отправьте.
+        </p>
+        <a href="https://t.me/Kirill_ManagerIT" target="_blank" rel="noopener" class="btn btn-primary btn-full" id="tgLink">Открыть чат с @Kirill_ManagerIT</a>
+        <p class="form-hint">Чат не открылся? Нажмите кнопку выше вручную.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-label="CodeDev"><defs><clipPath id="cdw"><rect x="238" y="318" width="104" height="96"/></clipPath></defs><g fill="none" stroke-linecap="round" stroke-width="52"><path id="cdc" d="M278.4 360.8A128 128 0 1 1 278.4 151.2" stroke="#00FF88"/><path d="M290 118V394" stroke="#E8F1EC"/><path d="M290 118A138 138 0 0 1 290 394" stroke="#E8F1EC"/><use href="#cdc" stroke="#00FF88" clip-path="url(#cdw)"/></g></svg>Code<span>Dev</span></a>
+        <p>IT-компания. Разрабатываем веб-продукты и растим внутри собственных специалистов — с нуля до middle.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="vacancy-manager.html">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 CodeDev · основаны в 2025</span>
+      <span>Контакты HR — после отправки заявки</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<script>
+
+(function(){
+  const pages = document.querySelectorAll('.page');
+  const roles = {backend:'Backend-разработчик (junior)',frontend:'Frontend-разработчик (junior)',analyst:'Тестировщик / аналитик веб-приложений',partner:'Менеджер по работе с партнёрами',support:'Оператор чат-поддержки / чат-менеджер',trainee:'Обучение программированию с нуля'};
+  const titles = {'home':'CodeDev — растим своих разработчиков','team':'Собираем команду · CodeDev','vacancy-analyst':'Тестировщик / аналитик · CodeDev','vacancy-partner':'Менеджер по работе с партнёрами · CodeDev','vacancy-support':'Оператор чат-поддержки · CodeDev','vacancy-backend':'Backend (junior) · CodeDev','vacancy-frontend':'Frontend (junior) · CodeDev','vacancy-trainee':'Обучение программированию · CodeDev','about':'О компании · CodeDev','apply':'Оставить заявку · CodeDev'};
+
+  function bindForm(scope){
+    const form = scope.querySelector('#applyForm');
+    if(!form || form.dataset.bound) return;
+    form.dataset.bound = 1;
+    const check = (id, ok) => { const w = scope.querySelector('#'+id); w.classList.toggle('invalid', !ok); return ok; };
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const g = id => scope.querySelector('#'+id).value.trim();
+      const okN = check('f-name', g('name').length>=2);
+      const okC = check('f-contact', g('contact').length>=3);
+      const okR = check('f-role', g('role')!=='');
+      if(!okN||!okC||!okR){ const bad = scope.querySelector('.invalid input, .invalid select'); if(bad) bad.focus(); return; }
+      const msg = 'Здравствуйте! Заявка с сайта CodeDev.\n\nИмя: '+g('name')+'\nКонтакт: '+g('contact')+'\nНаправление: '+g('role')+'\nОпыт: '+g('exp')+(g('city')?'\nГород: '+g('city'):'')+(g('about')?'\nО себе: '+g('about'):'');
+      try { await navigator.clipboard.writeText(msg); } catch(_){
+        const ta=document.createElement('textarea'); ta.value=msg; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e2){} document.body.removeChild(ta);
+      }
+      form.style.display='none';
+      scope.querySelector('#done').classList.add('on');
+      window.scrollTo({top:0, behavior:'smooth'});
+      setTimeout(function(){ window.open('https://t.me/Kirill_ManagerIT','_blank','noopener'); }, 700);
+    });
+    ['name','contact','role'].forEach(function(id){
+      const el = scope.querySelector('#'+id);
+      if(el){ el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
+              el.addEventListener('change', function(){ el.closest('.field').classList.remove('invalid'); }); }
+    });
+  }
+
+  function show(slug, role){
+    let target = null;
+    pages.forEach(function(p){ if (p.dataset.slug === slug) target = p; });
+    if (!target){ location.hash = '#/home'; return; }
+    pages.forEach(function(p){ p.hidden = (p !== target); });
+    document.title = titles[slug] || 'CodeDev';
+    target.querySelectorAll('.rise').forEach(function(el){ el.classList.add('in'); });
+    const menu = target.querySelector('#menu'), burger = target.querySelector('#burger');
+    if (burger && menu && !burger.dataset.bound){
+      burger.dataset.bound = 1;
+      burger.addEventListener('click', function(){ const o = menu.classList.toggle('open'); burger.textContent = o ? '✕' : '☰'; });
+    }
+    if (menu) menu.classList.remove('open');
+    if (burger) burger.textContent = '☰';
+    if (slug === 'apply' && role){
+      const sel = target.querySelector('#role');
+      if (sel && roles[role]) sel.value = roles[role];
+    }
+    bindForm(target);
+    window.scrollTo(0, 0);
+  }
+
+  function route(){
+    const h = (location.hash || '#/home').replace(/^#\//, '');
+    const parts = h.split('?');
+    const slug = parts[0] || 'home';
+    const q = parts[1] || '';
+    const role = q.indexOf('role=') === 0 ? q.slice(5) : '';
+    show(slug, role);
+  }
+
+  window.addEventListener('hashchange', route);
+  route();
+})();
+
+</script>
+</body>
+</html>
