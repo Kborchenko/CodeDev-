@@ -57,7 +57,6 @@
 .page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#09100C; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; }
 .page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg,rgba(8,13,10,.18),rgba(8,13,10,.05) 55%,rgba(8,13,10,.16)),url('assets/code-digital-face.png') 68% center/cover no-repeat; }
 .page[data-slug="home"] .term::after { content:none; }
-.page[data-slug="home"] .term-dither { position:absolute; inset:0; z-index:0; width:100%; height:100%; pointer-events:none; opacity:.82; }
 .page[data-slug="home"] .term-bar { position:absolute; inset:0 0 auto; background:transparent; border:0; padding:22px 28px; }
 .page[data-slug="home"] .term-bar,.page[data-slug="home"] .term-body { z-index:2; }
 .page[data-slug="home"] .term-body { position:relative; }
@@ -412,28 +411,7 @@ h3 { font-size: 21px; letter-spacing: -.02em; }
 body {
   background:var(--bg);
 }
-body::after {
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.09;
-  background-image:
-    radial-gradient(1.5px 1.5px at 8% 22%,rgba(217,255,40,.9) 50%,transparent 100%),
-    radial-gradient(1px 1px at 19% 68%,rgba(232,232,224,.8) 50%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 34% 39%,rgba(217,255,40,.75) 50%,transparent 100%),
-    radial-gradient(1px 1px at 47% 81%,rgba(232,232,224,.7) 50%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 62% 16%,rgba(217,255,40,.8) 50%,transparent 100%),
-    radial-gradient(1px 1px at 73% 59%,rgba(232,232,224,.75) 50%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 88% 34%,rgba(217,255,40,.8) 50%,transparent 100%),
-    radial-gradient(1px 1px at 94% 76%,rgba(232,232,224,.65) 50%,transparent 100%);
-  background-repeat:no-repeat;
-  animation:particle-drift 20s ease-in-out infinite alternate,particle-twinkle 8s ease-in-out infinite;
-}
-@keyframes particle-drift { to { transform:translate3d(3px,-6px,0); } }
-@keyframes particle-twinkle { 0%,100% { opacity:.035; } 48% { opacity:.12; } 73% { opacity:.06; } }
-@media (prefers-reduced-motion:reduce) { body::after { animation:none; opacity:.06; } }
+
 .page[data-slug="about"] .sec-tight { padding-block:38px; }
 .page[data-slug="about"] .sec { padding-block:58px; }
 .page[data-slug="about"] .sec-head { margin-bottom:30px; }
@@ -679,7 +657,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
 
     <div class="term">
-      <canvas class="term-dither" aria-hidden="true"></canvas>
       <div class="term-bar">
         <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
         <span class="term-file">code.systems / 001</span>
@@ -2733,125 +2710,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     }
   }
 
-  function initHeroDither(){
-    const host = document.querySelector('.page[data-slug="home"] .term');
-    const canvas = host && host.querySelector('.term-dither');
-    if(!host || !canvas || canvas.dataset.ready) return;
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduceMotion) return;
-    const ctx = canvas.getContext('2d', { alpha:true, desynchronized:true });
-    const sample = document.createElement('canvas');
-    const sampleCtx = sample.getContext('2d', { willReadFrequently:true });
-    const source = new Image();
-    const pointer = { x:-1000, y:-1000, active:false };
-    const particles = [];
-    const accent = '#D9FF28';
-    const radius = 200;
-    let width=0, height=0, dpr=1, step=3.4, raf=0, resetTimer=0;
-    canvas.dataset.ready = '1';
-    source.src = 'assets/code-digital-face.png';
-
-    function resize(){
-      const box = host.getBoundingClientRect();
-      if(!box.width || !box.height) return;
-      width = box.width;
-      height = box.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      step = window.matchMedia('(max-width: 760px)').matches ? 4.2 : 3.4;
-      canvas.width = Math.round(width*dpr);
-      canvas.height = Math.round(height*dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      if(source.complete && source.naturalWidth) buildParticles();
-    }
-
-    function buildParticles(){
-      const cols = Math.ceil(width/step), rows = Math.ceil(height/step);
-      if(!cols || !rows) return;
-      sample.width = cols;
-      sample.height = rows;
-      sampleCtx.clearRect(0,0,cols,rows);
-      const scale=Math.max(cols/source.naturalWidth,rows/source.naturalHeight);
-      const imageWidth=source.naturalWidth*scale, imageHeight=source.naturalHeight*scale;
-      sampleCtx.drawImage(source,(cols-imageWidth)*.68,(rows-imageHeight)*.5,imageWidth,imageHeight);
-      const pixels = sampleCtx.getImageData(0,0,cols,rows).data;
-      const gray = new Float32Array(cols*rows);
-      for(let i=0;i<gray.length;i++){
-        const at=i*4;
-        gray[i]=pixels[at]*.299+pixels[at+1]*.587+pixels[at+2]*.114;
-      }
-      particles.length=0;
-      for(let y=0;y<rows;y++){
-        for(let x=0;x<cols;x++){
-          const i=y*cols+x, old=gray[i], on=old>=132?255:0, error=old-on;
-          gray[i]=on;
-          if(x+1<cols) gray[i+1]+=error*7/16;
-          if(y+1<rows){
-            if(x>0) gray[i+cols-1]+=error*3/16;
-            gray[i+cols]+=error*5/16;
-            if(x+1<cols) gray[i+cols+1]+=error/16;
-          }
-          if(on){
-            const src=i*4;
-            particles.push({
-              ox:(x+.5)*step, oy:(y+.5)*step,
-              x:(x+.5)*step, y:(y+.5)*step,
-              size:step*(.34+Math.min(old,255)/900),
-              yellow:pixels[src+1]>pixels[src]*1.12 || ((x*11+y*7)%19===0)
-            });
-          }
-        }
-      }
-      requestDraw();
-    }
-
-    function draw(){
-      raf=0;
-      ctx.clearRect(0,0,width,height);
-      let settling=false;
-      for(let i=0;i<particles.length;i++){
-        const p=particles[i];
-        let tx=p.ox, ty=p.oy;
-        if(pointer.active){
-          const dx=p.ox-pointer.x, dy=p.oy-pointer.y, dist=Math.hypot(dx,dy);
-          if(dist<radius){
-            const push=(1-dist/radius);
-            const angle=dist<.01 ? ((i%8)*Math.PI/4) : 0;
-            const ux=dist<.01 ? Math.cos(angle) : dx/dist;
-            const uy=dist<.01 ? Math.sin(angle) : dy/dist;
-            tx+=ux*push*push*38;
-            ty+=uy*push*push*38;
-          }
-        }
-        p.x+=(tx-p.x)*.24;
-        p.y+=(ty-p.y)*.24;
-        if(Math.abs(tx-p.x)>.35 || Math.abs(ty-p.y)>.35) settling=true;
-        ctx.fillStyle=p.yellow?accent:'rgba(232,232,224,.78)';
-        ctx.fillRect(p.x,p.y,p.size,p.size);
-      }
-      if(settling) raf=requestAnimationFrame(draw);
-    }
-    function requestDraw(){ if(!raf) raf=requestAnimationFrame(draw); }
-    function movePointer(event){
-      const box=host.getBoundingClientRect();
-      pointer.x=event.clientX-box.left;
-      pointer.y=event.clientY-box.top;
-      pointer.active=true;
-      clearTimeout(resetTimer);
-      requestDraw();
-    }
-    host.addEventListener('pointermove',movePointer,{passive:true});
-    host.addEventListener('pointerdown',function(event){ movePointer(event); if(event.pointerType==='touch') resetTimer=setTimeout(function(){pointer.active=false;requestDraw();},900); },{passive:true});
-    host.addEventListener('pointerup',function(event){ if(event.pointerType==='touch'){ clearTimeout(resetTimer); resetTimer=setTimeout(function(){pointer.active=false;requestDraw();},900); } },{passive:true});
-    host.addEventListener('pointerleave',function(event){ if(event.pointerType==='touch') return; pointer.active=false; clearTimeout(resetTimer); requestDraw(); },{passive:true});
-    if('ResizeObserver' in window) new ResizeObserver(resize).observe(host);
-    else window.addEventListener('resize',resize,{passive:true});
-    source.onload=resize;
-    if(source.complete && source.naturalWidth) resize();
-  }
-
   window.addEventListener('hashchange', route);
   route();
-  initHeroDither();
+
 })();
 
 </script>
