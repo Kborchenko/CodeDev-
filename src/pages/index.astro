@@ -7,8 +7,8 @@
 <meta name="description" content="CodeDev — быстрорастущая IT-компания: разработка CRM, внедрение AI, веб-продукты и интеграции.">
 <meta property="og:title" content="CodeDev — IT-решения для бизнеса">
 <meta property="og:description" content="CRM, AI, веб-разработка и интеграции — цифровые продукты от идеи до запуска.">
-<link rel="icon" type="image/png" sizes="64x64" href="assets/codedev-favicon.png">
-<link rel="apple-touch-icon" href="assets/codedev-touch.png">
+<link rel="icon" type="image/svg+xml" href="/assets/codedev-mark.svg">
+<link rel="apple-touch-icon" href="/assets/codedev-touch.png">
 <meta name="theme-color" content="#090A09">
 <link rel="canonical" href="https://codedev.art/">
 <meta property="og:type" content="website">
@@ -22,10 +22,10 @@
 <meta name="twitter:title" content="CodeDev — IT-решения для бизнеса">
 <meta name="twitter:description" content="CRM, AI, веб-разработка и интеграции — цифровые продукты от идеи до запуска.">
 <meta name="twitter:image" content="https://codedev.art/assets/codedev-social.jpg">
-<style>
-@font-face { font-family:"Revolution Gothic"; src:url('assets/fonts/Revolution%20Gothic%20Regular.ttf') format('truetype'); font-style:normal; font-weight:400; font-display:swap; }
-@font-face { font-family:"Revolution Gothic"; src:url('assets/fonts/Revolution%20Gothic%20Bold.ttf') format('truetype'); font-style:normal; font-weight:700; font-display:swap; }
-@font-face { font-family:"Revolution Gothic"; src:url('assets/fonts/Revolution%20Gothic%20ExtraBold.ttf') format('truetype'); font-style:normal; font-weight:800 900; font-display:swap; }
+<style is:global>
+@font-face { font-family:"Revolution Gothic"; src:url('/assets/fonts/Revolution%20Gothic%20Regular.ttf') format('truetype'); font-style:normal; font-weight:400; font-display:swap; }
+@font-face { font-family:"Revolution Gothic"; src:url('/assets/fonts/Revolution%20Gothic%20Bold.ttf') format('truetype'); font-style:normal; font-weight:700; font-display:swap; }
+@font-face { font-family:"Revolution Gothic"; src:url('/assets/fonts/Revolution%20Gothic%20ExtraBold.ttf') format('truetype'); font-style:normal; font-weight:800 900; font-display:swap; }
 /* KodeckDev — общие стили */
 
 
@@ -54,10 +54,9 @@
 .page[data-slug="home"] .hero { padding:0; border-bottom:1px solid var(--border); }
 .page[data-slug="home"] .hero-grid { max-width:1440px; min-height:520px; grid-template-columns:.95fr 1.05fr; gap:0; padding:0; align-items:stretch; }
 .page[data-slug="home"] .hero-grid > div:first-child { padding:76px clamp(28px,6vw,88px) 64px; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--border); }
-.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#09100C; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; }
-.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg,rgba(8,13,10,.18),rgba(8,13,10,.05) 55%,rgba(8,13,10,.16)),url('assets/code-digital-face.png') 68% center/cover no-repeat; }
+.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#090A09 url('/assets/code-digital-face.webp') 68% center/cover no-repeat; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; overflow:hidden; }
+.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:1; opacity:.18; pointer-events:none; background:linear-gradient(rgba(217,255,40,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(217,255,40,.045) 1px,transparent 1px); background-size:42px 42px; }
 .page[data-slug="home"] .term::after { content:none; }
-.page[data-slug="home"] .term-dither { position:absolute; inset:0; z-index:0; width:100%; height:100%; pointer-events:none; opacity:.82; }
 .page[data-slug="home"] .term-bar { position:absolute; inset:0 0 auto; background:transparent; border:0; padding:22px 28px; }
 .page[data-slug="home"] .term-bar,.page[data-slug="home"] .term-body { z-index:2; }
 .page[data-slug="home"] .term-body { position:relative; }
@@ -155,10 +154,10 @@ a { color: inherit; text-decoration: none; }
 
 .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.02em; }
 .logo-mark {
-  width: 34px; height: 34px;
+  width: 36px; height: 36px;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 0 14px var(--accent-gl));
+  filter: none;
 }
 .logo span { color: var(--accent); }
 
@@ -406,7 +405,7 @@ h3 { font-size: 21px; letter-spacing: -.02em; }
 }
 
 .page[hidden]{display:none}
-.logo-mark{width:34px;height:34px;display:block;filter:drop-shadow(0 0 14px var(--accent-gl))}
+.logo-mark{width:40px;height:40px;display:block;filter:none}
 
 /* Возвращён исходный графитово-жёлтый стиль; шрифт оставлен Arial. */
 body {
@@ -473,7 +472,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .page[data-slug="home"] .term-file { color:var(--accent); }
 .page[data-slug="home"] .term-body .solution-label { color:var(--accent); }
 .page .sec-kicker,.page .eyebrow,.page .label,.page .term-file { color:var(--accent); }
-.page .logo-mark { filter:grayscale(1) brightness(.18); }
+.page .logo-mark { filter:none; }
 .btn { border-radius:2px; font-family:var(--body); }
 .btn-primary { background:var(--accent); color:#090A09; border-color:var(--accent); }
 .btn-primary:hover { background:var(--accent-dk); color:#090A09; box-shadow:0 8px 24px rgba(217,255,40,.16); }
@@ -624,6 +623,61 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 
 @media(max-width:380px){.work-steps,.recruit-steps{grid-template-columns:1fr}}
 
+/* Numen Pulse — собственный продукт CodeDev */
+.numen-layout { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(28px,6vw,76px); align-items:center; }
+.numen-copy { max-width:680px; }
+.numen-copy h2 { margin-bottom:18px; }
+.numen-copy .lead { margin:0 0 16px; }
+.numen-copy > p:not(.lead) { max-width:650px; color:var(--muted); line-height:1.7; }
+.numen-link { margin-top:22px; min-height:48px; }
+.numen-preview { min-width:0; padding:24px; border:1px solid var(--border-hi); background:linear-gradient(145deg,rgba(217,255,40,.055),transparent 42%),#0b0d0b; box-shadow:0 22px 58px rgba(0,0,0,.24); }
+.numen-preview-top,.numen-preview-foot { display:flex; justify-content:space-between; gap:14px; color:var(--accent); font:700 10px/1.4 var(--mono); letter-spacing:.09em; }
+.numen-preview-top span:last-child,.numen-preview-foot span:last-child { color:var(--muted); }
+.numen-preview-title { margin:34px 0 15px; font:700 24px/1.2 var(--display); }
+.numen-task { display:grid; grid-template-columns:12px minmax(0,1fr) auto; align-items:center; gap:12px; padding:15px 0; border-top:1px solid var(--border); font-size:14px; }
+.numen-task small { color:var(--muted); font-size:12px; }
+.numen-task-mark { width:10px; height:10px; border:1px solid var(--accent); border-radius:50%; }
+.numen-task-mark.done { background:var(--accent); box-shadow:0 0 12px rgba(217,255,40,.24); }
+.numen-preview-foot { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+
+@media(max-width:760px) {
+  .numen-layout { grid-template-columns:1fr; gap:24px; }
+  .numen-preview { padding:20px; }
+  .numen-link { width:100%; white-space:normal; }
+  .hero-cta { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
+  .hero-cta .btn { width:100%; min-height:48px; white-space:normal; text-align:center; }
+  .nav-links { max-height:calc(100dvh - 64px); overflow-y:auto; overscroll-behavior:contain; }
+  .page .form { width:100%; min-width:0; }
+  .field input,.field select,.field textarea { min-height:48px; font-size:16px; }
+  .consent input { flex-basis:22px; width:22px; height:22px; }
+  .foot-bot { flex-direction:column; gap:10px; }
+  .page img,.page svg,.page video { max-width:100%; }
+  .page .office-address,.page .foot-bot a { overflow-wrap:anywhere; }
+  .card p,.vac p,.work-step p,.recruit-step p,.about-service p { font-size:15px; line-height:1.6; }
+  .service-price-note { font-size:14px; }
+  .nav-links a,.foot ul a { min-height:44px; display:flex; align-items:center; }
+  .btn,.burger { touch-action:manipulation; }
+}
+@media(max-width:520px) {
+  .about-service,.about-service:nth-child(even) { grid-template-columns:minmax(0,1fr)!important; gap:12px!important; padding:18px 0; }
+  .about-service-visual { aspect-ratio:16/9; }
+  .work-steps,.recruit-steps { grid-template-columns:1fr; gap:22px; }
+  .work-step-visual { aspect-ratio:16/9; }
+  .service-price-scroll { overflow:visible; }
+  .service-price-table { min-width:0; width:100%; border:0; }
+  .service-price-table thead { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .service-price-table,.service-price-table tbody,.service-price-table tr { display:block; }
+  .service-price-table tr { padding:10px 0; border-bottom:1px solid var(--border); }
+  .service-price-table td,.service-price-table td:last-child { display:grid; grid-template-columns:minmax(76px,.65fr) minmax(0,1.35fr); gap:12px; padding:7px 0; border:0; white-space:normal; font-size:14px; }
+  .service-price-table td::before { content:attr(data-label); color:var(--muted); font-size:12px; font-weight:400; }
+  .service-price-table td:nth-child(2) { color:var(--accent); }
+  .numen-preview { padding:17px; }
+  .numen-preview-title { margin-top:26px; font-size:21px; }
+  .numen-task { grid-template-columns:12px minmax(0,1fr); gap:9px; font-size:13.5px; }
+  .numen-task small { grid-column:2; }
+  .numen-preview-top,.numen-preview-foot { font-size:9px; }
+}
+
 .price-list { display:grid; gap:10px; margin-top:28px; }
 .price-header,.price-row-content { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(170px,.8fr) minmax(170px,.8fr); gap:20px; align-items:center; }
 .price-header { padding:0 22px 4px; color:var(--muted); font:700 11px/1.4 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
@@ -656,8 +710,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home" class="active">Главная</a>
       <a href="#/team">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
-      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
   </div>
@@ -674,12 +728,12 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="hero-cta">
         <a href="#/about" class="btn btn-primary">О компании ↗</a>
         <a href="#/team" class="btn btn-ghost">Команда</a>
+        <a href="#/apply" class="btn btn-ghost">Обсудить проект ↗</a>
       </div>
       <p class="hero-note">CRM · AI-ВНЕДРЕНИЕ · ВЕБ-СЕРВИСЫ · ИНТЕГРАЦИИ</p>
     </div>
 
     <div class="term">
-      <canvas class="term-dither" aria-hidden="true"></canvas>
       <div class="term-bar">
         <span class="dot"></span><span class="dot"></span><span class="dot g"></span>
         <span class="term-file">code.systems / 001</span>
@@ -991,7 +1045,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="eyebrow" style="justify-content:center">Следующий шаг</div>
       <h2>Резюме не обязательно</h2>
       <p>Оставьте контакты и расскажите, какое направление вам интересно. Команда Code свяжется с вами, чтобы обсудить дальнейшие шаги.</p>
-      <a href="#/apply" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply" class="btn btn-primary">Оставить заявку</a>
     </div>
   </div>
 </section>
@@ -1009,7 +1063,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -1026,7 +1081,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -1042,8 +1096,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
-      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
   </div>
@@ -1197,7 +1251,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="eyebrow" style="justify-content:center">Не нашли свою позицию?</div>
       <h2>Напишите нам</h2>
       <p>Хотите присоединиться к CodeDev, но не нашли подходящую вакансию? Напишите нам — обсудим, чем вы можете быть полезны команде.</p>
-      <a href="#/apply" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply" class="btn btn-primary">Оставить заявку</a>
     </div>
   </div>
 </section>
@@ -1215,7 +1269,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -1232,7 +1287,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -1248,7 +1302,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/apply">Обсудить проект</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -1447,7 +1501,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -1465,7 +1520,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -1481,8 +1535,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
-      <a href="#/apply?role=partner" class="btn btn-primary btn-sm">Оставить заявку</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply?role=partner" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
   </div>
@@ -1508,7 +1562,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </p>
     <div class="vac-pay" style="font-size:28px; margin-top:26px">от 90 000 ₽<small>после окончания обучения · обучение 1 месяц, бесплатно</small></div>
     <div class="hero-cta">
-      <a href="#/apply?role=partner" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply?role=partner" class="btn btn-primary">Оставить заявку</a>
       <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
     </div>
   </div>
@@ -1687,7 +1741,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="eyebrow" style="justify-content:center">Отклик</div>
       <h2>Заявка занимает минуту</h2>
       <p>Расскажите о себе и выберите интересующее направление. Команда Code свяжется с вами и ответит на вопросы о работе.</p>
-      <a href="#/apply?role=partner" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply?role=partner" class="btn btn-primary">Оставить заявку</a>
     </div>
   </div>
 </section>
@@ -1705,7 +1759,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -1723,7 +1778,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -1739,8 +1793,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
-      <a href="#/apply?role=support" class="btn btn-primary btn-sm">Оставить заявку</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply?role=support" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
   </div>
@@ -1767,7 +1821,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </p>
     <div class="vac-pay" style="font-size:28px; margin-top:26px">55 000 – 90 000 ₽<small>опыт не требуется · обучение бесплатное</small></div>
     <div class="hero-cta">
-      <a href="#/apply?role=support" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply?role=support" class="btn btn-primary">Оставить заявку</a>
       <a href="#/team" class="btn btn-ghost">Другие вакансии</a>
     </div>
   </div>
@@ -1935,7 +1989,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="eyebrow" style="justify-content:center">Отклик</div>
       <h2>Заявка занимает минуту</h2>
       <p>Расскажите о себе и выберите интересующее направление. Команда Code свяжется с вами и ответит на вопросы о работе.</p>
-      <a href="#/apply?role=support" class="btn btn-primary">Оставить заявку</a>
+      <a href="#/career-apply?role=support" class="btn btn-primary">Оставить заявку</a>
     </div>
   </div>
 </section>
@@ -1953,7 +2007,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -1971,7 +2026,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -1987,7 +2041,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/apply">Обсудить проект</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2087,7 +2141,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -2104,7 +2159,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -2120,7 +2174,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/apply">Обсудить проект</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2219,7 +2273,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -2236,7 +2291,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -2252,7 +2306,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/apply">Обсудить проект</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2373,7 +2427,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -2390,7 +2445,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
@@ -2406,8 +2460,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team">Собираем команду</a>
       <a href="#/about" class="active">О компании</a>
-      <a href="#/apply">Заявка</a>
-      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
   </div>
@@ -2472,13 +2526,36 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
+<section class="sec numen-section">
+  <div class="wrap numen-layout">
+    <div class="numen-copy">
+      <div class="eyebrow">Собственный продукт · Numen Pulse</div>
+      <h2>TaskSync — планировщик для команд</h2>
+      <p class="lead">Технический директор CodeDev, который также руководит командой как тимлид, основал Numen Pulse. Главный продукт проекта — приложение TaskSync.</p>
+      <p>TaskSync помогает распределять задачи с учётом загрузки сотрудников, синхронизировать обновления в реальном времени и собирать аналитику по работе команды. Сейчас продукт готовится к запуску первой версии MVP. Встроенный AI-ассистент и предиктивное планирование обозначены как следующий этап развития.</p>
+      <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть Numen Pulse / TaskSync ↗</a>
+    </div>
+    <div class="numen-preview" role="group" aria-label="Схематичное представление задач в Numen Pulse">
+      <div class="numen-preview-top"><span>NUMEN PULSE · TASKSYNC</span><span>MVP · 01</span></div>
+      <div class="numen-preview-title">Задачи команды</div>
+      <div class="numen-task"><span class="numen-task-mark"></span><span>Уточнить требования</span><small>В работе</small></div>
+      <div class="numen-task"><span class="numen-task-mark"></span><span>Собрать план спринта</span><small>В очереди</small></div>
+      <div class="numen-task"><span class="numen-task-mark done"></span><span>Проверить результат</span><small>Готово</small></div>
+      <div class="numen-preview-foot"><span>ЗАДАЧИ · СТАТУСЫ · ПРОГРЕСС</span><span>NP / 01</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec">
   <div class="wrap">
     <div class="cta-band rise">
       <div class="eyebrow" style="justify-content:center">Следующий шаг</div>
       <h2>Обсудим задачу вашего бизнеса</h2>
       <p>Расскажите, какой процесс хотите улучшить. Мы обсудим подходящее решение, объём работ и ориентировочный бюджет.</p>
-      <a href="#/home?section=prices" class="btn btn-primary">Услуги и ориентиры стоимости →</a>
+      <div class="hero-cta about-cta-actions">
+        <a href="#/apply" class="btn btn-primary">Обсудить проект ↗</a>
+        <a href="#/home?section=prices" class="btn btn-ghost">Услуги и стоимость</a>
+      </div>
     </div>
   </div>
 </section>
@@ -2496,7 +2573,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -2513,14 +2591,13 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
 </footer>
 
 </div>
-<div class="page" data-slug="apply" hidden>
+<div class="page" data-slug="career-apply" hidden>
 
 <header class="nav">
   <div class="wrap nav-in">
@@ -2529,7 +2606,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply" class="active">Заявка</a>
+      <a href="#/apply">Обсудить проект</a>
+      <a href="#/career-apply" class="active">Оставить заявку</a>
       <a href="#/team" class="btn btn-primary btn-sm">Вакансии</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2618,8 +2696,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
         <div class="done-ico">✓</div>
         <h3 style="margin-bottom:10px">Спасибо!</h3>
         <p style="color:var(--muted); font-size:15px; margin-bottom:24px">
-          Спасибо, что заполнили анкету.
+          Откроется письмо с вашим откликом. Нажмите «Отправить» в почтовом приложении, чтобы мы его получили.
         </p>
+        <a class="btn btn-ghost" id="career-mail-link" href="mailto:CodeDeveloper@mail.ru">Открыть письмо</a>
       </div>
     </div>
 
@@ -2639,7 +2718,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
-          <li><a href="#/apply">Оставить заявку</a></li>
+          <li><a href="#/apply">Обсудить проект</a></li>
+          <li><a href="#/career-apply">Оставить заявку</a></li>
         </ul>
       </div>
       <div>
@@ -2656,19 +2736,52 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="foot-bot">
       <span>© 2025–2026 Code Developer</span>
       <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
-      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
       <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
     </div>
   </div>
 </footer>
 
 </div>
+<div class="page" data-slug="apply" hidden>
+<header class="nav"><div class="wrap nav-in"><a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CodeDev, монограмма CD"><text x="1" y="51" fill="#F3F0E7" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">C</text><text x="26" y="51" fill="#D9FF28" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">D</text></svg>Code<span>Dev</span></a><nav class="nav-links" id="menu"><a href="#/home">Главная</a><a href="#/team">Собираем команду</a><a href="#/about">О компании</a><a href="#/apply" class="active">Обсудить проект</a><a href="#/career-apply" class="btn btn-primary btn-sm">Оставить заявку</a></nav><button class="burger" id="burger" aria-label="Меню">☰</button></div></header>
+<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>Обсудить проект</div>
+<section class="sec" style="padding-top:40px"><div class="wrap hero-grid" style="align-items:start">
+<div><div class="eyebrow">ЗАПРОС НА ПРОЕКТ</div><h1 style="font-size:clamp(32px,4.6vw,48px)">Расскажите о задаче</h1><p class="lead">Опишите, что нужно вашей компании. Мы изучим вводные и обсудим подход, бюджет и сроки.</p><div class="terms rise" style="margin-top:34px"><div class="term-row"><dt>01</dt><dd>Выберите направление и опишите задачу</dd></div><div class="term-row"><dt>02</dt><dd>Оставьте контакт, по которому удобно ответить</dd></div><div class="term-row"><dt>03</dt><dd>Укажите бюджет и желаемый срок, если уже определились</dd></div></div></div>
+<div class="form rise"><form id="projectForm" novalidate>
+<div class="field" id="p-company"><label for="company">Компания <span class="req">*</span></label><input id="company" name="company" autocomplete="organization" placeholder="Название компании"><div class="err">Укажите компанию</div></div>
+<div class="field" id="p-person"><label for="person">Контактное лицо <span class="req">*</span></label><input id="person" name="person" autocomplete="name" placeholder="Имя и фамилия"><div class="err">Укажите имя</div></div>
+<div class="field" id="p-contact"><label for="project-contact">Telegram или телефон <span class="req">*</span></label><input id="project-contact" name="contact" autocomplete="tel" placeholder="@username или +7 900 000-00-00"><div class="err">Оставьте Telegram или номер телефона</div></div>
+<div class="field"><label for="project-email">Рабочая почта</label><input id="project-email" name="email" type="email" autocomplete="email" placeholder="name@company.ru"></div>
+<div class="field" id="p-service"><label for="service">Что нужно сделать? <span class="req">*</span></label><select id="service" name="service"><option value="">Выберите направление</option><option>Сайт или веб-сервис</option><option>CRM-разработка или настройка</option><option>AI-внедрение</option><option>Интеграция систем</option><option>Крупный веб-проект</option><option>Другое</option></select><div class="err">Выберите направление</div></div>
+<div class="field" id="p-description"><label for="project-description">Кратко о задаче <span class="req">*</span></label><textarea id="project-description" name="description" minlength="12" placeholder="Что сейчас происходит и какой результат нужен?" ></textarea><div class="err">Опишите задачу хотя бы в нескольких словах</div></div>
+<div class="form-grid"><div class="field"><label for="budget">Бюджет</label><select id="budget" name="budget"><option value="">Пока не определён</option><option>До 50 000 ₽</option><option>50 000–100 000 ₽</option><option>100 000–300 000 ₽</option><option>300 000–500 000 ₽</option><option>Более 500 000 ₽</option><option>Нужна оценка</option></select></div><div class="field"><label for="timeline">Желаемый срок</label><select id="timeline" name="timeline"><option value="">Пока не определён</option><option>Как можно скорее</option><option>В течение месяца</option><option>1–3 месяца</option><option>Срок гибкий</option></select></div></div>
+<div class="field"><label for="current-site">Сайт или сервис компании</label><input id="current-site" name="website" type="url" placeholder="https://company.ru"></div>
+<label class="consent" id="p-consent" for="project-agreement"><input type="checkbox" id="project-agreement" name="agreement"><span>Принимаю <a href="agreement.html" target="_blank" rel="noopener">Пользовательское соглашение</a> <span class="req">*</span></span></label>
+<div class="err project-consent-error" hidden>Подтвердите согласие с пользовательским соглашением</div>
+<p style="color:var(--muted);font-size:13px;margin:0 0 14px">После проверки анкеты откроется письмо на CodeDeveloper@mail.ru. Нажмите «Отправить» в почтовом приложении.</p>
+<button type="submit" class="btn btn-primary btn-full">Отправить запрос</button>
+</form><div class="done" id="project-done"><div class="done-ico">↗</div><h3 style="margin-bottom:10px">Письмо подготовлено</h3><p style="color:var(--muted);font-size:15px;margin-bottom:24px">Проверьте почтовое приложение и нажмите «Отправить», чтобы запрос поступил в CodeDev.</p><a class="btn btn-ghost" id="project-mail-link" href="mailto:CodeDeveloper@mail.ru">Открыть письмо</a></div></div>
+</div></section>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div><a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CodeDev, монограмма CD"><text x="1" y="51" fill="#F3F0E7" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">C</text><text x="26" y="51" fill="#D9FF28" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">D</text></svg>Code<span>Dev</span></a><p>Разрабатываем CRM-системы, внедряем AI и создаём веб-продукты для бизнеса.</p></div><div><h4>Разделы</h4><ul><li><a href="#/home">Главная</a></li><li><a href="#/team">Собираем команду</a></li><li><a href="#/about">О компании</a></li><li><a href="#/apply">Обсудить проект</a></li><li><a href="#/career-apply">Оставить заявку</a></li></ul></div><div><h4>Связаться</h4><ul><li><a href="mailto:CodeDeveloper@mail.ru">CodeDeveloper@mail.ru</a></li><li><a href="tel:+79330850922">Телефон — +7 933 085-09-22</a></li></ul></div></div><div class="foot-bot"><span>© 2025–2026 Code Developer</span><a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a><span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span></div></div></footer>
+</div>
 <script>
 
 (function(){
   const pages = document.querySelectorAll('.page');
   const roles = {backend:'Backend-разработчик (junior)',frontend:'Frontend-разработчик (junior)',analyst:'Тестировщик / аналитик веб-приложений',partner:'Менеджер по работе с партнёрами',support:'Оператор чат-поддержки / чат-менеджер',trainee:'Обучение программированию с нуля'};
-  const titles = {'home':'CodeDev — IT-компания','team':'Собираем команду · CodeDev','vacancy-analyst':'Тестировщик / аналитик · CodeDev','vacancy-partner':'Менеджер по работе с партнёрами · CodeDev','vacancy-support':'Оператор чат-поддержки · CodeDev','vacancy-backend':'Backend (junior) · CodeDev','vacancy-frontend':'Frontend (junior) · CodeDev','vacancy-trainee':'Обучение программированию · CodeDev','about':'О компании · CodeDev','apply':'Оставить заявку · CodeDev'};
+  const titles = {'home':'CodeDev — IT-компания','team':'Собираем команду · CodeDev','vacancy-analyst':'Тестировщик / аналитик · CodeDev','vacancy-partner':'Менеджер по работе с партнёрами · CodeDev','vacancy-support':'Оператор чат-поддержки · CodeDev','vacancy-backend':'Backend (junior) · CodeDev','vacancy-frontend':'Frontend (junior) · CodeDev','vacancy-trainee':'Обучение программированию · CodeDev','about':'О компании · CodeDev','apply':'Запрос на проект · CodeDev','career-apply':'Отклик в CodeDev'};
+
+  function makeMailto(subject, rows){
+    const body = rows.map(([label, value]) => `${label}: ${value || '—'}`).join('\n');
+    return `mailto:CodeDeveloper@mail.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  function openPreparedMail(form, done, link, mailto){
+    link.href = mailto;
+    form.hidden = true;
+    done.classList.add('on');
+    window.location.assign(mailto);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
 
   function bindForm(scope){
     const form = scope.querySelector('#applyForm');
@@ -2684,9 +2797,12 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       const okAgreement = scope.querySelector('#agreement').checked;
       scope.querySelector('#f-consent').classList.toggle('invalid', !okAgreement);
       if(!okN||!okC||!okR||!okAgreement){ const bad = scope.querySelector('.invalid input, .invalid select'); if(bad) bad.focus(); return; }
-      form.style.display='none';
-      scope.querySelector('#done').classList.add('on');
-      window.scrollTo({top:0, behavior:'smooth'});
+      const v = id => scope.querySelector('#'+id).value.trim();
+      const mailto = makeMailto('Отклик на вакансию · CodeDev', [
+        ['Имя',v('name')],['Контакт',v('contact')],['Направление',v('role')],
+        ['Опыт',v('exp')],['Город',v('city')],['О себе',v('about')],['Пользовательское соглашение','Принято']
+      ]);
+      openPreparedMail(form, scope.querySelector('#done'), scope.querySelector('#career-mail-link'), mailto);
     });
     const agreement = scope.querySelector('#agreement');
     if(agreement) agreement.addEventListener('change', function(){ scope.querySelector('#f-consent').classList.remove('invalid'); });
@@ -2694,6 +2810,48 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       const el = scope.querySelector('#'+id);
       if(el){ el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
               el.addEventListener('change', function(){ el.closest('.field').classList.remove('invalid'); }); }
+    });
+  }
+
+  function bindProjectForm(scope){
+    const form = scope.querySelector('#projectForm');
+    if(!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+    const value = id => scope.querySelector('#'+id).value.trim();
+    const mark = (id, valid) => { const field = scope.querySelector('#'+id); field.classList.toggle('invalid', !valid); return valid; };
+    const agreement = scope.querySelector('#project-agreement');
+    const consent = scope.querySelector('#p-consent');
+    const consentError = scope.querySelector('.project-consent-error');
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const validCompany = mark('p-company', value('company').length >= 2);
+      const validPerson = mark('p-person', value('person').length >= 2);
+      const validContact = mark('p-contact', value('project-contact').length >= 4);
+      const validService = mark('p-service', value('service') !== '');
+      const validDescription = mark('p-description', value('project-description').length >= 12);
+      const validAgreement = agreement.checked;
+      consent.classList.toggle('invalid', !validAgreement);
+      consentError.hidden = validAgreement;
+      const email = scope.querySelector('#project-email');
+      const website = scope.querySelector('#current-site');
+      const validOptional = email.checkValidity() && website.checkValidity();
+      if(!validCompany || !validPerson || !validContact || !validService || !validDescription || !validAgreement || !validOptional){
+        const first = scope.querySelector('.invalid input, .invalid select, .invalid textarea') || (validOptional ? null : (!email.checkValidity() ? email : website));
+        first?.focus();
+        return;
+      }
+      const mailto = makeMailto('Запрос на проект · CodeDev', [
+        ['Компания',value('company')],['Контактное лицо',value('person')],['Telegram или телефон',value('project-contact')],
+        ['Рабочая почта',value('project-email')],['Направление',value('service')],['Описание задачи',value('project-description')],
+        ['Бюджет',value('budget')],['Желаемый срок',value('timeline')],['Сайт компании',value('current-site')],['Пользовательское соглашение','Принято']
+      ]);
+      openPreparedMail(form, scope.querySelector('#project-done'), scope.querySelector('#project-mail-link'), mailto);
+    });
+    agreement.addEventListener('change', () => { consent.classList.remove('invalid'); consentError.hidden = true; });
+    [['company','p-company'],['person','p-person'],['project-contact','p-contact'],['service','p-service'],['project-description','p-description']].forEach(([id,fieldId]) => {
+      const field = scope.querySelector('#'+id);
+      field.addEventListener('input', () => scope.querySelector('#'+fieldId).classList.remove('invalid'));
+      field.addEventListener('change', () => scope.querySelector('#'+fieldId).classList.remove('invalid'));
     });
   }
 
@@ -2711,11 +2869,12 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     }
     if (menu) menu.classList.remove('open');
     if (burger) burger.textContent = '☰';
-    if (slug === 'apply' && role){
+    if (slug === 'career-apply' && role){
       const sel = target.querySelector('#role');
       if (sel && roles[role]) sel.value = roles[role];
     }
     bindForm(target);
+    bindProjectForm(target);
     window.scrollTo(0, 0);
   }
 
@@ -2733,125 +2892,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     }
   }
 
-  function initHeroDither(){
-    const host = document.querySelector('.page[data-slug="home"] .term');
-    const canvas = host && host.querySelector('.term-dither');
-    if(!host || !canvas || canvas.dataset.ready) return;
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduceMotion) return;
-    const ctx = canvas.getContext('2d', { alpha:true, desynchronized:true });
-    const sample = document.createElement('canvas');
-    const sampleCtx = sample.getContext('2d', { willReadFrequently:true });
-    const source = new Image();
-    const pointer = { x:-1000, y:-1000, active:false };
-    const particles = [];
-    const accent = '#D9FF28';
-    const radius = 200;
-    let width=0, height=0, dpr=1, step=3.4, raf=0, resetTimer=0;
-    canvas.dataset.ready = '1';
-    source.src = 'assets/code-digital-face.png';
-
-    function resize(){
-      const box = host.getBoundingClientRect();
-      if(!box.width || !box.height) return;
-      width = box.width;
-      height = box.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      step = window.matchMedia('(max-width: 760px)').matches ? 4.2 : 3.4;
-      canvas.width = Math.round(width*dpr);
-      canvas.height = Math.round(height*dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      if(source.complete && source.naturalWidth) buildParticles();
-    }
-
-    function buildParticles(){
-      const cols = Math.ceil(width/step), rows = Math.ceil(height/step);
-      if(!cols || !rows) return;
-      sample.width = cols;
-      sample.height = rows;
-      sampleCtx.clearRect(0,0,cols,rows);
-      const scale=Math.max(cols/source.naturalWidth,rows/source.naturalHeight);
-      const imageWidth=source.naturalWidth*scale, imageHeight=source.naturalHeight*scale;
-      sampleCtx.drawImage(source,(cols-imageWidth)*.68,(rows-imageHeight)*.5,imageWidth,imageHeight);
-      const pixels = sampleCtx.getImageData(0,0,cols,rows).data;
-      const gray = new Float32Array(cols*rows);
-      for(let i=0;i<gray.length;i++){
-        const at=i*4;
-        gray[i]=pixels[at]*.299+pixels[at+1]*.587+pixels[at+2]*.114;
-      }
-      particles.length=0;
-      for(let y=0;y<rows;y++){
-        for(let x=0;x<cols;x++){
-          const i=y*cols+x, old=gray[i], on=old>=132?255:0, error=old-on;
-          gray[i]=on;
-          if(x+1<cols) gray[i+1]+=error*7/16;
-          if(y+1<rows){
-            if(x>0) gray[i+cols-1]+=error*3/16;
-            gray[i+cols]+=error*5/16;
-            if(x+1<cols) gray[i+cols+1]+=error/16;
-          }
-          if(on){
-            const src=i*4;
-            particles.push({
-              ox:(x+.5)*step, oy:(y+.5)*step,
-              x:(x+.5)*step, y:(y+.5)*step,
-              size:step*(.34+Math.min(old,255)/900),
-              yellow:pixels[src+1]>pixels[src]*1.12 || ((x*11+y*7)%19===0)
-            });
-          }
-        }
-      }
-      requestDraw();
-    }
-
-    function draw(){
-      raf=0;
-      ctx.clearRect(0,0,width,height);
-      let settling=false;
-      for(let i=0;i<particles.length;i++){
-        const p=particles[i];
-        let tx=p.ox, ty=p.oy;
-        if(pointer.active){
-          const dx=p.ox-pointer.x, dy=p.oy-pointer.y, dist=Math.hypot(dx,dy);
-          if(dist<radius){
-            const push=(1-dist/radius);
-            const angle=dist<.01 ? ((i%8)*Math.PI/4) : 0;
-            const ux=dist<.01 ? Math.cos(angle) : dx/dist;
-            const uy=dist<.01 ? Math.sin(angle) : dy/dist;
-            tx+=ux*push*push*38;
-            ty+=uy*push*push*38;
-          }
-        }
-        p.x+=(tx-p.x)*.24;
-        p.y+=(ty-p.y)*.24;
-        if(Math.abs(tx-p.x)>.35 || Math.abs(ty-p.y)>.35) settling=true;
-        ctx.fillStyle=p.yellow?accent:'rgba(232,232,224,.78)';
-        ctx.fillRect(p.x,p.y,p.size,p.size);
-      }
-      if(settling) raf=requestAnimationFrame(draw);
-    }
-    function requestDraw(){ if(!raf) raf=requestAnimationFrame(draw); }
-    function movePointer(event){
-      const box=host.getBoundingClientRect();
-      pointer.x=event.clientX-box.left;
-      pointer.y=event.clientY-box.top;
-      pointer.active=true;
-      clearTimeout(resetTimer);
-      requestDraw();
-    }
-    host.addEventListener('pointermove',movePointer,{passive:true});
-    host.addEventListener('pointerdown',function(event){ movePointer(event); if(event.pointerType==='touch') resetTimer=setTimeout(function(){pointer.active=false;requestDraw();},900); },{passive:true});
-    host.addEventListener('pointerup',function(event){ if(event.pointerType==='touch'){ clearTimeout(resetTimer); resetTimer=setTimeout(function(){pointer.active=false;requestDraw();},900); } },{passive:true});
-    host.addEventListener('pointerleave',function(event){ if(event.pointerType==='touch') return; pointer.active=false; clearTimeout(resetTimer); requestDraw(); },{passive:true});
-    if('ResizeObserver' in window) new ResizeObserver(resize).observe(host);
-    else window.addEventListener('resize',resize,{passive:true});
-    source.onload=resize;
-    if(source.complete && source.naturalWidth) resize();
-  }
-
   window.addEventListener('hashchange', route);
   route();
-  initHeroDither();
 })();
 
 </script>
