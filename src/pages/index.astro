@@ -53,9 +53,9 @@
 /* Единый спокойный стиль всех разделов */
 .page[data-slug="home"] .hero { padding:0; border-bottom:1px solid var(--border); }
 .page[data-slug="home"] .hero-grid { max-width:1440px; min-height:520px; grid-template-columns:.95fr 1.05fr; gap:0; padding:0; align-items:stretch; }
-.page[data-slug="home"] .hero-grid > div:first-child { padding:76px clamp(28px,6vw,88px) 64px; display:flex; flex-direction:column; justify-content:center; border-right:0; }
-.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#090A09; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; overflow:hidden; }
-.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:1; opacity:1; pointer-events:none; background-image:linear-gradient(90deg,rgba(8,13,10,.18),rgba(8,13,10,.05) 55%,rgba(8,13,10,.16)),linear-gradient(rgba(217,255,40,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(217,255,40,.045) 1px,transparent 1px),url('/assets/code-digital-face.webp'); background-size:auto,42px 42px,42px 42px,cover; background-position:center,center,center,68% center; background-repeat:no-repeat,repeat,repeat,no-repeat; mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 94%,transparent 100%); }
+.page[data-slug="home"] .hero-grid > div:first-child { padding:76px clamp(28px,6vw,88px) 64px; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--border); }
+.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#090A09 url('/assets/code-digital-face.webp') 68% center/cover no-repeat; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; overflow:hidden; }
+.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:1; opacity:.18; pointer-events:none; background:linear-gradient(rgba(217,255,40,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(217,255,40,.045) 1px,transparent 1px); background-size:42px 42px; }
 .page[data-slug="home"] .term::after { content:none; }
 .page[data-slug="home"] .term-bar { position:absolute; inset:0 0 auto; background:transparent; border:0; padding:22px 28px; }
 .page[data-slug="home"] .term-bar,.page[data-slug="home"] .term-body { z-index:2; }
