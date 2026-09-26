@@ -428,6 +428,23 @@ body {
 .about-service p { margin:0; color:var(--muted); font-size:14px; line-height:1.55; }
 .about-principles { display:grid; grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr); gap:48px; align-items:start; }
 .about-principles h2 { margin-top:18px; }
+.numen-layout { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(28px,6vw,76px); align-items:center; }
+.numen-copy { max-width:680px; }
+.numen-copy h2 { margin-bottom:18px; }
+.numen-copy .lead { margin:0 0 16px; }
+.numen-copy > p:not(.lead) { max-width:650px; color:var(--muted); line-height:1.7; }
+.numen-link { margin-top:22px; min-height:48px; }
+.numen-preview { min-width:0; padding:24px; border:1px solid var(--border-hi); background:linear-gradient(145deg,rgba(217,255,40,.055),transparent 42%),#0b0d0b; box-shadow:0 22px 58px rgba(0,0,0,.24); }
+.numen-preview-top,.numen-preview-foot { display:flex; justify-content:space-between; gap:14px; color:var(--accent); font:700 10px/1.4 var(--mono); letter-spacing:.09em; }
+.numen-preview-top span:last-child,.numen-preview-foot span:last-child { color:var(--muted); }
+.numen-preview-title { margin:34px 0 15px; font:700 24px/1.2 var(--display); }
+.numen-task { display:grid; grid-template-columns:12px minmax(0,1fr) auto; align-items:center; gap:12px; padding:15px 0; border-top:1px solid var(--border); font-size:14px; }
+.numen-task small { color:var(--muted); font-size:12px; }
+.numen-task-mark { width:10px; height:10px; border:1px solid var(--accent); border-radius:50%; }
+.numen-task-mark.done { background:var(--accent); box-shadow:0 0 12px rgba(217,255,40,.24); }
+.numen-preview-foot { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+@media(max-width:960px) { .numen-layout { grid-template-columns:1fr; gap:24px; } }
+@media(max-width:760px) { .numen-preview { padding:17px; } .numen-preview-title { margin-top:26px; font-size:21px; } .numen-task { grid-template-columns:12px minmax(0,1fr); gap:9px; font-size:13.5px; } .numen-task small { grid-column:2; } .numen-preview-top,.numen-preview-foot { font-size:9px; } .numen-link { width:100%; white-space:normal; } }
 .vac-closed { position:relative; background:#0b0c0b!important; border-color:#252723!important; box-shadow:none!important; cursor:default; }
 .vac-closed > div:first-child { opacity:.4; filter:grayscale(.88); }
 .vac-closed:hover { transform:none; border-color:#252723!important; background:#0b0c0b!important; }
@@ -2397,6 +2414,26 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     <div class="eyebrow">О CodeDev · IT и цифровые продукты</div>
     <h1 style="font-size:clamp(34px,5vw,54px); max-width:900px">Помогаем бизнесу превращать сложные процессы в понятные цифровые решения</h1>
     <p class="lead" style="max-width:780px">CodeDev — IT-компания, которая разрабатывает и настраивает CRM, внедряет AI в рабочие процессы, создаёт веб-сервисы и объединяет системы компании. Начавшись как стартап-проект в 2025 году, в 2026 году CodeDev вырос в быстрорастущую команду с фокусом на практические задачи бизнеса.</p>
+  </div>
+</section>
+
+<section class="sec numen-section" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap numen-layout">
+    <div class="numen-copy">
+      <div class="eyebrow">Личный проект технического директора · Numen Pulse</div>
+      <h2>Технический директор CodeDev создал Numen Pulse</h2>
+      <p class="lead">Наш технический директор, который также руководит командой как тимлид, основал собственный проект Numen Pulse. В проекте он создаёт TaskSync — приложение для управления задачами.</p>
+      <p>Это самостоятельный продукт, над которым он работает как основатель и разработчик. Посмотреть проект можно на его сайте.</p>
+      <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Посмотреть Numen Pulse ↗</a>
+    </div>
+    <div class="numen-preview" role="group" aria-label="Пример списка задач TaskSync">
+      <div class="numen-preview-top"><span>NUMEN PULSE · TASKSYNC</span><span>TASK APP</span></div>
+      <div class="numen-preview-title">Задачи команды</div>
+      <div class="numen-task"><span class="numen-task-mark"></span><span>Уточнить задачу</span><small>В работе</small></div>
+      <div class="numen-task"><span class="numen-task-mark"></span><span>Подготовить план</span><small>В очереди</small></div>
+      <div class="numen-task"><span class="numen-task-mark done"></span><span>Проверить результат</span><small>Готово</small></div>
+      <div class="numen-preview-foot"><span>ПРИМЕР СПИСКА ЗАДАЧ</span><span>NP / 01</span></div>
+    </div>
   </div>
 </section>
 
