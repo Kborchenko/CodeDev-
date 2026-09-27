@@ -447,7 +447,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .nav-links a { font:12px/1 var(--body); text-transform:uppercase; letter-spacing:.04em; color:#D0D0C8; }
 .nav-links a:hover,.nav-links a.active { color:var(--accent); }
 .nav-links a:not(.btn)::after { content:' +'; color:var(--accent); padding-left:7px; }
-.nav-links a.btn::after { content:' ↗'; }
+.nav-links a.btn::after { content: none; }
 .nav-links a.btn-primary { color:#090A09; }
 .page .logo span { color:var(--accent); }
 .page[data-slug="home"] .stat-n { color:var(--accent); }
@@ -708,9 +708,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
         Разрабатываем и настраиваем CRM, внедряем AI в бизнес-процессы, создаём веб-сервисы и соединяем их с системами компании.
       </p>
       <div class="hero-cta">
-        <a href="#/about" class="btn btn-primary">О компании ↗</a>
+        <a href="#/about" class="btn btn-primary">О компании</a>
         <a href="#/team" class="btn btn-ghost">Команда</a>
-        <a href="#/apply" class="btn btn-ghost">Обсудить проект ↗</a>
+        <a href="#/apply" class="btn btn-ghost">Обсудить проект</a>
       </div>
       <p class="hero-note">CRM · AI-ВНЕДРЕНИЕ · ВЕБ-СЕРВИСЫ · ИНТЕГРАЦИИ</p>
     </div>
@@ -803,7 +803,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="large-project-estimate">
         <strong>От 300 000 ₽</strong>
         <span>Сроки — по договорённости</span>
-        <a class="btn btn-primary" href="#/apply">Обсудить проект ↗</a>
+        <a class="btn btn-primary" href="#/apply">Обсудить проект</a>
       </div>
     </article>
   </div>
@@ -2466,7 +2466,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <h2>Технический директор CodeDev создал Numen Pulse</h2>
       <p class="lead">Наш технический директор, который также руководит командой как тимлид, основал собственный проект Numen Pulse. В проекте он создаёт TaskSync — приложение для управления задачами.</p>
       <p>Это самостоятельный продукт, над которым он работает как основатель и разработчик. Посмотреть проект можно на его сайте.</p>
-      <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Посмотреть Numen Pulse ↗</a>
+      <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Посмотреть Numen Pulse</a>
     </div>
     <div class="numen-preview" role="group" aria-label="Пример списка задач TaskSync">
       <div class="numen-preview-top"><span>NUMEN PULSE · TASKSYNC</span><span>TASK APP</span></div>
@@ -2535,7 +2535,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <h2>Обсудим задачу вашего бизнеса</h2>
       <p>Расскажите, какой процесс хотите улучшить. Мы обсудим подходящее решение, объём работ и ориентировочный бюджет.</p>
       <div class="hero-cta about-cta-actions">
-        <a href="#/apply" class="btn btn-primary">Обсудить проект ↗</a>
+        <a href="#/apply" class="btn btn-primary">Обсудить проект</a>
         <a href="#/home?section=prices" class="btn btn-ghost">Услуги и стоимость</a>
       </div>
     </div>
@@ -2742,7 +2742,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 <div class="err project-consent-error" hidden>Подтвердите согласие с пользовательским соглашением</div>
 <p style="color:var(--muted);font-size:13px;margin:0 0 14px">После проверки анкеты откроется письмо на CodeDeveloper@mail.ru. Нажмите «Отправить» в почтовом приложении.</p>
 <button type="submit" class="btn btn-primary btn-full">Отправить запрос</button>
-</form><div class="done" id="project-done"><div class="done-ico">↗</div><h3 style="margin-bottom:10px">Письмо подготовлено</h3><p style="color:var(--muted);font-size:15px;margin-bottom:24px">Проверьте почтовое приложение и нажмите «Отправить», чтобы запрос поступил в CodeDev.</p><a class="btn btn-ghost" id="project-mail-link" href="mailto:CodeDeveloper@mail.ru">Открыть письмо</a></div></div>
+</form><div class="done" id="project-done"><h3 style="margin-bottom:10px">Письмо подготовлено</h3><p style="color:var(--muted);font-size:15px;margin-bottom:24px">Проверьте почтовое приложение и нажмите «Отправить», чтобы запрос поступил в CodeDev.</p><a class="btn btn-ghost" id="project-mail-link" href="mailto:CodeDeveloper@mail.ru">Открыть письмо</a></div></div>
 </div></section>
 <footer class="foot"><div class="wrap"><div class="foot-grid"><div><a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CodeDev, монограмма CD"><text x="1" y="51" fill="#F3F0E7" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">C</text><text x="26" y="51" fill="#D9FF28" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">D</text></svg>Code<span>Dev</span></a><p>Разрабатываем CRM-системы, внедряем AI и создаём веб-продукты для бизнеса.</p></div><div><h4>Разделы</h4><ul><li><a href="#/home">Главная</a></li><li><a href="#/team">Собираем команду</a></li><li><a href="#/about">О компании</a></li><li><a href="#/apply">Обсудить проект</a></li><li><a href="#/career-apply">Оставить заявку</a></li></ul></div><div><h4>Связаться</h4><ul><li><a href="mailto:CodeDeveloper@mail.ru">CodeDeveloper@mail.ru</a></li><li><a href="tel:+79330850922">Телефон — +7 933 085-09-22</a></li></ul></div></div><div class="foot-bot"><span>© 2025–2026 Code Developer</span><a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a><span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span></div></div></footer>
 </div>
