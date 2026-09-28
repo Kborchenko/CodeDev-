@@ -652,6 +652,41 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .numen-project-details dd { margin:0; text-align:right; }
 .numen-project-site { display:block; padding:20px 0 0; margin-top:8px; border-top:1px solid var(--border); color:var(--accent); font-size:14px; text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
 @media(max-width:520px) { .numen-project-details > div { grid-template-columns:1fr; gap:5px; } .numen-project-details dd { text-align:left; } .numen-project-name { margin-top:24px; } }
+
+/* Expanded first screen: shared artwork and draggable navigation. */
+.page[data-slug="home"] .hero-grid { position:relative; isolation:isolate; min-height:650px; display:flex; align-items:center; overflow:hidden; }
+.page[data-slug="home"] .hero-grid > div:first-child { position:relative; z-index:3; width:52%; padding:72px clamp(28px,5vw,72px); border:0; pointer-events:none; }
+.page[data-slug="home"] .hero h1 { font-size:clamp(56px,5.6vw,82px); line-height:1.04; margin-bottom:28px; }
+.page[data-slug="home"] .hero .lead { max-width:440px; }
+.page[data-slug="home"] .term { position:absolute; inset:0; min-height:0; width:100%; border:0; }
+.page[data-slug="home"] .term::before { background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.96) 27%,rgba(9,10,9,.65) 43%,rgba(9,10,9,.08) 66%),url('assets/code-digital-face.png') 85% center / auto 112% no-repeat; }
+.page[data-slug="home"] .term-bar { left:52%; }
+.page[data-slug="home"] .term-body { width:min(420px,38%); margin:0 40px 40px 0; }
+.page[data-slug="home"] .hero-cta { pointer-events:auto; gap:18px; padding:14px 0; }
+.page[data-slug="home"] .hero-cta .btn { border-radius:999px; min-height:60px; padding:16px 30px; cursor:grab; user-select:none; touch-action:pan-y; transition:transform .45s cubic-bezier(.22,1,.36,1),background .2s,box-shadow .2s; box-shadow:0 8px 28px #0004; }
+.page[data-slug="home"] .hero-cta .btn::after { content:''; width:18px; height:10px; margin-left:14px; background:radial-gradient(circle,currentColor 1.5px,transparent 2px) 0 0/6px 5px; opacity:.65; }
+.page[data-slug="home"] .hero-cta .btn.is-dragging { cursor:grabbing; transition:none; box-shadow:0 14px 36px #0007; }
+.page[data-slug="home"] .hero-cta .btn:focus-visible { outline:2px solid var(--text); outline-offset:5px; }
+@media(max-width:960px) {
+ .page[data-slug="home"] .hero-grid { min-height:760px; align-items:flex-start; }
+ .page[data-slug="home"] .hero-grid>div:first-child { width:65%; padding:54px 28px; }
+ .page[data-slug="home"] .hero h1 { font-size:clamp(48px,7vw,68px); }
+ .page[data-slug="home"] .term::before { background:linear-gradient(90deg,rgba(9,10,9,.96),rgba(9,10,9,.7) 36%,rgba(9,10,9,.05) 80%),url('assets/code-digital-face.png') 75% bottom/auto 90% no-repeat; }
+ .page[data-slug="home"] .term-body { width:380px; max-width:calc(100% - 48px); margin:0 24px 24px; }
+ .page[data-slug="home"] .term-bar { display:none; }
+}
+@media(max-width:600px) {
+ .page[data-slug="home"] .hero-grid { min-height:960px; }
+ .page[data-slug="home"] .hero-grid>div:first-child { width:100%; padding:42px 24px; }
+ .page[data-slug="home"] .hero h1 { font-size:clamp(46px,12vw,64px); }
+ .page[data-slug="home"] .hero .lead { font-size:16px; }
+ .page[data-slug="home"] .term::before { background:linear-gradient(180deg,#090a09 0%,#090a09 38%,transparent 66%),url('assets/code-digital-face.png') 66% bottom/auto 58% no-repeat; }
+ .page[data-slug="home"] .hero-cta { gap:12px; }
+ .page[data-slug="home"] .hero-cta .btn { padding:14px 20px; min-height:56px; }
+ .page[data-slug="home"] .hero-note { font-size:11px; }
+}
+@media(prefers-reduced-motion:reduce) { .page[data-slug="home"] .hero-cta .btn { transition:none; } }
+
 </style>
 </head>
 <body>
@@ -700,18 +735,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 <span class="tk-str">QUALITY</span> / тестирование продукта<br>
 <span class="tk-com">CODE / ОТ ИДЕИ ДО ЗАПУСКА</span><span class="caret"></span>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- СТАТУСЫ -->
-<section class="sec-tight">
-  <div class="wrap">
-    <div class="stats rise">
-      <div class="stat"><div class="stat-n">01 · CRM</div><div class="stat-l">Разработка и настройка</div></div>
-      <div class="stat"><div class="stat-n">02 · AI</div><div class="stat-l">Интеграция в процессы</div></div>
-      <div class="stat"><div class="stat-n">03 · WEB</div><div class="stat-l">Сайты и веб-сервисы</div></div>
-      <div class="stat"><div class="stat-n">04 · API</div><div class="stat-l">Интеграции систем</div></div>
     </div>
   </div>
 </section>
@@ -2768,5 +2791,44 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 })();
 
 </script>
+
+<script>
+// Drag is optional; links keep native click and keyboard navigation.
+document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((button) => {
+ let active = null;
+ let suppressClick = false;
+ button.setAttribute('draggable', 'false');
+ button.addEventListener('pointerdown', (event) => {
+  if (event.button !== 0) return;
+  suppressClick = false;
+  active = { id:event.pointerId, x:event.clientX, y:event.clientY, moved:false };
+ });
+ button.addEventListener('pointermove', (event) => {
+  if (!active || event.pointerId !== active.id) return;
+  const dx = event.clientX - active.x;
+  const dy = event.clientY - active.y;
+  if (!active.moved && Math.hypot(dx, dy) < 8) return;
+  active.moved = true;
+  button.setPointerCapture(event.pointerId);
+  button.classList.add('is-dragging');
+  button.style.transform = `translate(${Math.max(-28,Math.min(28,dx))}px,${Math.max(-20,Math.min(20,dy))}px)`;
+ });
+ const release = () => {
+  if (!active) return;
+  suppressClick = active.moved;
+  if (button.hasPointerCapture(active.id)) button.releasePointerCapture(active.id);
+  active = null;
+  button.classList.remove('is-dragging');
+  button.style.transform = '';
+ };
+ window.addEventListener('pointerup', release);
+ window.addEventListener('pointercancel', release);
+ button.addEventListener('click', (event) => {
+  if (suppressClick && event.detail !== 0) { event.preventDefault(); event.stopImmediatePropagation(); }
+  suppressClick = false;
+ }, true);
+});
+</script>
+
 </body>
 </html>
