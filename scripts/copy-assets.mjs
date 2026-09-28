@@ -9,6 +9,7 @@ const files = [
   'codedev-mark.svg',
   'codedev-favicon.png',
   'codedev-social.jpg',
+  'codedev-social-cd-v2.png',
   'codedev-touch.png',
   'process-development.webp',
   'process-discovery.webp',
