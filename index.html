@@ -861,6 +861,19 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:760px) { .home-destination { padding:18px 0; } .home-destination-panel { grid-template-columns:1fr; gap:24px; min-height:0; padding:28px 22px; border-radius:22px; } .home-destination-panel::before { right:10px; top:32px; transform:none; font-size:170px; } .home-destination-panel::after { right:-230px; top:-120px; } .home-destination-panel h2 { font-size:clamp(32px,9vw,44px); } .home-destination-side { padding:18px; } }
 @media(prefers-reduced-motion:reduce) { .home-destination-cta { transition:none; } }
 
+
+.about-opening { padding-top:38px!important; padding-bottom:58px!important; }
+.about-opening-grid { display:grid; grid-template-columns:minmax(0,.86fr) minmax(420px,1.14fr); align-items:center; gap:clamp(32px,6vw,86px); }
+.about-opening-copy { position:relative; z-index:1; }
+.about-opening-copy h1 { max-width:680px; margin:18px 0 20px; font-size:clamp(36px,4.4vw,58px); line-height:1.06; }
+.about-opening-copy .lead { max-width:620px; color:#c2c5ba; font-size:clamp(16px,1.3vw,19px); line-height:1.75; }
+.about-opening-visual { position:relative; min-height:clamp(310px,39vw,510px); margin:0; overflow:hidden; isolation:isolate; border:1px solid #464b39; border-radius:3px; background:#090a09; box-shadow:0 26px 70px #0005; }
+.about-opening-visual::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,#090a09a8 0%,transparent 35%),linear-gradient(0deg,#090a09ba,transparent 44%),linear-gradient(120deg,#d9ff2812,transparent 56%); }
+.about-opening-visual img { display:block; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:68% center; filter:grayscale(.68) brightness(.74) contrast(1.08); }
+.about-opening-visual figcaption { position:absolute; z-index:2; left:22px; right:22px; bottom:18px; display:flex; justify-content:space-between; gap:20px; color:var(--accent); font:700 11px/1.4 var(--mono); letter-spacing:.1em; }
+@media(max-width:850px) { .about-opening-grid { grid-template-columns:1fr; gap:28px; } .about-opening-copy h1 { max-width:780px; } .about-opening-visual { min-height:clamp(260px,55vw,430px); } }
+@media(max-width:560px) { .about-opening { padding-top:28px!important; padding-bottom:38px!important; } .about-opening-visual { min-height:270px; } .about-opening-visual img { object-position:66% center; } .about-opening-visual figcaption { left:14px; right:14px; bottom:12px; font-size:9px; } }
+
 </style>
 </head>
 <body>
@@ -2598,11 +2611,17 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 
 <div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>О компании</div>
 
-<section class="sec-tight" style="padding-top:44px">
-  <div class="wrap">
-    <div class="eyebrow">О CodeDev · IT и цифровые продукты</div>
-    <h1 style="font-size:clamp(34px,5vw,54px); max-width:900px">Помогаем бизнесу превращать сложные процессы в понятные цифровые решения</h1>
-    <p class="lead" style="max-width:780px">CodeDev — IT-компания, которая разрабатывает и настраивает CRM, внедряет AI в рабочие процессы, создаёт веб-сервисы и объединяет системы компании. Начавшись как стартап-проект в 2025 году, в 2026 году CodeDev вырос в быстрорастущую команду с фокусом на практические задачи бизнеса.</p>
+<section class="sec about-opening">
+  <div class="wrap about-opening-grid">
+    <div class="about-opening-copy">
+      <div class="eyebrow">О CodeDev · IT и цифровые продукты</div>
+      <h1>Помогаем бизнесу превращать сложные процессы в понятные цифровые решения</h1>
+      <p class="lead">CodeDev разрабатывает и настраивает CRM, внедряет AI в рабочие процессы, создаёт веб-сервисы и объединяет системы компании.</p>
+    </div>
+    <figure class="about-opening-visual" aria-label="Цифровой человеческий портрет из исходного референса CodeDev">
+      <img src="assets/code-digital-face.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1200" height="630" fetchpriority="high" decoding="async">
+      <figcaption><span>CODE.SYSTEMS</span><span>IT · CRM · AI · WEB</span></figcaption>
+    </figure>
   </div>
 </section>
 
