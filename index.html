@@ -739,6 +739,11 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .has-neuro .robot-mist,.has-neuro .robot-particle { display:none; }
 @media(max-width:600px) { .robot-atmosphere.has-neuro::after { background:linear-gradient(180deg,#090a09 0%,rgba(9,10,9,.95) 35%,rgba(9,10,9,.12) 68%); } }
 
+
+.page[data-slug="home"] .term.robot-preview .term-body { width:280px; max-width:calc(100% - 32px); padding:12px 14px; margin:0 20px 20px 0; }
+.page[data-slug="home"] .term.robot-preview .solution-label { font-size:14px; margin-bottom:8px; }
+.page[data-slug="home"] .term.robot-preview .service-description { min-height:24px; font-size:14px; }
+.page[data-slug="home"] .term.robot-preview .service-slider-label { margin-top:8px; font-size:11px; }
 </style>
 </head>
 <body>
@@ -3041,13 +3046,6 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
  stage.className = 'robot-stage';
  stage.setAttribute('aria-label','Интерактивный 3D-робот');
  scene.prepend(stage);
- const back = document.createElement('a');
- const original = new URL(location.href);
- original.searchParams.delete('robot');
- back.href = original.href;
- back.className = 'robot-return';
- back.textContent = 'Вернуться к версии с головой';
- scene.append(back);
  const launch = document.createElement('button');
  launch.type = 'button';
  launch.className = 'robot-launch';
@@ -3079,6 +3077,6 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
 })();
 </script>
 
-<script src="/assets/neuro-background.js?v=1"></script>
+<script src="/assets/neuro-background.js?v=2"></script>
 </body>
 </html>
