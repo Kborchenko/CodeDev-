@@ -709,6 +709,15 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(prefers-reduced-motion:reduce) { .scroll-reveal,.scroll-reveal.reveal-pending { opacity:1; transform:none; transition:none; } }
 @media print { .scroll-reveal.reveal-pending { opacity:1; transform:none; } }
 
+
+.robot-stage { position:absolute; inset:45px 0 170px 44%; z-index:1; background:radial-gradient(ellipse at 55% 60%,#d9ff2810,transparent 65%); }
+.robot-stage spline-viewer { width:100%; height:100%; display:block; }
+.robot-launch { position:absolute; top:45%; left:50%; transform:translate(-50%,-50%); border:1px solid var(--accent); border-radius:999px; padding:16px 24px; background:#11150e; color:var(--accent); cursor:pointer; }
+.page[data-slug="home"] .term.robot-active::before { background:radial-gradient(ellipse at 70% 45%,#252a18 0%,#090a09 60%); }
+.robot-return { position:absolute; right:28px; top:78px; z-index:4; color:var(--muted); font-size:12px; text-underline-offset:4px; }
+@media(max-width:960px) { .robot-stage { inset:240px 0 195px 30%; } }
+@media(max-width:600px) { .robot-stage { inset:420px 0 210px 0; } .robot-return { top:auto; bottom:245px; right:24px; } }
+
 </style>
 </head>
 <body>
@@ -2916,7 +2925,7 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
  range.addEventListener('input',() => select(Number(range.value)));
  let start = null;
  scene.addEventListener('pointerdown',(event) => {
-  if (event.button !== 0 || event.target.closest('button,input,a,label')) return;
+  if (event.button !== 0 || event.target.closest('button,input,a,label,.robot-stage')) return;
   start = {x:event.clientX,y:event.clientY,id:event.pointerId};
   scene.setPointerCapture(event.pointerId);
  });
@@ -2977,6 +2986,54 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
  window.addEventListener('resize',stop);
  reduced.addEventListener('change',stop);
  desktop.addEventListener('change',stop);
+})();
+</script>
+
+
+<script>
+(() => {
+ if (new URLSearchParams(location.search).get('robot') !== '1') return;
+ const scene = document.querySelector('.page[data-slug="home"] .term');
+ if (!scene) return;
+ const stage = document.createElement('div');
+ stage.className = 'robot-stage';
+ stage.setAttribute('aria-label','Интерактивный 3D-робот');
+ scene.prepend(stage);
+ const back = document.createElement('a');
+ const original = new URL(location.href);
+ original.searchParams.delete('robot');
+ back.href = original.href;
+ back.className = 'robot-return';
+ back.textContent = 'Вернуться к версии с головой';
+ scene.append(back);
+ const launch = document.createElement('button');
+ launch.type = 'button';
+ launch.className = 'robot-launch';
+ launch.textContent = 'Включить 3D-робота';
+ stage.append(launch);
+ let loading = false;
+ async function start() {
+  if (loading) return;
+  loading = true;
+  launch.disabled = true;
+  launch.textContent = 'Загрузка 3D…';
+  try {
+   await import('https://unpkg.com/@splinetool/viewer@1.12.81/build/spline-viewer.js');
+   const viewer = document.createElement('spline-viewer');
+   viewer.setAttribute('url','https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode');
+   viewer.setAttribute('background','transparent');
+   viewer.setAttribute('loading-anim','true');
+   viewer.setAttribute('aria-label','3D-робот Spline');
+   stage.replaceChildren(viewer);
+   scene.classList.add('robot-active');
+  } catch (error) {
+   loading = false;
+   launch.disabled = false;
+   launch.textContent = 'Повторить загрузку 3D';
+  }
+ }
+ launch.addEventListener('click',start);
+ if (!matchMedia('(max-width:600px), (prefers-reduced-motion:reduce)').matches && !navigator.connection?.saveData) start();
 })();
 </script>
 
