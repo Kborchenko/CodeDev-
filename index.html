@@ -848,6 +848,20 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:760px) { .home-main-actions { padding:42px 0; } .home-main-actions .wrap { grid-template-columns:1fr; gap:12px; } .home-main-action { min-height:64px; } }
 @media(prefers-reduced-motion:reduce) { .home-main-action,.home-main-action::before,.home-main-action::after { transition:none; } }
 
+
+.home-destination { position:relative; padding:clamp(54px,8vw,100px) 0; overflow:hidden; border-top:1px solid var(--border); }
+.home-destination::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 90% 50%,#d9ff280b,transparent 52%); }
+.home-destination:nth-of-type(even)::before { background:radial-gradient(ellipse at 10% 50%,#d9ff280a,transparent 52%); }
+.home-destination-inner { position:relative; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(260px,.7fr); align-items:center; gap:clamp(34px,8vw,120px); }
+.home-destination h2 { max-width:720px; margin:14px 0 20px; font-size:clamp(32px,4.8vw,58px); line-height:1.08; }
+.home-destination-copy { max-width:690px; color:var(--muted); font-size:clamp(16px,1.4vw,19px); line-height:1.7; }
+.home-destination-points { display:grid; gap:14px; padding-top:18px; }
+.home-destination-points span { display:flex; gap:12px; align-items:flex-start; color:var(--text); font-size:15px; line-height:1.55; }
+.home-destination-points span::before { content:''; flex:0 0 7px; height:7px; margin-top:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 14px #d9ff2870; }
+.home-destination .home-main-action { min-height:100px; font-size:21px; }
+.home-destination:nth-of-type(even) { background:var(--bg-2); }
+@media(max-width:760px) { .home-destination-inner { grid-template-columns:1fr; gap:28px; } .home-destination .home-main-action { min-height:72px; } }
+
 </style>
 </head>
 <body>
@@ -968,13 +982,20 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<section class="home-main-actions" aria-label="Основные разделы">
-  <div class="wrap">
-    <a class="home-main-action" href="#/team">Собираем команду</a>
-    <a class="home-main-action" href="#/about">О компании</a>
-    <a class="home-main-action" href="#/prices">Цены</a>
-  </div>
+<section class="home-destination">
+ <div class="wrap home-destination-inner">
+  <div><div class="eyebrow">КОМАНДА CODEDEV</div><h2>Создаём цифровые продукты вместе</h2><p class="home-destination-copy">Разработка, тестирование, поддержка и работа с партнёрами. Посмотрите направления, требования и условия работы в команде.</p></div>
+  <div><div class="home-destination-points"><span>Открытые и планируемые вакансии</span><span>Понятные задачи, этапы отбора и условия</span></div><a class="home-main-action" href="#/team">Собираем команду</a></div>
+ </div>
 </section>
+
+<section class="home-destination">
+ <div class="wrap home-destination-inner">
+  <div><div class="eyebrow">УСЛУГИ И СТОИМОСТЬ</div><h2>Оцените бюджет до начала проекта</h2><p class="home-destination-copy">Сайты и веб-приложения, CRM и внутренние системы, AI-интеграции. На отдельной странице собраны ориентиры по стоимости, срокам и составу работ.</p></div>
+  <div><div class="home-destination-points"><span>Понятный диапазон цен для каждого направления</span><span>Крупные веб-проекты вынесены отдельно</span></div><a class="home-main-action" href="#/prices">Узнать цену</a></div>
+ </div>
+</section>
+
 
 <footer class="foot">
   <div class="wrap">
