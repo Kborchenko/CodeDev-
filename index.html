@@ -795,6 +795,10 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 }
 @media(prefers-reduced-motion:reduce) { .pill-label-main,.pill-label-hover,.page .nav-links,.page .nav-links a::before,.page .nav .logo-mark,.page .burger::before,.page .burger::after { transition:none; } .page .nav .logo:hover .logo-mark { transform:none; } }
 
+
+.page[data-slug="prices"] .sec { padding:56px 0 80px; }
+.page[data-slug="prices"] h1 { font-size:clamp(36px,5vw,60px); max-width:850px; margin:16px 0; }
+.page[data-slug="prices"] .btn,.page #price-preview .btn { border-radius:999px; }
 </style>
 </head>
 <body>
@@ -809,7 +813,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home" class="active">Главная</a>
       <a href="#/team">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -880,41 +884,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<section class="sec" id="prices">
-  <div class="wrap">
-    <div class="sec-head rise">
-      <div class="eyebrow">04 · Стоимость</div>
-      <h2>Предварительные ориентиры по бюджету</h2>
-      <p class="lead">Сначала уточняем задачу и состав решения, затем согласуем точную смету и сроки.</p>
-    </div>
-    <div class="price-list" aria-label="Стоимость и сроки услуг">
-      <div class="price-header" aria-hidden="true"><span>Услуга</span><span>Стоимость</span><span>Ориентир по сроку</span></div>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Сайт для бизнеса</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>50 000–200 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>3–5 недель</span></div></div></article>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Веб-приложение или личный кабинет</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>90 000–250 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>6–10 недель</span></div></div></article>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Настройка CRM и базовые интеграции</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 60 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>по составу работ</span></div></div></article>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Разработка CRM или внутренней системы</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 300 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>от 6–8 недель</span></div></div></article>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Простая AI-интеграция с одним сервисом</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 30 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>от 2–3 недель</span></div></div></article>
-      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">AI-агент или автоматизация нескольких этапов</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 150 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>после оценки задачи</span></div></div></article>
-    </div>
-        <p class="service-price-note">Это ориентиры для первичного планирования, а не публичная оферта. Итог зависит от функций, состояния данных, количества интеграций, требований к безопасности и поддержки. Лицензии сторонних сервисов, хостинг и расходы на AI-платформы рассчитываются отдельно. Точная стоимость фиксируется до начала работ.</p>
-    <article class="large-project-price rise">
-      <div class="large-project-copy">
-        <div class="eyebrow">Отдельный формат · для комплексных задач</div>
-        <h3>Крупный веб-проект</h3>
-        <p>Сайт, CRM, бот и интеграции как единая система — или масштабная платформа с каталогом, личными кабинетами и сложными сценариями.</p>
-      </div>
-      <div class="large-project-scope">
-        <h4>Для каких задач</h4>
-        <p>Многостраничные порталы, B2B-платформы, внутренние системы с несколькими ролями и связанные цифровые продукты.</p>
-      </div>
-      <div class="large-project-estimate">
-        <strong>От 300 000 ₽</strong>
-        <span>Сроки — по договорённости</span>
-        <a class="btn btn-primary" href="#/apply">Обсудить проект</a>
-      </div>
-    </article>
-  </div>
-</section>
+<section class="sec" id="price-preview"><div class="wrap"><div class="cta-band rise"><div class="eyebrow">Стоимость услуг</div><h2>Спланируйте бюджет проекта</h2><p>Сайты, веб-приложения, CRM и AI-интеграции: цены, сроки и состав работ на отдельной странице.</p><a href="#/prices" class="btn btn-primary">Узнать цену</a></div></div></section>
 
 <section class="sec-tight">
   <div class="wrap">
@@ -951,194 +921,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<!-- ВАКАНСИИ -->
-<section class="sec" id="jobs">
-  <div class="wrap">
-    <div class="sec-head rise">
-      <div class="eyebrow">06 · Команда</div>
-      <h2>Растим команду Code</h2>
-      <p class="lead">Разработка, тестирование, поддержка, работа с партнёрами и обучение с нуля.
-      Мы помогаем освоиться в задачах, а профессиональный рост обсуждаем по навыкам и результатам.</p>
-    </div>
-
-    <article class="vac vac-closed rise" aria-label="Backend-разработчик. Набор откроется после 30 ноября 2026 года">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">Junior</span>
-          <span class="chip">Разработка</span>
-          <span class="chip">Обучение внутри</span>
-        </div>
-        <h3>Backend-разработчик</h3>
-        <p>Серверная логика, API и работа с базой. Берём тех, кто уже что-то писал сам — пусть даже пет-проекты.</p>
-        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте, до вычета</small></div>
-      </div>
-      <div class="vac-side"><span class="vac-status">Откроется набор на данной вакансии после 30 ноября 2026 года</span></div>
-    </article>
-
-    <article class="vac vac-closed rise" aria-label="Frontend-разработчик. Набор откроется после 30 ноября 2026 года">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">Junior</span>
-          <span class="chip">Разработка</span>
-          <span class="chip">Обучение внутри</span>
-        </div>
-        <h3>Frontend-разработчик</h3>
-        <p>Интерфейсы веб-приложений: вёрстка, компоненты, связка с backend. Аккуратность важнее количества фреймворков в резюме.</p>
-        <div class="vac-pay">110 000 – 130 000 ₽<small>на старте, до вычета</small></div>
-      </div>
-      <div class="vac-side"><span class="vac-status">Откроется набор на данной вакансии после 30 ноября 2026 года</span></div>
-    </article>
-
-    <article class="vac vac-closed rise" aria-label="Тестировщик / аналитик. Набор откроется после 30 ноября 2026 года">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">Без опыта</span>
-          <span class="chip">Обучение 2–3 недели</span>
-        </div>
-        <h3>Тестировщик / аналитик веб-приложений</h3>
-        <p>Проверяете сайты до клиента: кнопки, формы, поведение с VPN и без. Находите баги и описываете их команде.</p>
-        <div class="vac-pay">от 65 000 ₽<small>обучение бесплатное · опыт не нужен</small></div>
-      </div>
-      <div class="vac-side"><span class="vac-status">Откроется набор на данной вакансии после 30 ноября 2026 года</span></div>
-    </article>
-
-    <a class="vac rise" href="#/vacancy-partner">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">Без опыта</span>
-          <span class="chip">Обучение 1 месяц</span>
-          <span class="chip">Наставник</span>
-        </div>
-        <h3>Менеджер по работе с партнёрами</h3>
-        <p>Говорите с будущими партнёрами: задача, дедлайн, бюджет. Собираете вводные и передаёте проект дальше.</p>
-        <div class="vac-pay">от 90 000 ₽<small>после обучения · наставник 2–3 месяца</small></div>
-      </div>
-      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
-    </a>
-
-    <a class="vac rise" href="#/vacancy-support">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">Без опыта</span>
-          <span class="chip">С телефона или ПК</span>
-        </div>
-        <h3>Оператор чат-поддержки / чат-менеджер</h3>
-        <p>Отвечаете людям в переписке — кандидатам и партнёрам. Звонить и продавать не нужно, ответы есть в инструкции.</p>
-        <div class="vac-pay">55 000 – 90 000 ₽<small>обучение бесплатное · опыт не нужен</small></div>
-      </div>
-      <div class="vac-side"><span class="btn btn-ghost btn-sm">Смотреть →</span></div>
-    </a>
-
-    <article class="vac vac-closed rise" aria-label="Обучение программированию. Набор откроется после 30 ноября 2026 года">
-      <div>
-        <div class="vac-tags">
-          <span class="chip chip-on">С нуля</span>
-          <span class="chip">Обучение</span>
-          <span class="chip">Опыт не нужен</span>
-        </div>
-        <h3>Обучение программированию — с опытом и без</h3>
-        <p>Отдельный трек для тех, кто хочет войти в разработку. Мы вкладываемся в человека и растим его под свои задачи.</p>
-        <div class="vac-pay">Грейд и оплата — по итогам обучения<small>условия обсуждаются лично</small></div>
-      </div>
-      <div class="vac-side"><span class="vac-status">Откроется набор на данной вакансии после 30 ноября 2026 года</span></div>
-    </article>
-
-    <div style="margin-top:26px" class="rise">
-      <a href="#/team" class="btn btn-primary">Все направления команды →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ЛЕСТНИЦА ГРЕЙДОВ -->
-<section class="sec" id="growth" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div class="wrap">
-    <div class="sec-head rise">
-      <div class="eyebrow">Карьерный рост</div>
-      <h2>Грейд — это не обещание, а маршрут</h2>
-      <p class="lead">У каждой ступени есть понятный набор задач и критериев. Вы всегда знаете,
-      что именно нужно закрыть, чтобы перейти на следующую.</p>
-    </div>
-
-    <div class="ladder rise">
-      <div class="rung">
-        <div class="rung-bar"></div>
-        <div class="rung-t">Ступень 1 · старт</div>
-        <h3>Junior</h3>
-        <div class="pay">110 000 – 130 000 ₽</div>
-        <p>Работаете в паре с наставником, закрываете первые задачи в проде, разбираетесь в кодовой базе.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-bar"></div>
-        <div class="rung-t">Ступень 2 · через 6–12 мес</div>
-        <h3>Junior+</h3>
-        <div class="pay">Пересмотр вилки</div>
-        <p>Ведёте задачи самостоятельно, участвуете в ревью, отвечаете за свой участок системы.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-bar"></div>
-        <div class="rung-t">Ступень 3 · через 1–2 года</div>
-        <h3>Middle</h3>
-        <div class="pay">Уровень рынка middle</div>
-        <p>Самостоятельно ведёте задачу от обсуждения до выпуска и со временем помогаете новым коллегам.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ПОЧЕМУ МЫ -->
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head rise">
-      <div class="eyebrow">Что мы даём</div>
-      <h2>Поддержка и ясные условия для старта</h2>
-    </div>
-    <div class="grid-3">
-      <div class="card rise">
-        <div class="card-ico">01</div>
-        <h3>Наставник с первого дня</h3>
-        <p>За каждым новичком закреплён разработчик, к которому можно прийти с любым вопросом без чувства неловкости.</p>
-      </div>
-      <div class="card rise">
-        <div class="card-ico">02</div>
-        <h3>Обучение за счёт компании</h3>
-        <p>Мы не берём деньги за обучение и не требуем «отработать» его. Это наша инвестиция, а не ваш долг.</p>
-      </div>
-      <div class="card rise">
-        <div class="card-ico">03</div>
-        <h3>Зарплата с первого месяца</h3>
-        <p>Заранее обсуждаем условия на период адаптации и дальнейший формат сотрудничества.</p>
-      </div>
-      <div class="card rise">
-        <div class="card-ico">04</div>
-        <h3>Понятный процесс</h3>
-        <p>У задач есть понятные требования, инструкции и обратная связь от команды.</p>
-      </div>
-      <div class="card rise">
-        <div class="card-ico">05</div>
-        <h3>Пересмотр по результатам</h3>
-        <p>Мы обсуждаем профессиональный рост на основе навыков, результатов и новых задач.</p>
-      </div>
-      <div class="card rise">
-        <div class="card-ico">06</div>
-        <h3>Молодая команда</h3>
-        <p>Компания развивается, и каждый коллега может участвовать в улучшении процессов и продуктов.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="sec">
-  <div class="wrap">
-    <div class="cta-band rise">
-      <div class="eyebrow" style="justify-content:center">Следующий шаг</div>
-      <h2>Резюме не обязательно</h2>
-      <p>Оставьте контакты и расскажите, какое направление вам интересно. Команда Code свяжется с вами, чтобы обсудить дальнейшие шаги.</p>
-      <a href="#/apply" class="btn btn-primary">Оставить заявку</a>
-    </div>
-  </div>
-</section>
-
+<section class="sec"><div class="wrap"><div class="cta-band rise"><div class="eyebrow">Ваш проект</div><h2>Обсудим задачу вашего бизнеса</h2><p>Расскажите, какое решение вам нужно. Уточним функции, интеграции и подготовим оценку стоимости.</p><a class="btn btn-primary" href="#/prices">Узнать цену</a></div></div></section>
 <footer class="foot">
   <div class="wrap">
     <div class="foot-grid">
@@ -1152,6 +935,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -1174,7 +958,95 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
   </div>
 </footer>
-
+</div>
+<div class="page" data-slug="prices" hidden>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#/home" class="logo">
+      <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CodeDev, монограмма CD"><text x="1" y="51" fill="#F3F0E7" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">C</text><text x="26" y="51" fill="#D9FF28" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">D</text></svg>Code<span>Dev</span>
+    </a>
+    <nav class="nav-links" id="menu">
+      <a href="#/home">Главная</a>
+      <a href="#/team">Собираем команду</a>
+      <a href="#/about">О компании</a>
+      <a href="#/prices">Цены</a>
+      <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>Цены</div>
+<section class="sec" id="prices">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Услуги CodeDev</div>
+      <h1>Стоимость разработки и интеграций</h1>
+      <p class="lead">Сначала уточняем задачу и состав решения, затем согласуем точную смету и сроки.</p>
+    </div>
+    <div class="price-list" aria-label="Стоимость и сроки услуг">
+      <div class="price-header" aria-hidden="true"><span>Услуга</span><span>Стоимость</span><span>Ориентир по сроку</span></div>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Сайт для бизнеса</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>50 000–200 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>3–5 недель</span></div></div></article>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Веб-приложение или личный кабинет</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>90 000–250 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>6–10 недель</span></div></div></article>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Настройка CRM и базовые интеграции</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 60 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>по составу работ</span></div></div></article>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Разработка CRM или внутренней системы</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 300 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>от 6–8 недель</span></div></div></article>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">Простая AI-интеграция с одним сервисом</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 30 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>от 2–3 недель</span></div></div></article>
+      <article class="price-row rise"><span class="price-light price-light-top" aria-hidden="true"></span><span class="price-light price-light-bottom" aria-hidden="true"></span><div class="price-row-content"><h3 class="price-service">AI-агент или автоматизация нескольких этапов</h3><div class="price-value"><span class="price-mobile-label">Стоимость</span><strong>от 150 000 ₽</strong></div><div class="price-value price-term"><span class="price-mobile-label">Ориентир по сроку</span><span>после оценки задачи</span></div></div></article>
+    </div>
+        <p class="service-price-note">Это ориентиры для первичного планирования, а не публичная оферта. Итог зависит от функций, состояния данных, количества интеграций, требований к безопасности и поддержки. Лицензии сторонних сервисов, хостинг и расходы на AI-платформы рассчитываются отдельно. Точная стоимость фиксируется до начала работ.</p>
+    <article class="large-project-price rise">
+      <div class="large-project-copy">
+        <div class="eyebrow">Отдельный формат · для комплексных задач</div>
+        <h3>Крупный веб-проект</h3>
+        <p>Сайт, CRM, бот и интеграции как единая система — или масштабная платформа с каталогом, личными кабинетами и сложными сценариями.</p>
+      </div>
+      <div class="large-project-scope">
+        <h4>Для каких задач</h4>
+        <p>Многостраничные порталы, B2B-платформы, внутренние системы с несколькими ролями и связанные цифровые продукты.</p>
+      </div>
+      <div class="large-project-estimate">
+        <strong>От 300 000 ₽</strong>
+        <span>Сроки — по договорённости</span>
+        <a class="btn btn-primary" href="#/apply">Обсудить проект</a>
+      </div>
+    </article>
+  </div>
+</section>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#/home" class="logo"><svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CodeDev, монограмма CD"><text x="1" y="51" fill="#F3F0E7" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">C</text><text x="26" y="51" fill="#D9FF28" font-family="Revolution Gothic, sans-serif" font-size="52" font-weight="700">D</text></svg>Code<span>Dev</span></a>
+        <p>Разрабатываем CRM-системы, внедряем AI и создаём веб-продукты для бизнеса.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#/home">Главная</a></li>
+          <li><a href="#/team">Собираем команду</a></li>
+          <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
+          <li><a href="#/apply">Оставить заявку</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Вакансии</h4>
+        <ul>
+          <li><a href="#/vacancy-backend">Backend (junior)</a></li>
+          <li><a href="#/vacancy-frontend">Frontend (junior)</a></li>
+          <li><a href="#/vacancy-analyst">Аналитик / тестировщик</a></li>
+          <li><a href="#/vacancy-partner">Менеджер по партнёрам</a></li>
+          <li><a href="#/vacancy-trainee">Обучение с нуля</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2025–2026 Code Developer</span>
+      <a href="mailto:CodeDeveloper@mail.ru">Почта — CodeDeveloper@mail.ru</a>
+      <a href="tel:+79330850922">Телефон — +7 933 085-09-22</a>
+      <span class="office-address">Адрес офиса: Республика Татарстан, г. Казань, проспект Победы, д. 173, бизнес-центр Orange («Оранж»).</span>
+    </div>
+  </div>
+</footer>
 </div>
 <div class="page" data-slug="team" hidden>
 
@@ -1185,7 +1057,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -1317,6 +1189,84 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
+<!-- ЛЕСТНИЦА ГРЕЙДОВ -->
+<section class="sec" id="growth" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Карьерный рост</div>
+      <h2>Грейд — это не обещание, а маршрут</h2>
+      <p class="lead">У каждой ступени есть понятный набор задач и критериев. Вы всегда знаете,
+      что именно нужно закрыть, чтобы перейти на следующую.</p>
+    </div>
+
+    <div class="ladder rise">
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 1 · старт</div>
+        <h3>Junior</h3>
+        <div class="pay">110 000 – 130 000 ₽</div>
+        <p>Работаете в паре с наставником, закрываете первые задачи в проде, разбираетесь в кодовой базе.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 2 · через 6–12 мес</div>
+        <h3>Junior+</h3>
+        <div class="pay">Пересмотр вилки</div>
+        <p>Ведёте задачи самостоятельно, участвуете в ревью, отвечаете за свой участок системы.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-bar"></div>
+        <div class="rung-t">Ступень 3 · через 1–2 года</div>
+        <h3>Middle</h3>
+        <div class="pay">Уровень рынка middle</div>
+        <p>Самостоятельно ведёте задачу от обсуждения до выпуска и со временем помогаете новым коллегам.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПОЧЕМУ МЫ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Что мы даём</div>
+      <h2>Поддержка и ясные условия для старта</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card rise">
+        <div class="card-ico">01</div>
+        <h3>Наставник с первого дня</h3>
+        <p>За каждым новичком закреплён разработчик, к которому можно прийти с любым вопросом без чувства неловкости.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">02</div>
+        <h3>Обучение за счёт компании</h3>
+        <p>Мы не берём деньги за обучение и не требуем «отработать» его. Это наша инвестиция, а не ваш долг.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">03</div>
+        <h3>Зарплата с первого месяца</h3>
+        <p>Заранее обсуждаем условия на период адаптации и дальнейший формат сотрудничества.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">04</div>
+        <h3>Понятный процесс</h3>
+        <p>У задач есть понятные требования, инструкции и обратная связь от команды.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">05</div>
+        <h3>Пересмотр по результатам</h3>
+        <p>Мы обсуждаем профессиональный рост на основе навыков, результатов и новых задач.</p>
+      </div>
+      <div class="card rise">
+        <div class="card-ico">06</div>
+        <h3>Молодая команда</h3>
+        <p>Компания развивается, и каждый коллега может участвовать в улучшении процессов и продуктов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ЭТАПЫ ОТБОРА -->
 <section class="sec" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding-top:80px">
   <div class="wrap">
@@ -1358,6 +1308,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -1391,7 +1342,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -1590,6 +1541,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -1624,7 +1576,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <a href="#/apply?role=partner" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -1848,6 +1800,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -1882,7 +1835,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <a href="#/apply?role=support" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2096,6 +2049,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2130,7 +2084,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2230,6 +2184,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2263,7 +2218,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2362,6 +2317,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2395,7 +2351,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team" class="active">Собираем команду</a>
       <a href="#/about">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <span class="btn btn-ghost btn-sm vacancy-apply-closed" aria-disabled="true">Набор после 30.11.2026</span>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2516,6 +2472,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2549,7 +2506,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <a href="#/home">Главная</a>
       <a href="#/team">Собираем команду</a>
       <a href="#/about" class="active">О компании</a>
-      <a href="#/apply">Заявка</a>
+      <a href="#/prices">Цены</a>
       <a href="#/apply" class="btn btn-primary btn-sm">Оставить заявку</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">☰</button>
@@ -2659,6 +2616,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2802,6 +2760,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
           <li><a href="#/home">Главная</a></li>
           <li><a href="#/team">Собираем команду</a></li>
           <li><a href="#/about">О компании</a></li>
+          <li><a href="#/prices">Цены</a></li>
           <li><a href="#/apply">Оставить заявку</a></li>
         </ul>
       </div>
@@ -2831,7 +2790,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 (function(){
   const pages = document.querySelectorAll('.page');
   const roles = {backend:'Backend-разработчик (junior)',frontend:'Frontend-разработчик (junior)',analyst:'Тестировщик / аналитик веб-приложений',partner:'Менеджер по работе с партнёрами',support:'Оператор чат-поддержки / чат-менеджер',trainee:'Обучение программированию с нуля'};
-  const titles = {'home':'CodeDev — IT-компания','team':'Собираем команду · CodeDev','vacancy-analyst':'Тестировщик / аналитик · CodeDev','vacancy-partner':'Менеджер по работе с партнёрами · CodeDev','vacancy-support':'Оператор чат-поддержки · CodeDev','vacancy-backend':'Backend (junior) · CodeDev','vacancy-frontend':'Frontend (junior) · CodeDev','vacancy-trainee':'Обучение программированию · CodeDev','about':'О компании · CodeDev','apply':'Оставить заявку · CodeDev'};
+  const titles = {'prices':'Цены на услуги · CodeDev','home':'CodeDev — IT-компания','team':'Собираем команду · CodeDev','vacancy-analyst':'Тестировщик / аналитик · CodeDev','vacancy-partner':'Менеджер по работе с партнёрами · CodeDev','vacancy-support':'Оператор чат-поддержки · CodeDev','vacancy-backend':'Backend (junior) · CodeDev','vacancy-frontend':'Frontend (junior) · CodeDev','vacancy-trainee':'Обучение программированию · CodeDev','about':'О компании · CodeDev','apply':'Оставить заявку · CodeDev'};
 
   function bindForm(scope){
     const form = scope.querySelector('#applyForm');
@@ -2900,6 +2859,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     if (!target){ location.hash = '#/home'; return; }
     pages.forEach(function(p){ p.hidden = (p !== target); });
     document.title = titles[slug] || 'CodeDev';
+    target.querySelectorAll('.nav-links a:not(.btn)').forEach(function(link){ const active = link.getAttribute('href') === '#/' + slug; link.classList.toggle('active',active); if(active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current'); });
     const menu = target.querySelector('#menu'), burger = target.querySelector('#burger');
     if (burger && menu && !burger.dataset.bound){
       burger.dataset.bound = 1;
@@ -2919,11 +2879,12 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   function route(){
     const h = (location.hash || '#/home').replace(/^#\//, '');
     const parts = h.split('?');
-    const slug = parts[0] || 'home';
+    let slug = parts[0] || 'home';
     const q = parts[1] || '';
     const params = new URLSearchParams(q);
     const role = params.get('role') || '';
     const section = params.get('section');
+    if(slug === 'home' && section === 'prices') slug = 'prices';
     show(slug, role);
     if (slug === 'home' && ['services','prices'].includes(section)) {
       requestAnimationFrame(function(){ const node = document.getElementById(section); if(node) node.scrollIntoView({behavior:motionPreference.matches?'instant':'smooth',block:'start'}); });
