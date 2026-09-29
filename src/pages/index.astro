@@ -875,6 +875,17 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .page .hero-cta .btn:focus-visible,.page[data-slug="home"] .cta-band .btn:focus-visible,.page[data-slug="prices"] .btn-primary:focus-visible { outline:2px solid #f3f0e7; outline-offset:4px; }
 @media(prefers-reduced-motion:reduce) { .page .hero-cta .btn,.page[data-slug="home"] .cta-band .btn,.page[data-slug="prices"] .btn-primary { transition:none; } }
 
+
+.home-main-actions { padding:clamp(48px,8vw,104px) 0; border-block:1px solid var(--border); background:radial-gradient(ellipse at 50% 100%,#d9ff2809,transparent 68%),var(--bg-2); }
+.home-main-actions .wrap { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,28px); }
+.home-main-action { position:relative; isolation:isolate; display:flex; align-items:center; justify-content:center; min-height:92px; padding:22px 28px; overflow:hidden; border:1px solid #3b3d32; border-radius:999px; background:#11130f; color:var(--text); font:700 clamp(16px,1.35vw,20px)/1.2 var(--display); text-align:center; text-decoration:none; transition:transform .28s cubic-bezier(.23,1,.32,1),color .25s ease,box-shadow .3s ease,border-color .3s ease; }
+.home-main-action::before { content:''; position:absolute; z-index:-1; width:150%; aspect-ratio:1; left:50%; top:100%; border-radius:50%; background:conic-gradient(from 215deg,#d9ff28,#f6ffbe 24%,#b9e900 47%,#e9ff77 72%,#d9ff28); transform:translateX(-50%) scale(.12); transition:top .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1); }
+.home-main-action::after { content:''; position:absolute; z-index:-1; inset:2px; border-radius:inherit; background:#11130f; transition:opacity .25s ease; }
+@media(hover:hover) { .home-main-action:hover { color:#090a09; border-color:#eaff76; box-shadow:0 0 0 1px #eaff7670,0 0 22px #d9ff2870,0 0 58px #d9ff2838; transform:translateY(-3px); } .home-main-action:hover::before { top:-96%; transform:translateX(-50%) scale(1.1); } .home-main-action:hover::after { opacity:0; } }
+.home-main-action:focus-visible { outline:2px solid #f3f0e7; outline-offset:5px; }
+@media(max-width:760px) { .home-main-actions { padding:42px 0; } .home-main-actions .wrap { grid-template-columns:1fr; gap:12px; } .home-main-action { min-height:64px; } }
+@media(prefers-reduced-motion:reduce) { .home-main-action,.home-main-action::before,.home-main-action::after { transition:none; } }
+
 </style>
 </head>
 <body>
@@ -907,7 +918,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="hero-cta">
         <a href="#/about" class="btn btn-primary">О компании</a>
         <a href="#/team" class="btn btn-ghost">Команда</a>
-        <a href="#/prices" class="btn btn-primary btn-prices">Узнать цену</a>
         <a href="#/apply" class="btn btn-ghost">Обсудить проект</a>
       </div>
       <p class="hero-note">CRM · AI-ВНЕДРЕНИЕ · ВЕБ-СЕРВИСЫ · ИНТЕГРАЦИИ</p>
@@ -994,6 +1004,14 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <details><summary>Можно ли подключить AI к уже работающей CRM?</summary><p>Да, если CRM и используемые сервисы позволяют безопасно обмениваться данными. Сначала проверяем доступные интеграции и сценарий.</p></details>
       <details><summary>Входят ли лицензии и расходы на AI в стоимость?</summary><p>Лицензии сторонних продуктов, хостинг и расходы на использование AI-платформ указываются отдельно и согласуются заранее.</p></details>
     </div>
+  </div>
+</section>
+
+<section class="home-main-actions" aria-label="Основные разделы">
+  <div class="wrap">
+    <a class="home-main-action" href="#/team">Собираем команду</a>
+    <a class="home-main-action" href="#/about">О компании</a>
+    <a class="home-main-action" href="#/prices">Цены</a>
   </div>
 </section>
 
