@@ -1,7 +1,6 @@
 // Neuro Noise: adapted from Paper Shaders, Apache-2.0.
 // https://github.com/paper-design/shaders — shader supplied by the user, unchanged.
 (() => {
- if(new URLSearchParams(location.search).get('robot')!=='1') return;
  const host=document.querySelector('.robot-atmosphere');
  if(!host) return;
  const canvas=document.createElement('canvas');
