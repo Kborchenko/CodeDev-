@@ -874,6 +874,32 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .about-opening-visual figcaption { position:absolute; z-index:2; left:22px; right:22px; bottom:18px; display:flex; justify-content:space-between; gap:20px; color:var(--accent); font:700 11px/1.4 var(--mono); letter-spacing:.1em; }
 @media(max-width:850px) { .about-opening-grid { grid-template-columns:1fr; gap:28px; } .about-opening { min-height:clamp(620px,90vw,760px); } .about-opening-copy { max-width:640px; padding-block:44px; } .about-opening-copy h1 { max-width:780px; } .about-opening-visual { min-height:0; } }
 @media(max-width:560px) { .about-opening { min-height:690px; } .about-opening-copy { padding-block:36px; } .about-opening-visual { min-height:0; } .about-opening-visual img { object-position:66% center; transform:scale(1.18); transform-origin:66% center; } .about-opening-visual figcaption { left:14px; right:14px; bottom:12px; font-size:9px; } }
+@media(max-width:600px) {
+  .page .wrap { min-width:0; }
+  .page[data-slug="home"] .hero-grid { min-height:max(820px,100svh); }
+  .page[data-slug="home"] .hero-grid>div:first-child { padding:38px 20px; }
+  .page[data-slug="home"] .hero h1 { font-size:clamp(40px,11vw,54px); }
+  .page[data-slug="home"] .hero-cta { flex-wrap:wrap; }
+  .page[data-slug="home"] .hero-cta .btn { padding-inline:18px; }
+  .page[data-slug="home"] .term-body { max-width:calc(100% - 28px); }
+  .home-destination-panel { padding:24px 16px; border-radius:18px; }
+  .home-destination-panel h2 { font-size:clamp(29px,8.6vw,38px); }
+  .home-destination-side { padding:16px; }
+  .home-destination-fact { align-items:flex-start; gap:10px; font-size:13px; }
+  .home-destination-fact strong { white-space:normal; text-align:right; }
+  .home-destination-cta { min-height:54px; padding:14px 16px; font-size:15px; text-align:center; }
+  .about-opening { min-height:760px; }
+  .about-opening-copy h1 { font-size:clamp(34px,9vw,46px); }
+  .about-opening-copy .lead { max-width:36ch; }
+  .form input,.form select,.form textarea { max-width:100%; font-size:16px; }
+  .foot-grid { grid-template-columns:1fr; }
+}
+@media(max-width:360px) {
+  .page .wrap { padding-inline:16px; }
+  .home-destination-fact { flex-direction:column; gap:4px; }
+  .home-destination-fact strong { text-align:left; }
+  .service-price-table { min-width:560px; }
+}
 
 </style>
 </head>
@@ -1011,12 +1037,12 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 
 <section class="home-destination home-destination-prices" aria-labelledby="home-prices-title"><div class="wrap"><div class="home-destination-panel" data-number="01">
  <div class="home-destination-copycol"><div class="home-destination-kicker">Услуги · стоимость · сроки</div><h2 id="home-prices-title">Цены на разработку и интеграции</h2><p>Предварительные ориентиры для сайтов, веб-приложений, CRM и AI-интеграций. Посмотрите, что входит в работы и сколько обычно занимает запуск.</p></div>
- <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Сайт для бизнеса</span><strong>50 000–200 000 ₽</strong></div><div class="home-destination-fact"><span>Веб-приложение</span><strong>от 90 000 ₽</strong></div><div class="home-destination-fact"><span>AI-интеграция</span><strong>от 30 000 ₽</strong></div></div><a class="home-destination-cta" href="#/prices">Все услуги и цены <span aria-hidden="true">↗</span></a></div>
+ <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Сайт для бизнеса</span><strong>50 000–200 000 ₽</strong></div><div class="home-destination-fact"><span>Веб-приложение</span><strong>от 90 000 ₽</strong></div><div class="home-destination-fact"><span>AI-интеграция</span><strong>от 30 000 ₽</strong></div></div><a class="home-destination-cta" href="#/prices">Все услуги и цены</a></div>
  </div></div></section>
 
 <section class="home-destination home-destination-team" aria-labelledby="home-team-title"><div class="wrap"><div class="home-destination-panel" data-number="02">
  <div class="home-destination-copycol"><div class="home-destination-kicker">Карьера · открытые роли · развитие</div><h2 id="home-team-title">Собираем команду CodeDev</h2><p>Ищем разработчиков, тестировщиков, специалистов поддержки и коллег по работе с партнёрами. На странице команды — актуальные направления, этапы отбора и условия.</p></div>
- <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Открытых наборов</span><strong>02</strong></div><div class="home-destination-fact"><span>Планируется открыть</span><strong>04</strong></div><div class="home-destination-fact"><span>Формат отбора</span><strong>По направлениям</strong></div></div><a class="home-destination-cta" href="#/team">Посмотреть команду и вакансии <span aria-hidden="true">↗</span></a></div>
+ <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Открытых наборов</span><strong>02</strong></div><div class="home-destination-fact"><span>Планируется открыть</span><strong>04</strong></div><div class="home-destination-fact"><span>Формат отбора</span><strong>По направлениям</strong></div></div><a class="home-destination-cta" href="#/team">Посмотреть команду и вакансии</a></div>
  </div></div></section>
 
 <footer class="foot">
