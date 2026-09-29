@@ -756,6 +756,21 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:960px) { .robot-stage { inset:240px 0 195px 30%; } }
 @media(max-width:600px) { .robot-stage { inset:420px 0 210px 0; } .robot-return { top:auto; bottom:245px; right:24px; } }
 
+
+/* Atmospheric backdrop for the robot: fine grid, mist and sparse particles. */
+.page[data-slug="home"] .term.robot-preview::before {
+ background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.94) 26%,transparent 65%),linear-gradient(rgba(165,180,145,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(165,180,145,.065) 1px,transparent 1px),radial-gradient(ellipse at 70% 70%,#242820 0%,#10130f 42%,#090a09 80%);
+ background-size:100% 100%,88px 88px,88px 88px,100% 100%;
+}
+.robot-atmosphere { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.robot-mist { position:absolute; inset:28% -10% -20% 28%; opacity:.55; filter:blur(28px); background:radial-gradient(ellipse at 45% 66%,#a0ada528,transparent 48%),radial-gradient(ellipse at 75% 30%,#a5b39320,transparent 43%),radial-gradient(ellipse at 25% 80%,#d1d7cb1c,transparent 37%); animation:robot-mist-drift 22s ease-in-out infinite alternate; }
+.robot-particle { position:absolute; width:2px; height:2px; background:#c1c9b3; opacity:.3; animation:robot-particle-drift 14s ease-in-out infinite alternate; }
+.robot-particle:nth-child(5n) { width:3px; height:3px; background:var(--accent); box-shadow:0 0 9px #d9ff2838; opacity:.55; }
+@keyframes robot-mist-drift { from { transform:translate3d(-2%,3%,0) scale(1); } to { transform:translate3d(4%,-3%,0) scale(1.08); } }
+@keyframes robot-particle-drift { from { transform:translate3d(0,0,0); opacity:.15; } to { transform:translate3d(12px,-22px,0); opacity:.6; } }
+@media(prefers-reduced-motion:reduce) { .robot-mist,.robot-particle { animation:none; } }
+@media(max-width:600px) { .robot-mist { inset:40% -20% -5% 0; } }
+
 </style>
 </head>
 <body>
@@ -3118,6 +3133,27 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
  if (new URLSearchParams(location.search).get('robot') !== '1') return;
  const scene = document.querySelector('.page[data-slug="home"] .term');
  if (!scene) return;
+ const atmosphere = document.createElement('div');
+ atmosphere.className = 'robot-atmosphere';
+ atmosphere.setAttribute('aria-hidden','true');
+ const mist = document.createElement('div');
+ mist.className = 'robot-mist';
+ atmosphere.append(mist);
+ for (let i=0;i<48;i++) {
+  const particle = document.createElement('span');
+  particle.className = 'robot-particle';
+  particle.style.left = `${32+(i*37%67)}%`;
+  particle.style.top = `${4+(i*29%91)}%`;
+  particle.style.animationDelay = `${-(i%14)}s`;
+  atmosphere.append(particle);
+ }
+ scene.classList.add('robot-preview');
+ scene.prepend(atmosphere);
+ const atmosphereObserver = new IntersectionObserver((entries) => {
+  const visible = entries[0].isIntersecting;
+  atmosphere.querySelectorAll('.robot-mist,.robot-particle').forEach(el => { el.style.animationPlayState = visible?'running':'paused'; });
+ });
+ atmosphereObserver.observe(scene);
  const stage = document.createElement('div');
  stage.className = 'robot-stage';
  stage.setAttribute('aria-label','Интерактивный 3D-робот');
