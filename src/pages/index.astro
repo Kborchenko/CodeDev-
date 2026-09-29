@@ -836,7 +836,19 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 
 .page[data-slug="prices"] .sec { padding:56px 0 80px; }
 .page[data-slug="prices"] h1 { font-size:clamp(36px,5vw,60px); max-width:850px; margin:16px 0; }
-.page[data-slug="prices"] .btn,.page #price-preview .btn { border-radius:999px; }
+.page[data-slug="prices"] .btn { border-radius:999px; }
+
+/* Soft animated gradient edge for primary calls to action. */
+.page .btn-primary { position:relative; z-index:0; isolation:isolate; overflow:hidden; border:1px solid transparent; background:linear-gradient(#d9ff28,#d9ff28) padding-box,conic-gradient(from var(--edge-angle,0deg),#d9ff28,#f3f0e7,#91b800,#d9ff28) border-box; box-shadow:0 0 0 1px #d9ff2830,0 6px 24px #d9ff2810; transition:transform .22s cubic-bezier(.23,1,.32,1),box-shadow .22s ease,background-position .22s ease; }
+.page .btn-primary::before { content:''; position:absolute; z-index:-1; inset:1px; border-radius:inherit; background:linear-gradient(120deg,#d9ff28,#e8ff81 48%,#c6ef16); opacity:.96; transition:opacity .22s ease; }
+@media(hover:hover) { .page .btn-primary:hover { transform:translateY(-2px); box-shadow:0 0 0 1px #f3f0e788,0 0 28px #d9ff2840; } .page .btn-primary:hover::before { opacity:.82; } }
+.page .btn-primary:focus-visible { outline:2px solid #f3f0e7; outline-offset:4px; }
+.page .btn-primary:active { transform:translateY(0) scale(.985); }
+.page[data-slug="home"] .hero-cta .btn-prices { background:linear-gradient(#121510,#121510) padding-box,conic-gradient(from 0deg,#d9ff28,#f3f0e7,#91b800,#d9ff28) border-box; color:#f3f0e7; }
+.page[data-slug="home"] .hero-cta .btn-prices::before { background:#121510; opacity:1; }
+.page[data-slug="home"] .hero-cta .btn-prices:hover::before { background:#20251a; }
+@property --edge-angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+
 </style>
 </head>
 <body>
@@ -869,6 +881,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="hero-cta">
         <a href="#/about" class="btn btn-primary">О компании</a>
         <a href="#/team" class="btn btn-ghost">Команда</a>
+        <a href="#/prices" class="btn btn-primary btn-prices">Узнать цену</a>
         <a href="#/apply" class="btn btn-ghost">Обсудить проект</a>
       </div>
       <p class="hero-note">CRM · AI-ВНЕДРЕНИЕ · ВЕБ-СЕРВИСЫ · ИНТЕГРАЦИИ</p>
@@ -923,8 +936,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<section class="sec" id="price-preview"><div class="wrap"><div class="cta-band rise"><div class="eyebrow">Стоимость услуг</div><h2>Спланируйте бюджет проекта</h2><p>Сайты, веб-приложения, CRM и AI-интеграции: цены, сроки и состав работ на отдельной странице.</p><a href="#/prices" class="btn btn-primary">Узнать цену</a></div></div></section>
-
 <section class="sec-tight">
   <div class="wrap">
     <div class="sec-head rise"><div class="eyebrow">Практические сценарии</div><h2>Какие задачи можно связать в одну систему</h2></div>
@@ -960,7 +971,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<section class="sec"><div class="wrap"><div class="cta-band rise"><div class="eyebrow">Ваш проект</div><h2>Обсудим задачу вашего бизнеса</h2><p>Расскажите, какое решение вам нужно. Уточним функции, интеграции и подготовим оценку стоимости.</p><a class="btn btn-primary" href="#/prices">Узнать цену</a></div></div></section>
 <footer class="foot">
   <div class="wrap">
     <div class="foot-grid">
