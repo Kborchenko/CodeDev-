@@ -808,6 +808,33 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 }
 @media(prefers-reduced-motion:reduce) { .page .nav-links a,.page .nav-links a::before { transition:none; } }
 
+
+/* PillNav interaction adapted from the supplied component. */
+.pill-label-stack { position:relative; display:inline-block; line-height:1.15; z-index:1; }
+.pill-label-main,.pill-label-hover { display:block; transition:transform .3s cubic-bezier(.215,.61,.355,1),opacity .3s ease; }
+.pill-label-hover { position:absolute; inset:0; transform:translateY(65px); opacity:0; color:#090a09; }
+.page .nav-links a::before { width:var(--pill-circle,240px); height:var(--pill-circle,240px); aspect-ratio:auto; left:50%; top:auto; bottom:var(--pill-bottom,-20px); transform:translateX(-50%) scale(0); transform-origin:50% var(--pill-origin,100%); transition:transform .3s cubic-bezier(.215,.61,.355,1); }
+@media(hover:hover) {
+ .page .nav-links a:hover::before { top:auto; transform:translateX(-50%) scale(1.2); }
+ .page .nav-links a:hover .pill-label-main { transform:translateY(-65px); }
+ .page .nav-links a:hover .pill-label-hover { transform:translateY(0); opacity:1; }
+ .page .nav .logo:hover .logo-mark { transform:rotate(360deg); }
+}
+.page .nav .logo-mark { transition:transform .4s cubic-bezier(.215,.61,.355,1); }
+.page .nav-links a:focus-visible::before { top:auto; transform:translateX(-50%) scale(1.2); transition:none; }
+.page .nav-links a:focus-visible .pill-label-main { color:#090a09; }
+.page .burger { position:relative; }
+.page .burger::before,.page .burger::after { content:''; position:absolute; width:18px; height:2px; background:var(--accent); left:12px; top:17px; border-radius:2px; transition:transform .25s ease; }
+.page .burger::after { top:23px; }
+.page .burger[aria-expanded="true"]::before { transform:translateY(3px) rotate(45deg); }
+.page .burger[aria-expanded="true"]::after { transform:translateY(-3px) rotate(-45deg); }
+@media(max-width:960px) {
+ .page .burger { display:block; flex-shrink:0; width:44px; height:44px; }
+ .page .nav-links { display:flex; position:absolute; flex-direction:column; align-items:stretch; visibility:hidden; opacity:0; transform:translateY(-8px); pointer-events:none; transition:opacity .2s ease,transform .25s ease,visibility .25s; }
+ .page .nav-links.open { visibility:visible; opacity:1; transform:translateY(0); pointer-events:auto; }
+}
+@media(prefers-reduced-motion:reduce) { .pill-label-main,.pill-label-hover,.page .nav-links,.page .nav-links a::before,.page .nav .logo-mark,.page .burger::before,.page .burger::after { transition:none; } .page .nav .logo:hover .logo-mark { transform:none; } }
+
 </style>
 </head>
 <body>
@@ -3001,10 +3028,10 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     const menu = target.querySelector('#menu'), burger = target.querySelector('#burger');
     if (burger && menu && !burger.dataset.bound){
       burger.dataset.bound = 1;
-      burger.addEventListener('click', function(){ const o = menu.classList.toggle('open'); burger.textContent = o ? '✕' : '☰'; });
+      burger.addEventListener('click', function(){ const o = menu.classList.toggle('open'); burger.setAttribute('aria-expanded', String(o)); });
     }
     if (menu) menu.classList.remove('open');
-    if (burger) burger.textContent = '☰';
+    if (burger) { burger.textContent = ''; burger.setAttribute('aria-expanded','false'); }
     if (slug === 'career-apply' && role){
       const sel = target.querySelector('#role');
       if (sel && roles[role]) sel.value = roles[role];
@@ -3227,5 +3254,28 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
 </script>
 
 <script is:inline src="/assets/neuro-background.js?v=2"></script>
+
+<script is:inline>
+(() => {
+ const links=document.querySelectorAll('.nav-links a');
+ links.forEach(link=>{
+  const text=link.textContent.trim();
+  const stack=document.createElement('span');stack.className='pill-label-stack';
+  const main=document.createElement('span');main.className='pill-label-main';main.textContent=text;
+  const hover=document.createElement('span');hover.className='pill-label-hover';hover.textContent=text;hover.setAttribute('aria-hidden','true');
+  stack.append(main,hover);link.replaceChildren(stack);
+ });
+ const observer=new ResizeObserver(entries=>entries.forEach(({target:link})=>{
+  const {width:w,height:h}=link.getBoundingClientRect();if(!h||!w)return;
+  const r=(w*w/4+h*h)/(2*h),d=Math.ceil(2*r)+2;
+  const delta=Math.ceil(r-Math.sqrt(Math.max(0,r*r-w*w/4)))+1;
+  link.style.setProperty('--pill-circle',`${d}px`);link.style.setProperty('--pill-bottom',`${-delta}px`);link.style.setProperty('--pill-origin',`${d-delta}px`);
+ }));
+ links.forEach(link=>observer.observe(link));
+ document.querySelectorAll('.burger').forEach(button=>{button.textContent='';button.setAttribute('aria-expanded','false');});
+ document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;const page=document.querySelector('.page:not([hidden])');const menu=page?.querySelector('.nav-links.open');if(menu){menu.classList.remove('open');const button=page.querySelector('.burger');button.setAttribute('aria-expanded','false');button.focus();}});
+})();
+</script>
+
 </body>
 </html>
