@@ -876,29 +876,28 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(prefers-reduced-motion:reduce) { .page .hero-cta .btn,.page[data-slug="home"] .cta-band .btn,.page[data-slug="prices"] .btn-primary { transition:none; } }
 
 
-.home-main-actions { padding:clamp(48px,8vw,104px) 0; border-block:1px solid var(--border); background:radial-gradient(ellipse at 50% 100%,#d9ff2809,transparent 68%),var(--bg-2); }
-.home-main-actions .wrap { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,2vw,28px); }
-.home-main-action { position:relative; isolation:isolate; display:flex; align-items:center; justify-content:center; min-height:92px; padding:22px 28px; overflow:hidden; border:1px solid #3b3d32; border-radius:999px; background:#11130f; color:var(--text); font:700 clamp(16px,1.35vw,20px)/1.2 var(--display); text-align:center; text-decoration:none; transition:transform .28s cubic-bezier(.23,1,.32,1),color .25s ease,box-shadow .3s ease,border-color .3s ease; }
-.home-main-action::before { content:''; position:absolute; z-index:-1; width:150%; aspect-ratio:1; left:50%; top:100%; border-radius:50%; background:conic-gradient(from 215deg,#d9ff28,#f6ffbe 24%,#b9e900 47%,#e9ff77 72%,#d9ff28); transform:translateX(-50%) scale(.12); transition:top .55s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1); }
-.home-main-action::after { content:''; position:absolute; z-index:-1; inset:2px; border-radius:inherit; background:#11130f; transition:opacity .25s ease; }
-@media(hover:hover) { .home-main-action:hover { color:#090a09; border-color:#eaff76; box-shadow:0 0 0 1px #eaff7670,0 0 22px #d9ff2870,0 0 58px #d9ff2838; transform:translateY(-3px); } .home-main-action:hover::before { top:-96%; transform:translateX(-50%) scale(1.1); } .home-main-action:hover::after { opacity:0; } }
-.home-main-action:focus-visible { outline:2px solid #f3f0e7; outline-offset:5px; }
-@media(max-width:760px) { .home-main-actions { padding:42px 0; } .home-main-actions .wrap { grid-template-columns:1fr; gap:12px; } .home-main-action { min-height:64px; } }
-@media(prefers-reduced-motion:reduce) { .home-main-action,.home-main-action::before,.home-main-action::after { transition:none; } }
 
 
-.home-destination { position:relative; padding:clamp(54px,8vw,100px) 0; overflow:hidden; border-top:1px solid var(--border); }
-.home-destination::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 90% 50%,#d9ff280b,transparent 52%); }
-.home-destination:nth-of-type(even)::before { background:radial-gradient(ellipse at 10% 50%,#d9ff280a,transparent 52%); }
-.home-destination-inner { position:relative; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(260px,.7fr); align-items:center; gap:clamp(34px,8vw,120px); }
-.home-destination h2 { max-width:720px; margin:14px 0 20px; font-size:clamp(32px,4.8vw,58px); line-height:1.08; }
-.home-destination-copy { max-width:690px; color:var(--muted); font-size:clamp(16px,1.4vw,19px); line-height:1.7; }
-.home-destination-points { display:grid; gap:14px; padding-top:18px; }
-.home-destination-points span { display:flex; gap:12px; align-items:flex-start; color:var(--text); font-size:15px; line-height:1.55; }
-.home-destination-points span::before { content:''; flex:0 0 7px; height:7px; margin-top:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 14px #d9ff2870; }
-.home-destination .home-main-action { min-height:100px; font-size:21px; }
-.home-destination:nth-of-type(even) { background:var(--bg-2); }
-@media(max-width:760px) { .home-destination-inner { grid-template-columns:1fr; gap:28px; } .home-destination .home-main-action { min-height:72px; } }
+
+
+.home-destination { padding:32px 0; border-top:1px solid var(--border); }
+.home-destination-panel { position:relative; display:grid; grid-template-columns:minmax(0,1.08fr) minmax(320px,.72fr); gap:clamp(36px,7vw,104px); align-items:center; min-height:350px; padding:clamp(34px,6vw,76px); overflow:hidden; border:1px solid #34372d; border-radius:28px; background:linear-gradient(112deg,#131610 0%,#0e100d 58%,#171b10 100%); box-shadow:0 24px 70px #0004,inset 0 1px 0 #ffffff08; }
+.home-destination-panel::before { content:attr(data-number); position:absolute; right:40%; top:50%; transform:translateY(-55%); color:#ffffff05; font:800 clamp(180px,28vw,360px)/.8 var(--display); pointer-events:none; }
+.home-destination-panel::after { content:''; position:absolute; right:-140px; top:-180px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,#d9ff2818 0%,#d9ff2807 40%,transparent 70%); pointer-events:none; }
+.home-destination-copycol,.home-destination-side { position:relative; z-index:1; }
+.home-destination-kicker { color:var(--accent); font:700 12px/1.4 var(--mono); letter-spacing:.13em; text-transform:uppercase; }
+.home-destination-panel h2 { max-width:680px; margin:16px 0 18px; font-size:clamp(34px,4.5vw,58px); line-height:1.05; }
+.home-destination-panel p { max-width:640px; color:#b9bcb0; font-size:clamp(16px,1.3vw,19px); line-height:1.7; }
+.home-destination-side { display:grid; gap:24px; padding:25px; border:1px solid #ffffff17; border-radius:20px; background:#090b09a8; backdrop-filter:blur(12px); }
+.home-destination-facts { display:grid; gap:0; }
+.home-destination-fact { display:flex; justify-content:space-between; gap:18px; padding:15px 0; border-bottom:1px solid #ffffff16; color:#c6c9bd; font-size:14px; line-height:1.45; }
+.home-destination-fact:last-child { border-bottom:0; }
+.home-destination-fact strong { color:var(--accent); font-size:15px; white-space:nowrap; }
+.home-destination-cta { display:flex; align-items:center; justify-content:center; min-height:62px; padding:16px 24px; border:1px solid #eeff99; border-radius:999px; background:linear-gradient(110deg,#d9ff28,#efff8d 48%,#b8e600); color:#090a09; font:700 17px/1.2 var(--display); text-decoration:none; box-shadow:0 0 18px #d9ff2830; transition:transform .25s ease,box-shadow .3s ease; }
+@media(hover:hover) { .home-destination-cta:hover { transform:translateY(-2px); box-shadow:0 0 0 1px #f3f0e7,0 0 20px #d9ff2890,0 0 50px #d9ff2850; } }
+.home-destination-cta:focus-visible { outline:2px solid #f3f0e7; outline-offset:4px; }
+@media(max-width:760px) { .home-destination { padding:18px 0; } .home-destination-panel { grid-template-columns:1fr; gap:24px; min-height:0; padding:28px 22px; border-radius:22px; } .home-destination-panel::before { right:10px; top:32px; transform:none; font-size:170px; } .home-destination-panel::after { right:-230px; top:-120px; } .home-destination-panel h2 { font-size:clamp(32px,9vw,44px); } .home-destination-side { padding:18px; } }
+@media(prefers-reduced-motion:reduce) { .home-destination-cta { transition:none; } }
 
 </style>
 </head>
@@ -931,7 +930,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       </p>
       <div class="hero-cta">
         <a href="#/about" class="btn btn-primary">О компании</a>
-        <a href="#/team" class="btn btn-ghost">Команда</a>
         <a href="#/apply" class="btn btn-ghost">Обсудить проект</a>
       </div>
       <p class="hero-note">CRM · AI-ВНЕДРЕНИЕ · ВЕБ-СЕРВИСЫ · ИНТЕГРАЦИИ</p>
@@ -1035,6 +1033,16 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
  </div>
 </section>
 
+
+<section class="home-destination home-destination-prices" aria-labelledby="home-prices-title"><div class="wrap"><div class="home-destination-panel" data-number="01">
+ <div class="home-destination-copycol"><div class="home-destination-kicker">Услуги · стоимость · сроки</div><h2 id="home-prices-title">Цены на разработку и интеграции</h2><p>Предварительные ориентиры для сайтов, веб-приложений, CRM и AI-интеграций. Посмотрите, что входит в работы и сколько обычно занимает запуск.</p></div>
+ <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Сайт для бизнеса</span><strong>50 000–200 000 ₽</strong></div><div class="home-destination-fact"><span>Веб-приложение</span><strong>от 90 000 ₽</strong></div><div class="home-destination-fact"><span>AI-интеграция</span><strong>от 30 000 ₽</strong></div></div><a class="home-destination-cta" href="#/prices">Все услуги и цены <span aria-hidden="true">↗</span></a></div>
+ </div></div></section>
+
+<section class="home-destination home-destination-team" aria-labelledby="home-team-title"><div class="wrap"><div class="home-destination-panel" data-number="02">
+ <div class="home-destination-copycol"><div class="home-destination-kicker">Карьера · открытые роли · развитие</div><h2 id="home-team-title">Собираем команду CodeDev</h2><p>Ищем разработчиков, тестировщиков, специалистов поддержки и коллег по работе с партнёрами. На странице команды — актуальные направления, этапы отбора и условия.</p></div>
+ <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Открытых наборов</span><strong>02</strong></div><div class="home-destination-fact"><span>Планируется открыть</span><strong>04</strong></div><div class="home-destination-fact"><span>Формат отбора</span><strong>По направлениям</strong></div></div><a class="home-destination-cta" href="#/team">Посмотреть команду и вакансии <span aria-hidden="true">↗</span></a></div>
+ </div></div></section>
 
 <footer class="foot">
   <div class="wrap">
