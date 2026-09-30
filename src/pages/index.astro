@@ -1077,15 +1077,15 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-services-visual { isolation:isolate; }
 .home-services-visual::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(0deg,rgba(8,9,8,.32),transparent 35%),linear-gradient(90deg,rgba(8,9,8,.14),transparent 34%); }
 .home-services-visual img { display:block; width:100%; height:100%; object-fit:cover; object-position:63% center; filter:saturate(.84) brightness(.82); }
-.home-service-picker { position:absolute; z-index:2; left:clamp(14px,4%,30px); bottom:clamp(48px,8%,68px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; width:min(84%,430px); }
-.home-service-choice { position:relative; display:flex; flex-direction:column; justify-content:center; gap:5px; min-width:0; min-height:92px; padding:13px 15px; overflow:hidden; color:var(--text); text-decoration:none; border:1px solid rgba(238,235,220,.24); border-radius:9px; background:rgba(9,11,10,.78); box-shadow:0 8px 28px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.05); backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,background .22s,box-shadow .22s; }
-.home-service-choice::after { content:'↗'; position:absolute; top:11px; right:12px; color:var(--accent); font:600 13px/1 var(--body); opacity:.75; transition:transform .22s,opacity .22s; }
-.home-service-choice:hover,.home-service-choice:focus-visible { transform:translateY(-2px); border-color:rgba(217,255,40,.64); background:rgba(15,19,12,.9); box-shadow:0 10px 30px rgba(0,0,0,.34),0 0 22px rgba(217,255,40,.09); }
+.home-service-picker { position:absolute; z-index:2; left:clamp(14px,4%,30px); bottom:clamp(125px,18%,160px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 30px; width:min(84%,430px); }
+.home-service-choice { position:relative; display:flex; flex-direction:column; justify-content:center; gap:5px; min-width:0; padding:2px 20px 2px 0; color:var(--text); text-decoration:none; text-shadow:0 2px 9px rgba(0,0,0,.95); transition:color .2s,opacity .2s; }
+.home-service-choice::after { content:'↗'; position:absolute; top:2px; right:2px; color:var(--accent); font:600 13px/1 var(--body); opacity:0; transition:transform .2s,opacity .2s; }
+.home-service-choice:hover,.home-service-choice:focus-visible { color:var(--accent); }
 .home-service-choice:hover::after,.home-service-choice:focus-visible::after { transform:translate(2px,-2px); opacity:1; }
-.home-service-choice:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.home-service-choice:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
 .home-service-choice-code { color:var(--accent); font:700 9px/1.4 var(--mono); letter-spacing:.09em; }
-.home-service-choice strong { max-width:24ch; padding-right:12px; font:600 16px/1.25 var(--display); }
-.home-service-choice small { max-width:36ch; color:rgba(243,240,231,.72); font:400 11px/1.45 var(--body); }
+.home-service-choice strong { max-width:24ch; font:600 16px/1.25 var(--display); }
+.home-service-choice small { max-width:36ch; color:rgba(243,240,231,.82); font:400 11px/1.45 var(--body); }
 .home-services-visual figcaption { position:absolute; z-index:2; right:18px; bottom:18px; color:var(--accent); font:700 10px/1.5 var(--mono); letter-spacing:.12em; }
 .page[data-slug="home"] .home-scenarios-section .wrap { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:clamp(36px,7vw,100px); align-items:start; }
 .home-scenarios-copy { display:grid; gap:24px; padding-top:12px; }
@@ -1109,9 +1109,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   .home-service-title>span { flex-basis:auto; }
   .home-service-row p,.home-service-facts { margin-left:0; }
   .home-services-visual { height:340px; }
-  .home-service-picker { left:12px; bottom:42px; width:min(94%,430px); gap:7px; }
-  .home-service-choice { min-height:76px; padding:10px 11px; border-radius:8px; }
-  .home-service-choice::after { top:9px; right:9px; font-size:12px; }
+  .home-service-picker { left:12px; bottom:42px; width:min(94%,430px); gap:17px 20px; }
+  .home-service-choice { padding-right:16px; }
+  .home-service-choice::after { top:2px; right:0; font-size:12px; }
   .home-service-choice-code { font-size:8px; }
   .home-service-choice strong { font-size:14px; }
   .home-service-choice small { font-size:10px; }
@@ -1203,7 +1203,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
         <article class="home-service-row rise"><div class="home-service-title"><span>04 · API</span><h3>Интеграции</h3></div><p>Связываем формы, CRM, телефонию, мессенджеры и учётные системы через API и готовые коннекторы.</p><div class="home-service-facts"><span>Стоимость — по задаче</span><span>Срок — по объёму работ</span></div></article>
       </div>
       <figure class="home-services-visual rise">
-        <img src="/assets/codedev-service-system.webp" alt="Цифровые инструменты объединены в единую систему для бизнеса" width="1536" height="1024" loading="lazy" decoding="async">
+        <img src="/assets/codedev-service-system-v2.png" alt="Цифровые инструменты объединены в единую систему для бизнеса" width="1536" height="1024" loading="lazy" decoding="async">
         <nav class="home-service-picker" aria-label="Перейти к услуге и её стоимости">
           <a class="home-service-choice" href="#/prices" aria-label="Настройка CRM: воронки, клиенты и отчёты">
             <span class="home-service-choice-code">01 · CRM</span><strong>Настройка CRM</strong><small>Воронки, клиенты и отчёты</small>
