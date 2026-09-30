@@ -903,14 +903,15 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .about-opening { position:relative; min-height:clamp(560px,66vw,760px); display:flex; align-items:center; padding:0!important; overflow:hidden; border:0; }
 .about-opening-grid { position:relative; z-index:2; width:100%; max-width:1240px; margin-inline:auto; padding-inline:32px; }
 .about-opening-copy { position:relative; z-index:2; max-width:670px; padding-block:60px; }
+.about-opening .crumbs { position:absolute; z-index:3; top:18px; left:50%; width:min(var(--wrap),100%); margin:0; padding:0 32px; transform:translateX(-50%); }
 .about-opening-copy h1 { max-width:680px; margin:18px 0 20px; font-size:clamp(36px,4.4vw,58px); line-height:1.06; }
 .about-opening-copy .lead { max-width:620px; color:#c2c5ba; font-size:clamp(16px,1.3vw,19px); line-height:1.75; }
 .about-opening-visual { position:absolute; z-index:0; inset:0; width:100%; height:100%; margin:0; overflow:hidden; isolation:isolate; border:0; border-radius:0; background:#090a09; box-shadow:none; }
 .about-opening-visual::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.94) 28%,rgba(9,10,9,.56) 52%,rgba(9,10,9,.05) 82%),linear-gradient(0deg,#090a0970,transparent 48%),linear-gradient(120deg,#d9ff2810,transparent 56%); }
-.about-opening-visual img { display:block; position:absolute; inset:-2px; width:calc(100% + 4px); height:calc(100% + 4px); object-fit:cover; object-position:68% center; transform:scale(1.28); transform-origin:68% center; filter:grayscale(.68) brightness(.74) contrast(1.08); }
+.about-opening-visual img { display:block; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:68% center; filter:grayscale(.68) brightness(.74) contrast(1.08); }
 .about-opening-visual figcaption { position:absolute; z-index:2; left:22px; right:22px; bottom:18px; display:flex; justify-content:space-between; gap:20px; color:var(--accent); font:700 11px/1.4 var(--mono); letter-spacing:.1em; }
 @media(max-width:850px) { .about-opening-grid { grid-template-columns:1fr; gap:28px; } .about-opening { min-height:clamp(620px,90vw,760px); } .about-opening-copy { max-width:640px; padding-block:44px; } .about-opening-copy h1 { max-width:780px; } .about-opening-visual { min-height:0; } }
-@media(max-width:560px) { .about-opening { min-height:690px; } .about-opening-copy { padding-block:36px; } .about-opening-visual { min-height:0; } .about-opening-visual img { object-position:66% center; transform:scale(1.18); transform-origin:66% center; } .about-opening-visual figcaption { left:14px; right:14px; bottom:12px; font-size:9px; } }
+@media(max-width:560px) { .about-opening { min-height:690px; } .about-opening-copy { padding-block:36px; } .about-opening .crumbs { top:14px; padding-inline:20px; } .about-opening-visual { min-height:0; } .about-opening-visual img { object-position:66% center; } .about-opening-visual figcaption { left:14px; right:14px; bottom:12px; font-size:9px; } }
 @media(max-width:600px) {
   .page .wrap { min-width:0; }
   .page[data-slug="home"] .hero-grid { min-height:max(820px,100svh); }
@@ -2674,9 +2675,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </header>
 
-<div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>О компании</div>
-
 <section class="sec about-opening">
+  <div class="wrap crumbs"><a href="#/home">Главная</a><span>/</span>О компании</div>
   <div class="wrap about-opening-grid">
     <div class="about-opening-copy">
       <div class="eyebrow">О CodeDev · IT и цифровые продукты</div>
