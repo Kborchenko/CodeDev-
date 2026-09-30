@@ -939,6 +939,46 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   .service-price-table { min-width:560px; }
 }
 
+/* Varied bento layouts for the three key homepage card groups. */
+.home-principles-grid,.home-services-grid { grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-areas:"wide wide top" "bottom foot foot"; gap:14px; }
+.home-principles-grid .card,.home-services-grid .card,.home-scenarios-grid .card { position:relative; min-width:0; min-height:210px; overflow:hidden; isolation:isolate; display:flex; flex-direction:column; justify-content:flex-end; padding:26px; border-radius:16px; background:linear-gradient(145deg,#151711,#0d0f0d 78%); box-shadow:inset 0 1px #ffffff08,0 16px 40px #0002; transition:transform .28s cubic-bezier(.23,1,.32,1),border-color .25s,background .25s; }
+.home-principles-grid .card::before,.home-services-grid .card::before,.home-scenarios-grid .card::before { content:''; position:absolute; z-index:0; inset:0; pointer-events:none; opacity:.8; background:radial-gradient(ellipse at 100% 0%,#d9ff281b,transparent 54%); }
+.home-principles-grid .card>* ,.home-services-grid .card>* ,.home-scenarios-grid .card>* { position:relative; z-index:1; }
+.home-principles-grid .card:hover,.home-services-grid .card:hover,.home-scenarios-grid .card:hover { transform:translateY(-4px); border-color:#737b42; background:linear-gradient(145deg,#1b1e13,#10120e 78%); }
+.home-principles-grid .card:nth-child(1),.home-services-grid .card:nth-child(1) { grid-area:wide; }
+.home-principles-grid .card:nth-child(2),.home-services-grid .card:nth-child(2) { grid-area:top; }
+.home-principles-grid .card:nth-child(3),.home-services-grid .card:nth-child(3) { grid-area:bottom; }
+.home-principles-grid .card:nth-child(4),.home-services-grid .card:nth-child(4) { grid-area:foot; }
+.home-principles-grid .card:nth-child(2)::before { background:radial-gradient(ellipse at 100% 0%,#bddf4720,transparent 60%); }
+.home-principles-grid .card:nth-child(3)::before { background:radial-gradient(ellipse at 0% 100%,#d9ff2815,transparent 58%); }
+.home-principles-grid .card:nth-child(4)::before { background:linear-gradient(100deg,#d9ff2810,transparent 72%); }
+.home-services-grid .card:nth-child(1)::before { background:radial-gradient(ellipse at 100% 0%,#d9ff2825,transparent 58%); }
+.home-services-grid .card:nth-child(2)::before { background:radial-gradient(ellipse at 100% 100%,#a7b57c1b,transparent 58%); }
+.home-services-grid .card:nth-child(3)::before { background:radial-gradient(ellipse at 0% 0%,#ced8bd16,transparent 56%); }
+.home-services-grid .card:nth-child(4)::before { background:linear-gradient(100deg,#d9ff2814,transparent 70%); }
+.home-principles-grid .card-ico,.home-services-grid .card-ico { width:46px; height:34px; margin-bottom:auto; border-radius:999px; background:#d9ff2810; border-color:#d9ff2835; font-size:12px; }
+.home-principles-grid .card h3,.home-services-grid .card h3,.home-scenarios-grid .card h3 { margin:30px 0 9px; font-size:clamp(18px,1.7vw,22px); }
+.home-principles-grid .card p,.home-services-grid .card p,.home-scenarios-grid .card p { max-width:46ch; margin:0; line-height:1.65; }
+.home-scenarios-grid { grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-areas:"small-one feature feature" "small-two feature feature"; gap:14px; }
+.home-scenarios-grid .card:nth-child(1) { grid-area:small-one; }
+.home-scenarios-grid .card:nth-child(2) { grid-area:feature; min-height:100%; background:linear-gradient(145deg,#181b11,#0c0e0c 75%); }
+.home-scenarios-grid .card:nth-child(3) { grid-area:small-two; }
+.home-scenarios-grid .card:nth-child(2)::before { background:radial-gradient(ellipse at 100% 0%,#d9ff2826,transparent 62%),linear-gradient(130deg,transparent 45%,#ffffff05); }
+.home-scenarios-grid .card-ico { width:46px; height:34px; margin-bottom:auto; border-radius:999px; }
+.page .grid-3>.card:nth-child(3n+2),.page .grid-4>.card:nth-child(even) { background:radial-gradient(ellipse at 100% 0%,#b9c8870c,transparent 58%),linear-gradient(145deg,#141511,#0d0e0c 78%); }
+.page .grid-3>.card:nth-child(3n),.page .grid-4>.card:nth-child(4n) { border-top-color:#565c3b; }
+.page .grid-3>.card:nth-child(3n+2) .card-ico,.page .grid-4>.card:nth-child(even) .card-ico { border-radius:50%; background:#ffffff08; }
+@media(max-width:960px) {
+  .home-principles-grid,.home-services-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-areas:"wide wide" "top bottom" "foot foot"; }
+  .home-scenarios-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-areas:"small-one feature" "small-two feature"; }
+}
+@media(max-width:600px) {
+  .home-principles-grid,.home-services-grid,.home-scenarios-grid { grid-template-columns:minmax(0,1fr); grid-template-areas:none; gap:12px; }
+  .home-principles-grid .card,.home-services-grid .card,.home-scenarios-grid .card { grid-area:auto!important; min-height:190px; padding:22px; }
+  .home-scenarios-grid .card:nth-child(2) { min-height:230px; }
+  .home-principles-grid .card h3,.home-services-grid .card h3,.home-scenarios-grid .card h3 { margin-top:24px; font-size:20px; }
+}
+
 </style>
 </head>
 <body>
@@ -995,10 +1035,10 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 </section>
 
 <!-- ПРИНЦИПЫ -->
-<section class="sec-tight" style="border-bottom:1px solid var(--border)">
+<section class="sec-tight home-principles-section" style="border-bottom:1px solid var(--border)">
   <div class="wrap">
     <div class="sec-head rise"><div class="eyebrow">02 · Принципы</div><h2>Системный подход к цифровым продуктам</h2></div>
-    <div class="grid-4">
+    <div class="grid-4 home-principles-grid">
       <article class="card rise"><div class="card-ico">01</div><h3>Сначала задача</h3><p>Разбираемся, что нужно бизнесу и пользователям, прежде чем выбирать технологии.</p></article>
       <article class="card rise"><div class="card-ico">02</div><h3>Продуманная система</h3><p>Проектируем понятную структуру, которую можно развивать вместе с продуктом.</p></article>
       <article class="card rise"><div class="card-ico">03</div><h3>Качество в деталях</h3><p>Проверяем сценарии, интерфейсы и стабильность до передачи результата.</p></article>
@@ -1008,14 +1048,14 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 </section>
 
 <!-- УСЛУГИ И ОРИЕНТИРЫ -->
-<section class="sec" id="services" style="background:var(--bg-2);border-block:1px solid var(--border)">
+<section class="sec home-services-section" id="services" style="background:var(--bg-2);border-block:1px solid var(--border)">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">03 · Услуги Code</div>
       <h2>Связываем цифровые инструменты с задачами бизнеса</h2>
       <p class="lead">Разрабатываем веб-продукты, создаём и настраиваем CRM, подключаем AI к рабочим процессам и объединяем сервисы через интеграции.</p>
     </div>
-    <div class="grid-4">
+    <div class="grid-4 home-services-grid">
       <article class="card rise"><div class="card-ico">01</div><h3>CRM-разработка</h3><p>Настройка готовой CRM или создание системы под процессы продаж, работы с клиентами и внутренние задачи.</p></article>
       <article class="card rise"><div class="card-ico">02</div><h3>AI-внедрение</h3><p>Подключаем AI-помощников и автоматизацию к сайту, CRM и базе знаний для конкретных рабочих сценариев.</p></article>
       <article class="card rise"><div class="card-ico">03</div><h3>Сайты и веб-сервисы</h3><p>Корпоративные сайты, личные кабинеты и веб-приложения для клиентов и сотрудников.</p></article>
@@ -1024,10 +1064,10 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   </div>
 </section>
 
-<section class="sec-tight">
+<section class="sec-tight home-scenarios-section">
   <div class="wrap">
     <div class="sec-head rise"><div class="eyebrow">Практические сценарии</div><h2>Какие задачи можно связать в одну систему</h2></div>
-    <div class="grid-3">
+    <div class="grid-3 home-scenarios-grid">
       <article class="card rise"><div class="card-ico">01</div><h3>Заявка попадает в CRM</h3><p>Сайт передаёт обращение в нужную воронку, назначает ответственного и запускает уведомление.</p></article>
       <article class="card rise"><div class="card-ico">02</div><h3>AI помогает команде</h3><p>Помощник ищет ответ в базе знаний, подготавливает черновик и передаёт сложный запрос сотруднику.</p></article>
       <article class="card rise"><div class="card-ico">03</div><h3>Сервисы обмениваются данными</h3><p>CRM, личный кабинет и учётная система синхронизируют статусы и нужную информацию.</p></article>
