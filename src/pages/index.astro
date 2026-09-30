@@ -1051,6 +1051,58 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:560px) { .page[data-slug="home"] .home-services-grid { grid-template-columns:minmax(0,1fr); grid-template-areas:none; } .page[data-slug="home"] .home-services-grid .service-card:nth-child(n) { grid-area:auto; min-height:280px; } .numen-project-facts { gap:12px; } .numen-contact { margin-left:0; } }
 @media(max-width:760px) { .page[data-slug="home"] .home-destination-team .home-destination-panel { grid-template-columns:1fr; } }
 
+/* Homepage editorial flow: remove repeated card frames from principles and use cases. */
+.page[data-slug="home"] .home-principles-section,
+.page[data-slug="home"] .home-scenarios-section { background:transparent!important; border:0!important; }
+.page[data-slug="home"] .home-principles-section .wrap { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:clamp(36px,7vw,100px); align-items:start; }
+.home-principles-intro h2,.home-scenarios-heading h2 { margin:14px 0 16px; }
+.home-principles-intro .lead,.home-scenarios-heading .lead { max-width:48ch; color:var(--muted); }
+.home-principles-copy { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 40px; padding-top:12px; }
+.home-principles-copy p { margin:0; max-width:38ch; color:var(--muted); line-height:1.75; }
+.home-principles-copy strong,.home-scenarios-copy strong { color:var(--text); font-weight:650; }
+.home-principles-copy strong { color:var(--accent); }
+.page[data-slug="home"] .home-services-section { background:var(--bg-2)!important; border:0!important; }
+.home-services-heading { max-width:810px; margin-bottom:clamp(28px,4vw,50px); }
+.home-services-heading h2 { max-width:19ch; }
+.home-services-feature { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(28px,6vw,82px); align-items:center; }
+.home-services-list { display:grid; gap:clamp(24px,3.4vw,42px); }
+.home-service-row { display:grid; gap:9px; min-width:0; }
+.home-service-title { display:flex; align-items:baseline; gap:14px; }
+.home-service-title>span { flex:0 0 84px; color:var(--accent); font:700 10px/1.5 var(--mono); letter-spacing:.1em; }
+.home-service-title h3 { margin:0; font-size:clamp(19px,1.8vw,24px); }
+.home-service-row p { margin:0 0 0 98px; max-width:47ch; color:var(--muted); font-size:14px; line-height:1.7; }
+.home-service-facts { display:flex; flex-wrap:wrap; gap:8px 20px; margin-left:98px; color:var(--muted); font:600 10px/1.5 var(--mono); letter-spacing:.035em; }
+.home-service-facts span:first-child { color:var(--text); }
+.home-services-visual { position:relative; min-width:0; height:clamp(430px,49vw,690px); margin:0; overflow:hidden; background:#0b0c0b; }
+.home-services-visual::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(0deg,rgba(8,9,8,.32),transparent 35%),linear-gradient(90deg,rgba(8,9,8,.14),transparent 34%); }
+.home-services-visual img { display:block; width:100%; height:100%; object-fit:cover; object-position:63% center; filter:saturate(.84) brightness(.82); }
+.home-services-visual figcaption { position:absolute; z-index:1; right:18px; bottom:18px; color:var(--accent); font:700 10px/1.5 var(--mono); letter-spacing:.12em; }
+.page[data-slug="home"] .home-scenarios-section .wrap { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:clamp(36px,7vw,100px); align-items:start; }
+.home-scenarios-copy { display:grid; gap:24px; padding-top:12px; }
+.home-scenarios-copy p { display:grid; grid-template-columns:40px minmax(0,1fr); column-gap:16px; row-gap:4px; margin:0; max-width:68ch; color:var(--muted); line-height:1.7; }
+.home-scenarios-copy p>span { grid-row:1 / span 2; padding-top:3px; color:var(--accent); font:700 11px/1.5 var(--mono); letter-spacing:.08em; }
+.home-scenarios-copy strong { font-size:16px; }
+
+/* Full-bleed About portrait: restore the complete crown and retain source sharpness. */
+.about-opening-visual img { object-position:72% 14%; filter:grayscale(.62) brightness(.9) contrast(1.06); }
+@media(max-width:850px) {
+  .page[data-slug="home"] .home-principles-section .wrap,
+  .page[data-slug="home"] .home-scenarios-section .wrap { grid-template-columns:1fr; gap:24px; }
+  .home-principles-copy { gap:20px 28px; }
+  .home-services-feature { grid-template-columns:1fr; }
+  .home-services-visual { height:clamp(360px,70vw,540px); }
+}
+@media(max-width:560px) {
+  .home-principles-copy { grid-template-columns:1fr; gap:18px; }
+  .home-principles-copy p { max-width:56ch; }
+  .home-service-title { align-items:flex-start; flex-direction:column; gap:5px; }
+  .home-service-title>span { flex-basis:auto; }
+  .home-service-row p,.home-service-facts { margin-left:0; }
+  .home-services-visual { height:340px; }
+  .home-scenarios-copy { gap:20px; }
+  .home-scenarios-copy p { grid-template-columns:32px minmax(0,1fr); column-gap:12px; }
+}
+
 </style>
 </head>
 <body>
@@ -1107,42 +1159,45 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 </section>
 
 <!-- ПРИНЦИПЫ -->
-<section class="sec-tight home-principles-section" style="border-bottom:1px solid var(--border)">
+<section class="sec-tight home-principles-section">
   <div class="wrap">
-    <div class="sec-head rise"><div class="eyebrow">02 · Принципы</div><h2>Системный подход к цифровым продуктам</h2></div>
-    <div class="grid-4 home-principles-grid">
-      <article class="card rise"><div class="card-ico">01</div><h3>Задача</h3><p>Разбираемся, что нужно бизнесу и пользователям, прежде чем выбирать технологии.</p></article>
-      <article class="card rise"><div class="card-ico">02</div><h3>Система</h3><p>Проектируем понятную структуру, которую можно развивать вместе с продуктом.</p></article>
-      <article class="card rise"><div class="card-ico">03</div><h3>Детали</h3><p>Проверяем сценарии, интерфейсы и стабильность до передачи результата.</p></article>
-      <article class="card rise"><div class="card-ico">04</div><h3>Честная работа</h3><p>Обсуждаем сроки, объём и стоимость до старта проекта.</p></article>
+    <div class="home-principles-intro rise"><div class="eyebrow">02 · Принципы</div><h2>Системный подход к цифровым продуктам</h2><p class="lead">Сначала разбираемся в задаче бизнеса, затем проектируем решение и доводим его до предсказуемого запуска.</p></div>
+    <div class="home-principles-copy">
+      <p><strong>Задача.</strong> Выясняем, где теряются время, данные или обращения клиентов, и определяем измеримый результат.</p>
+      <p><strong>Система.</strong> Продумываем роли, пользовательские сценарии и связи между уже используемыми инструментами.</p>
+      <p><strong>Детали.</strong> Проверяем интерфейс, данные и ключевые сценарии до передачи решения команде.</p>
+      <p><strong>Честная работа.</strong> До старта согласуем объём, этапы, стоимость и сроки; изменения фиксируем отдельно.</p>
     </div>
   </div>
 </section>
 
 <!-- УСЛУГИ И ОРИЕНТИРЫ -->
-<section class="sec home-services-section" id="services" style="background:var(--bg-2);border-block:1px solid var(--border)">
+<section class="sec home-services-section" id="services">
   <div class="wrap">
-    <div class="sec-head rise">
+    <div class="sec-head rise home-services-heading">
       <div class="eyebrow">03 · Услуги Code</div>
       <h2>Связываем цифровые инструменты с задачами бизнеса</h2>
       <p class="lead">Разрабатываем веб-продукты, создаём и настраиваем CRM, подключаем AI к рабочим процессам и объединяем сервисы через интеграции.</p>
     </div>
-    <div class="grid-4 home-services-grid">
-      <article class="card rise service-card service-card-crm"><img class="service-card-image" src="/assets/ref-kanban-planning.webp" alt="Команда планирует и распределяет задачи" width="1400" height="930" loading="lazy" decoding="async"><div class="service-card-meta"><span>01 · CRM</span><span>СИСТЕМЫ</span></div><h3>Настройка CRM</h3><p>Настраиваем готовую CRM под процессы продаж, работу с клиентами и внутренние задачи. Разработка собственной системы оценивается отдельно.</p><div class="service-card-facts"><div><small>Стоимость</small><strong>от 60 000 ₽</strong></div><div><small>Срок</small><strong>по составу работ</strong></div></div></article>
-      <article class="card rise service-card service-card-ai"><img class="service-card-image" src="/assets/ref-team-work.webp" alt="Команда совместно работает над цифровым продуктом" width="1400" height="930" loading="lazy" decoding="async"><div class="service-card-meta"><span>02 · AI</span><span>АВТОМАТИЗАЦИЯ</span></div><h3>AI-внедрение</h3><p>Подключаем AI-помощников и автоматизацию к сайту, CRM и базе знаний для конкретных рабочих сценариев.</p><div class="service-card-facts"><div><small>Стоимость</small><strong>от 30 000 ₽</strong></div><div><small>Срок</small><strong>от 2–3 недель</strong></div></div></article>
-      <article class="card rise service-card service-card-web"><img class="service-card-image" src="/assets/ref-coding-workspace.webp" alt="Рабочее место разработчика с открытым кодом" width="1400" height="930" loading="lazy" decoding="async"><div class="service-card-meta"><span>03 · WEB</span><span>ВЕБ-ПРОДУКТЫ</span></div><h3>Сайты и веб-сервисы</h3><p>Корпоративные сайты, личные кабинеты и веб-приложения для клиентов и сотрудников.</p><div class="service-card-facts"><div><small>Стоимость</small><strong>от 50 000 ₽</strong></div><div><small>Срок</small><strong>от 3 недель</strong></div></div></article>
-      <article class="card rise service-card service-card-api"><img class="service-card-image" src="/assets/ref-server-network.webp" alt="Серверная инфраструктура цифровых систем" width="1400" height="930" loading="lazy" decoding="async"><div class="service-card-meta"><span>04 · API</span><span>ИНТЕГРАЦИИ</span></div><h3>Интеграции</h3><p>Связываем формы сайта, CRM, телефонию, мессенджеры и учётные системы через API.</p><div class="service-card-facts"><div><small>Стоимость</small><strong>по задаче</strong></div><div><small>Срок</small><strong>по составу работ</strong></div></div></article>
+    <div class="home-services-feature">
+      <div class="home-services-list">
+        <article class="home-service-row rise"><div class="home-service-title"><span>01 · CRM</span><h3>Настройка CRM</h3></div><p>Адаптируем воронки, карточки клиентов, автоматические действия и отчёты под процессы продаж и сервиса.</p><div class="home-service-facts"><span>от 60 000 ₽</span><span>Срок — по объёму работ</span></div></article>
+        <article class="home-service-row rise"><div class="home-service-title"><span>02 · AI</span><h3>AI-внедрение</h3></div><p>Подключаем AI-помощников к CRM, сайту и базе знаний для обработки типовых запросов и поддержки сотрудников.</p><div class="home-service-facts"><span>от 30 000 ₽</span><span>Срок — от 2–3 недель</span></div></article>
+        <article class="home-service-row rise"><div class="home-service-title"><span>03 · WEB</span><h3>Сайты и веб-сервисы</h3></div><p>Создаём корпоративные сайты, личные кабинеты и веб-приложения для клиентов и сотрудников.</p><div class="home-service-facts"><span>от 50 000 ₽</span><span>Срок — от 3 недель</span></div></article>
+        <article class="home-service-row rise"><div class="home-service-title"><span>04 · API</span><h3>Интеграции</h3></div><p>Связываем формы, CRM, телефонию, мессенджеры и учётные системы через API и готовые коннекторы.</p><div class="home-service-facts"><span>Стоимость — по задаче</span><span>Срок — по объёму работ</span></div></article>
+      </div>
+      <figure class="home-services-visual rise"><img src="/assets/codedev-service-system.webp" alt="Цифровые инструменты объединены в единую систему для бизнеса" width="1536" height="1024" loading="lazy" decoding="async"><figcaption>CRM · AI · WEB · API</figcaption></figure>
     </div>
   </div>
 </section>
 
 <section class="sec-tight home-scenarios-section">
   <div class="wrap">
-    <div class="sec-head rise"><div class="eyebrow">Практические сценарии</div><h2>Какие задачи можно связать в одну систему</h2></div>
-    <div class="grid-3 home-scenarios-grid">
-      <article class="card rise"><div class="card-ico">01</div><h3>Заявка попадает в CRM</h3><p>Сайт передаёт обращение в нужную воронку, назначает ответственного и запускает уведомление.</p></article>
-      <article class="card rise"><div class="card-ico">02</div><h3>AI помогает бизнесу</h3><p>AI-помощник обрабатывает типовые обращения, готовит ответы по базе знаний и передаёт нестандартные вопросы сотруднику.</p></article>
-      <article class="card rise"><div class="card-ico">03</div><h3>Сервисы обмениваются данными</h3><p>CRM, личный кабинет и учётная система синхронизируют статусы и нужную информацию.</p></article>
+    <div class="home-scenarios-heading rise"><div class="eyebrow">Практические сценарии</div><h2>Какие задачи можно связать в одну систему</h2><p class="lead">Цифровые инструменты работают согласованно, когда данные и действия переходят между ними без ручного дублирования.</p></div>
+    <div class="home-scenarios-copy">
+      <p><span>01</span><strong>Заявка попадает в CRM.</strong> Сайт передаёт обращение в нужную воронку, назначает ответственного и отправляет уведомление.</p>
+      <p><span>02</span><strong>AI помогает бизнесу.</strong> Ассистент находит ответ в базе знаний, обрабатывает типовой запрос и передаёт нестандартный сотруднику.</p>
+      <p><span>03</span><strong>Сервисы обмениваются данными.</strong> CRM, личный кабинет и учётная система синхронизируют статусы и сведения о заказе.</p>
     </div>
   </div>
 </section>
@@ -2787,7 +2842,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <p class="lead">CodeDev разрабатывает и настраивает CRM, внедряет AI в рабочие процессы, создаёт веб-сервисы и объединяет системы компании.</p>
     </div>
     <figure class="about-opening-visual" aria-label="Цифровой человеческий портрет из исходного референса CodeDev">
-      <img src="assets/code-digital-face.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1200" height="630" fetchpriority="high" decoding="async">
+      <img src="assets/code-digital-face-v2.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1672" height="941" fetchpriority="high" decoding="async">
       <figcaption><span>CODE.SYSTEMS</span><span>IT · CRM · AI · WEB</span></figcaption>
     </figure>
   </div>
@@ -2800,14 +2855,14 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <h2>Технический директор CodeDev создал Numen Pulse</h2>
       <p class="lead">Наш технический директор, который также руководит командой как тимлид, основал собственный проект Numen Pulse. В рамках Numen Pulse он разработал TaskSync — приложение для управления задачами и совместной работы команды.</p>
       <p>TaskSync — завершённый самостоятельный продукт технического директора CodeDev, который выступил его основателем и разработчиком. MVP запущен; описание и интерфейс проекта доступны на сайте Numen Pulse.</p>
-      <dl class="numen-project-facts"><div><dt>Статус проекта</dt><dd>Завершён</dd></div><div><dt>Стадия</dt><dd>MVP</dd></div><div><dt>Бюджет этапа</dt><dd>400 000 ₽</dd></div><div><dt>Срок разработки</dt><dd>3 месяца</dd></div><div><dt>Плановый бюджет в месяц</dt><dd>120 000 ₽</dd></div></dl>
+      <dl class="numen-project-facts"><div><dt>Статус проекта</dt><dd>Завершён</dd></div><div><dt>Стадия</dt><dd>MVP</dd></div><div><dt>Бюджет этапа с резервом</dt><dd>400 000 ₽</dd></div><div><dt>Срок разработки</dt><dd>3 месяца</dd></div><div><dt>Плановый бюджет в месяц</dt><dd>120 000 ₽</dd></div></dl>
       <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Посмотреть Numen Pulse</a>
       <a class="numen-contact" href="https://t.me/mikedevv" target="_blank" rel="noopener noreferrer">Связаться с Mike Dev</a>
     </div>
     <figure class="numen-site-figure" aria-label="Предпросмотр сайта Numen Pulse и приложения TaskSync">
       <div class="numen-site-chrome" aria-hidden="true"><i></i><i></i><i></i><span class="numen-site-address">numenpulse.ru</span></div>
       <div class="numen-site-viewport">
-        <iframe src="https://numenpulse.ru/" title="Страница сайта Numen Pulse с презентацией TaskSync" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>
+        <iframe src="/numenpulse/index.html" title="Исходная HTML-страница проекта TaskSync от Numen Pulse" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <figcaption><span>NUMEN PULSE · TASKSYNC</span><a href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть сайт ↗</a></figcaption>
     </figure>

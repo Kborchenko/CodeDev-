@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskSync — Умный планировщик от NUMENPULSE</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1a1a24;
+    --purple: #6c5ce7;
+    --teal: #00cec9;
+    --purple-dim: rgba(108,92,231,0.15);
+    --teal-dim: rgba(0,206,201,0.12);
+    --text: #e8e8f0;
+    --text-muted: #7878a0;
+    --border: rgba(255,255,255,0.07);
+    --grad: linear-gradient(135deg, var(--purple), var(--teal));
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise texture overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Ambient glow blobs ── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .blob-1 { width: 600px; height: 600px; background: var(--purple); top: -200px; left: -200px; }
+  .blob-2 { width: 500px; height: 500px; background: var(--teal); bottom: 100px; right: -150px; }
+  .blob-3 { width: 300px; height: 300px; background: var(--purple); top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.1; }
+
+  /* ── Typography ── */
+  h1, h2, h3, h4, nav .logo { font-family: 'Syne', sans-serif; }
+
+  .gradient-text {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Layout ── */
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  section { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 24px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    background: rgba(10,10,15,0.72);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  nav .inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .logo {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin-left: auto;
+    margin-right: 32px;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s; text-decoration: none; border: none; font-family: 'DM Sans', sans-serif; }
+  .btn-primary { background: var(--grad); color: #fff; }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(108,92,231,0.35); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: rgba(108,92,231,0.5); background: var(--purple-dim); }
+  .btn-teal { background: linear-gradient(135deg,#00cec9,#6c5ce7); color: #fff; }
+  .btn-teal:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,206,201,0.3); }
+
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(0.8);} }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+
+  .stat-divider { width: 1px; background: var(--border); align-self: stretch; }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ── MOCKUP ── */
+  .mockup-wrap {
+    position: relative;
+  }
+
+  .mockup {
+    background: rgba(19,19,26,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(108,92,231,0.1), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mockup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.5), rgba(0,206,201,0.5), transparent);
+  }
+
+  .mockup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .mockup-dots { display: flex; gap: 6px; }
+  .mockup-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .mockup-dots span:nth-child(1) { background: #ff5f57; }
+  .mockup-dots span:nth-child(2) { background: #febc2e; }
+  .mockup-dots span:nth-child(3) { background: #28c840; }
+
+  .ai-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(108,92,231,0.2), rgba(0,206,201,0.15));
+    border: 1px solid rgba(0,206,201,0.3);
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.05em;
+  }
+  .ai-badge::before { content: '◉'; font-size: 0.6rem; animation: pulse 1.5s infinite; }
+
+  .mock-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+  }
+  .task-item:hover { background: rgba(255,255,255,0.05); }
+
+  .checkbox {
+    width: 18px; height: 18px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+  }
+  .checkbox.done { background: var(--grad); }
+  .checkbox.done::after { content: '✓'; color: #fff; font-weight: 700; }
+  .checkbox.todo { border: 1.5px solid rgba(255,255,255,0.2); }
+
+  .task-info { flex: 1; }
+  .task-name { font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; }
+  .task-name.done-text { text-decoration: line-through; color: var(--text-muted); }
+
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; background: var(--grad); }
+
+  .task-meta { display: flex; justify-content: space-between; margin-top: 5px; }
+  .task-user { width: 20px; height: 20px; border-radius: 50%; font-size: 0.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+  .mockup-footer {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sync-label { font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 1.5s infinite; }
+  .team-avatars { display: flex; }
+  .avatar { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--bg); margin-left: -8px; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; color: #fff; }
+
+  .mockup-glow {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  .glow-purple { background: rgba(108,92,231,0.3); top: -50px; right: -50px; }
+  .glow-teal { background: rgba(0,206,201,0.2); bottom: -50px; left: -50px; }
+
+  /* ── SECTIONS SHARED ── */
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-tag {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .section-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+  /* ── FEATURES ── */
+  #features { padding: 100px 0; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 16px;
+  }
+  .feature-card:nth-child(1)::before { background: linear-gradient(135deg, rgba(108,92,231,0.06), transparent); }
+  .feature-card:nth-child(2)::before { background: linear-gradient(135deg, rgba(0,206,201,0.06), transparent); }
+  .feature-card:nth-child(3)::before { background: linear-gradient(135deg, rgba(108,92,231,0.06), transparent); }
+  .feature-card:nth-child(4)::before { background: linear-gradient(135deg, rgba(0,206,201,0.06), transparent); }
+
+  .feature-card:hover::before { opacity: 1; }
+  .feature-card:hover { border-color: rgba(108,92,231,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+  }
+  .icon-purple { background: var(--purple-dim); }
+  .icon-teal { background: var(--teal-dim); }
+
+  .feature-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+  .feature-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.65; }
+
+  /* ── MVP ── */
+  #mvp { padding: 100px 0; }
+
+  .mvp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  .mvp-checklist { list-style: none; margin-top: 24px; }
+  .mvp-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .mvp-checklist li:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .check-done { background: linear-gradient(135deg,var(--purple),var(--teal)); }
+  .check-done::after { content: '✓'; color: #fff; font-weight: 700; }
+  .check-wip { background: rgba(255,193,7,0.15); border: 1px solid rgba(255,193,7,0.3); }
+  .check-wip::after { content: '⟳'; color: #ffc107; font-size: 0.9rem; }
+  .check-next { background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+  .check-next::after { content: '◎'; color: var(--text-muted); font-size: 0.8rem; }
+
+  .check-label { font-weight: 500; }
+  .check-status { margin-left: auto; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+  .status-done { background: rgba(0,206,201,0.12); color: var(--teal); }
+  .status-wip { background: rgba(255,193,7,0.12); color: #ffc107; }
+  .status-next { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+  .budget-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .budget-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--grad);
+  }
+  .budget-card-inner { padding: 32px; }
+
+  .budget-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .budget-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 28px; }
+
+  .budget-items { list-style: none; }
+  .budget-items li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .budget-items li:last-child { border-bottom: none; }
+  .budget-items li::before { content: '→'; color: var(--purple); font-weight: 700; }
+
+  /* ── TECH ── */
+  #tech { padding: 100px 0; }
+
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 16px; }
+
+  .tech-tag {
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .tech-tag:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+  .tech-tag.featured-react { background: linear-gradient(135deg, rgba(108,92,231,0.18), rgba(0,206,201,0.1)); border-color: rgba(108,92,231,0.4); color: #a09af5; }
+  .tech-tag.featured-next { background: linear-gradient(135deg, rgba(0,206,201,0.15), rgba(108,92,231,0.1)); border-color: rgba(0,206,201,0.35); color: #5eeae7; }
+
+  /* ── ROADMAP ── */
+  #roadmap { padding: 100px 0; }
+
+  .roadmap-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .roadmap-timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--teal));
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .roadmap-step {
+    position: relative;
+    padding: 0 20px;
+    padding-top: 64px;
+    text-align: center;
+  }
+
+  .step-dot {
+    position: absolute;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--grad);
+    z-index: 1;
+    box-shadow: 0 0 0 4px var(--bg), 0 0 20px rgba(108,92,231,0.5);
+  }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .step-desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+
+  .step-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge-active { background: rgba(0,206,201,0.12); color: var(--teal); border: 1px solid rgba(0,206,201,0.2); }
+  .badge-next { background: rgba(108,92,231,0.1); color: var(--purple); border: 1px solid rgba(108,92,231,0.2); }
+  .badge-future { background: rgba(255,255,255,0.04); color: var(--text-muted); border: 1px solid var(--border); }
+
+  /* ── CTA ── */
+  #cta {
+    padding: 100px 0;
+  }
+
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid rgba(108,92,231,0.2);
+    border-radius: 24px;
+    padding: 64px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(108,92,231,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.6), rgba(0,206,201,0.6), transparent);
+  }
+
+  .cta-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .cta-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; position: relative; }
+
+  .salary-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,206,201,0.1));
+    border: 1px solid rgba(0,206,201,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-copy { color: var(--text-muted); font-size: 0.85rem; }
+  .footer-markets { color: var(--text-muted); font-size: 0.8rem; display: flex; align-items: center; gap: 8px; }
+  .market-arrow { color: var(--purple); font-weight: 700; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(10,10,15,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .roadmap-timeline { grid-template-columns: repeat(2, 1fr); gap: 48px; }
+    .roadmap-timeline::before { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: block; margin-left: auto; }
+
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .mockup-wrap { order: -1; }
+    .mvp-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .roadmap-timeline { grid-template-columns: 1fr; }
+    .roadmap-step { padding-left: 60px; padding-top: 0; text-align: left; }
+    .roadmap-timeline::before { left: 20px; right: auto; width: 2px; height: 100%; top: 0; bottom: 0; }
+    .step-dot { left: 20px; top: 0; transform: translateX(-50%); }
+    .cta-card { padding: 40px 24px; }
+    .hero-stats { gap: 20px; }
+    .stat-divider { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ambient blobs -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a href="#" class="logo"><span>N</span>UMEN<span>P</span>ULSE</a>
+    <ul class="nav-links">
+      <li><a href="#features">Возможности</a></li>
+      <li><a href="#mvp">MVP</a></li>
+      <li><a href="#tech">Технологии</a></li>
+      <li><a href="#roadmap">План</a></li>
+    </ul>
+    <a href="#cta" class="btn btn-primary nav-cta">Связаться</a>
+    <button class="hamburger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="closeMobile()">Возможности</a>
+  <a href="#mvp" onclick="closeMobile()">MVP</a>
+  <a href="#tech" onclick="closeMobile()">Технологии</a>
+  <a href="#roadmap" onclick="closeMobile()">План</a>
+  <a href="#cta" onclick="closeMobile()" style="color:var(--teal);font-weight:700;">Связаться →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div class="fade-up">
+        <div class="hero-eyebrow">MVP завершён</div>
+        <h1 class="hero-title">
+          Умный планировщик<br>
+          <span class="gradient-text">TaskSync</span>
+        </h1>
+        <p class="hero-sub">
+          TaskSync объединяет планирование задач, совместную работу команды и аналитику в одном цифровом продукте.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">MVP</span>
+            <span class="stat-label">Стадия</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">400к ₽</span>
+            <span class="stat-label">Бюджет этапа MVP</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">3 месяца</span>
+            <span class="stat-label">Срок запуска</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#features" class="btn btn-primary">Посмотреть возможности</a>
+          <a href="#mvp" class="btn btn-outline">Стадия MVP</a>
+        </div>
+      </div>
+
+      <!-- Right: Mockup -->
+      <div class="mockup-wrap fade-up delay-2">
+        <div class="mockup">
+          <div class="mockup-glow glow-purple"></div>
+          <div class="mockup-glow glow-teal"></div>
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="ai-badge">ИИ-аналитика подключена</div>
+          </div>
+
+          <div class="mock-title">Задачи команды · Sprint 3</div>
+
+          <div class="task-item">
+            <div class="checkbox done"></div>
+            <div class="task-info">
+              <div class="task-name done-text">Настройка WebSocket-сервера</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+              <div class="task-meta">
+                <span style="font-size:0.72rem;color:var(--text-muted);">Михаил · CTO</span>
+                <div class="task-user" style="background:#6c5ce7;">М</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="task-item">
+            <div class="checkbox todo"></div>
+            <div class="task-info">
+              <div class="task-name">Разработка Hero-секции фронтенда</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+              <div class="task-meta">
+                <span style="font-size:0.72rem;color:var(--text-muted);">Frontend Dev · 65%</span>
+                <div class="task-user" style="background:#00cec9;">F</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="task-item">
+            <div class="checkbox todo"></div>
+            <div class="task-info">
+              <div class="task-name">Интеграция ИИ-модуля аналитики</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%;background:linear-gradient(90deg,#6c5ce7,#a29bfe)"></div></div>
+              <div class="task-meta">
+                <span style="font-size:0.72rem;color:var(--text-muted);">Готово · 100%</span>
+                <div class="task-user" style="background:#a29bfe;">A</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="task-item">
+            <div class="checkbox done"></div>
+            <div class="task-info">
+              <div class="task-name done-text">Дизайн-система + компоненты</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+              <div class="task-meta">
+                <span style="font-size:0.72rem;color:var(--text-muted);">Дизайн · готово</span>
+                <div class="task-user" style="background:#fd79a8;">D</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mockup-footer">
+            <span class="sync-label">
+              <span class="sync-dot"></span>
+              Синхронизация в реальном времени
+            </span>
+            <div class="team-avatars">
+              <div class="avatar" style="background:#6c5ce7;">М</div>
+              <div class="avatar" style="background:#00cec9;">F</div>
+              <div class="avatar" style="background:#fd79a8;">D</div>
+              <div class="avatar" style="background:#a29bfe;font-size:0.6rem;">+4</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FEATURES -->
+<section id="features" style="padding:100px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">Возможности</div>
+      <h2 class="section-title">Всё что нужно команде</h2>
+      <p class="section-desc">От распределения задач до ИИ-аналитики — TaskSync закрывает весь цикл управления командой.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-up delay-1">
+        <div class="feature-icon icon-purple">⚖️</div>
+        <div class="feature-title">Распределение нагрузки</div>
+        <p class="feature-desc">Умное распределение задач с учётом загруженности каждого сотрудника. Никаких перегрузов и простоев в команде.</p>
+      </div>
+      <div class="feature-card fade-up delay-2">
+        <div class="feature-icon icon-teal">⚡</div>
+        <div class="feature-title">Синхронизация команд</div>
+        <p class="feature-desc">Обновления в реальном времени через WebSockets. Все участники видят актуальный статус задач мгновенно.</p>
+      </div>
+      <div class="feature-card fade-up delay-3">
+        <div class="feature-icon icon-purple">📊</div>
+        <div class="feature-title">Отчётность и аналитика</div>
+        <p class="feature-desc">Автоматическое формирование отчётов, дашборды производительности и аналитика по спринтам без ручного труда.</p>
+      </div>
+      <div class="feature-card fade-up delay-4">
+        <div class="feature-icon icon-teal">🤖</div>
+        <div class="feature-title">Искусственный интеллект</div>
+        <p class="feature-desc">Следующий этап развития TaskSync — встроенный ИИ-ассистент для разгрузки целых отделов и предиктивного планирования.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MVP -->
+<section id="mvp" style="padding:100px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">MVP</div>
+      <h2 class="section-title">Этап MVP завершён</h2>
+      <p class="section-desc">Первая версия продукта завершена. В рамках этапа подготовлены основные сценарии планирования и совместной работы команды.</p>
+    </div>
+    <div class="mvp-grid">
+      <div class="fade-up delay-1">
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:8px;">Результат этапа</h3>
+        <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:4px;">Ключевые компоненты продукта разработаны и собраны в готовый MVP.</p>
+        <ul class="mvp-checklist">
+          <li>
+            <div class="check-icon check-done"></div>
+            <span class="check-label">Бэкенд-разработка</span>
+            <span class="check-status status-done">Готово</span>
+          </li>
+          <li>
+            <div class="check-icon check-done"></div>
+            <span class="check-label">Дизайн и UI-система</span>
+            <span class="check-status status-done">Готово</span>
+          </li>
+          <li>
+            <div class="check-icon check-done"></div>
+            <span class="check-label">Фронтенд-разработка</span>
+            <span class="check-status status-done">Готово</span>
+          </li>
+          <li>
+            <div class="check-icon check-done"></div>
+            <span class="check-label">Интеграция ИИ-модуля</span>
+            <span class="check-status status-done">Готово</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="fade-up delay-2">
+        <div class="budget-card">
+          <div class="budget-card-inner">
+            <div class="budget-amount">400 000 ₽</div>
+            <div class="budget-sub">Бюджет этапа MVP с резервом на форс-мажорные работы</div>
+            <ul class="budget-items">
+              <li>Срок выполнения: 3 месяца</li>
+              <li>Формат сотрудничества: ИП / Самозанятый</li>
+              <li>Стек: React, Next.js, TypeScript</li>
+              <li>CTO на проекте: Михаил</li>
+              <li>Результат: завершённый MVP TaskSync</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TECH -->
+<section id="tech" style="padding:100px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">Технологии</div>
+      <h2 class="section-title">Наш стек</h2>
+      <p class="section-desc">Современный и масштабируемый технологический стек, проверенный в продакшене.</p>
+    </div>
+    <div class="tech-tags fade-up delay-1">
+      <span class="tech-tag featured-react">⚛ React</span>
+      <span class="tech-tag featured-next">▲ Next.js</span>
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">JavaScript</span>
+      <span class="tech-tag">Tailwind CSS</span>
+      <span class="tech-tag">REST API</span>
+      <span class="tech-tag">WebSockets</span>
+      <span class="tech-tag">Git</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap" style="padding:100px 0;">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">Дорожная карта</div>
+      <h2 class="section-title">От MVP до Европы</h2>
+      <p class="section-desc">Амбициозный план роста от первого релиза до выхода на международный рынок.</p>
+    </div>
+    <div class="roadmap-timeline fade-up delay-1">
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-num">Этап 1</div>
+        <div class="step-title">MVP завершён</div>
+        <p class="step-desc">Согласованный этап завершён: реализованы основные функции продукта и подготовлен MVP.</p>
+        <span class="step-badge badge-active">Завершён</span>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-num">Этап 2</div>
+        <div class="step-title">Набор команды</div>
+        <p class="step-desc">Расширение до полноценной команды: мидлы, синьоры, тимлиды. Масштабирование продукта.</p>
+        <span class="step-badge badge-next">Скоро</span>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-num">Этап 3</div>
+        <div class="step-title">Внедрение ИИ</div>
+        <p class="step-desc">ИИ-ассистент для автоматизации отделов, предиктивная аналитика и умное планирование.</p>
+        <span class="step-badge badge-future">Планируется</span>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-num">Этап 4</div>
+        <div class="step-title">Европейский рынок</div>
+        <p class="step-desc">Выход на EU-рынок, релокейт сотрудников за счёт компании. Международный продукт.</p>
+        <span class="step-badge badge-future">1–2 года</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CTA -->
+<section id="cta" style="padding:100px 0;">
+  <div class="container">
+    <div class="cta-card fade-up">
+      <div class="section-tag" style="position:relative;">Результат этапа</div>
+      <h2 class="cta-title">TaskSync — <span class="gradient-text">MVP завершён</span></h2>
+      <p class="cta-desc">Продукт прошёл этап MVP и готов к дальнейшему развитию. В проект вошли планирование задач, совместная работа команды и аналитика.</p>
+      <div class="salary-badge">Бюджет этапа — 400 000 ₽ · срок — 3 месяца</div>
+      <div class="cta-actions">
+        <a href="https://numenpulse.ru/" class="btn btn-primary">Открыть Numen Pulse</a>
+        <a href="https://t.me/mikedevv" class="btn btn-teal">Связаться с Mike Dev</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="logo"><span>N</span>UMEN<span>P</span>ULSE</a>
+      <div class="footer-copy">© 2026 NUMENPULSE. Все права защищены.</div>
+      <div class="footer-markets">
+        <span>🇷🇺 Россия</span>
+        <span class="market-arrow">→</span>
+        <span>🇪🇺 Европа</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Animate elements already in viewport on load
+    document.querySelectorAll('.fade-up').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        el.classList.add('visible');
+      }
+    });
+
+    // Hamburger
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (burger && mobileMenu) {
+      burger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('open');
+      });
+    }
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 20) {
+        nav.style.background = 'rgba(10,10,15,0.95)';
+      } else {
+        nav.style.background = 'rgba(10,10,15,0.72)';
+      }
+    });
+  });
+
+  function closeMobile() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu) mobileMenu.classList.remove('open');
+  }
+</script>
+</body>
+</html>
