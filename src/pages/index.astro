@@ -767,6 +767,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 }
 .robot-atmosphere { position:absolute; inset:0; z-index:0; pointer-events:none; }
 .page[data-slug="home"] .term.robot-preview .term-body { width:280px; max-width:calc(100% - 32px); padding:12px 14px; margin:0 20px 20px 0; }
+.page[data-slug="home"] .term.robot-preview .term-body { isolation:isolate; border:0; border-radius:0; background:transparent; backdrop-filter:none; box-shadow:none; }
+.page[data-slug="home"] .term.robot-preview .term-body::before { content:""; position:absolute; z-index:-1; inset:-18px -22px; border-radius:42px; background:rgba(13,18,12,.78); filter:blur(18px); opacity:.92; }
 .page[data-slug="home"] .term.robot-preview .solution-label { font-size:14px; margin-bottom:8px; }
 .page[data-slug="home"] .term.robot-preview .service-description { min-height:24px; font-size:14px; }
 .page[data-slug="home"] .term.robot-preview .service-slider-label { margin-top:8px; font-size:11px; }
@@ -1013,6 +1015,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 }
 .page[data-slug="home"] .home-principles-section { padding-block:clamp(56px,7vw,96px); }
 .page[data-slug="home"] .home-services-section { padding-block:clamp(72px,9vw,120px); }
+.page[data-slug="home"] .home-principles-section { padding-top:clamp(48px,6vw,72px); padding-bottom:clamp(24px,3vw,40px); }
+.page[data-slug="home"] .home-services-section { padding-top:clamp(26px,3.2vw,46px); padding-bottom:clamp(68px,8vw,108px); }
 .page[data-slug="home"] .home-scenarios-section { padding-block:clamp(58px,7vw,92px); }
 .page[data-slug="home"] .home-principles-grid .card,
 .page[data-slug="home"] .home-scenarios-grid .card {
@@ -1057,36 +1061,44 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .page[data-slug="home"] .home-principles-section .wrap { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:clamp(36px,7vw,100px); align-items:start; }
 .home-principles-intro h2,.home-scenarios-heading h2 { margin:14px 0 16px; }
 .home-principles-intro .lead,.home-scenarios-heading .lead { max-width:48ch; color:var(--muted); }
-.home-principles-copy { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 40px; padding-top:12px; }
-.home-principles-copy p { margin:0; max-width:38ch; color:var(--muted); line-height:1.75; }
+.home-principles-copy { min-width:0; position:relative; }
 .home-principles-copy strong,.home-scenarios-copy strong { color:var(--text); font-weight:650; }
-.home-principles-copy strong { color:var(--accent); }
-.page[data-slug="home"] .home-services-section { background:var(--bg-2)!important; border:0!important; }
-.home-services-heading { max-width:810px; margin-bottom:clamp(28px,4vw,50px); }
+.home-principles-carousel { position:relative; overflow:hidden; border-radius:26px; background:radial-gradient(ellipse at 88% 5%,rgba(217,255,40,.11),transparent 44%),linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.012) 58%,rgba(217,255,40,.035)); box-shadow:inset 0 1px rgba(255,255,255,.1),0 24px 70px rgba(0,0,0,.18); }
+.home-principles-carousel::before { content:""; position:absolute; inset:1px; border-radius:25px; pointer-events:none; background:linear-gradient(120deg,rgba(217,255,40,.08),transparent 38%); opacity:.72; }
+.home-principles-track { display:flex; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; touch-action:pan-x pan-y; }
+.home-principles-track::-webkit-scrollbar { display:none; }
+.home-principle-slide { flex:0 0 100%; min-width:100%; min-height:276px; display:flex; flex-direction:column; justify-content:center; padding:clamp(30px,4vw,52px); scroll-snap-align:start; scroll-snap-stop:always; }
+.home-principle-index { margin-bottom:auto; color:var(--accent); font:700 11px/1.4 var(--mono); letter-spacing:.14em; }
+.home-principle-slide h3 { margin:30px 0 10px; color:var(--text); font:700 clamp(28px,3vw,42px)/1.04 var(--display); letter-spacing:-.02em; }
+.home-principle-slide p { max-width:42ch; margin:0; color:var(--muted); font-size:clamp(15px,1.25vw,17px); line-height:1.7; }
+.home-principle-controls { position:absolute; right:clamp(24px,3vw,38px); bottom:clamp(22px,2.6vw,34px); display:flex; align-items:center; gap:10px; }
+.home-principle-count { min-width:45px; margin-right:6px; color:var(--muted); font:600 11px/1 var(--mono); letter-spacing:.06em; }
+.home-principle-count strong { color:var(--accent); font-weight:700; }
+.home-principle-nav { display:grid; place-items:center; width:44px; height:44px; border:1px solid rgba(255,255,255,.19); border-radius:50%; color:var(--text); background:rgba(10,11,9,.46); cursor:pointer; transition:background .2s,border-color .2s,color .2s,transform .2s; }
+.home-principle-nav:hover { color:#111; border-color:var(--accent); background:var(--accent); transform:translateY(-1px); }
+.home-principle-nav:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.home-principle-nav svg { width:16px; height:16px; }
+.home-principle-dots { position:absolute; top:clamp(24px,3vw,36px); right:clamp(24px,3vw,38px); display:flex; gap:9px; }
+.home-principle-dot { width:8px; height:8px; padding:0; border:0; border-radius:50%; background:rgba(255,255,255,.24); cursor:pointer; transition:transform .2s,background .2s; }
+.home-principle-dot[aria-current="true"] { transform:scale(1.35); background:var(--accent); }
+.home-principle-dot:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+.page[data-slug="home"] .home-services-section { background:var(--bg)!important; border:0!important; }
+.home-services-heading { max-width:810px; margin-bottom:clamp(22px,2.5vw,34px); }
 .home-services-heading h2 { max-width:19ch; }
-.home-services-feature { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(28px,6vw,82px); align-items:center; }
-.home-services-list { display:grid; gap:clamp(24px,3.4vw,42px); }
-.home-service-row { display:grid; gap:9px; min-width:0; }
-.home-service-title { display:flex; align-items:baseline; gap:14px; }
-.home-service-title>span { flex:0 0 84px; color:var(--accent); font:700 10px/1.5 var(--mono); letter-spacing:.1em; }
-.home-service-title h3 { margin:0; font-size:clamp(19px,1.8vw,24px); }
-.home-service-row p { margin:0 0 0 98px; max-width:47ch; color:var(--muted); font-size:14px; line-height:1.7; }
-.home-service-facts { display:flex; flex-wrap:wrap; gap:8px 20px; margin-left:98px; color:var(--muted); font:600 10px/1.5 var(--mono); letter-spacing:.035em; }
-.home-service-facts span:first-child { color:var(--text); }
-.home-services-visual { position:relative; min-width:0; height:clamp(430px,49vw,690px); margin:0; overflow:hidden; background:#0b0c0b; }
-.home-services-visual { isolation:isolate; }
-.home-services-visual::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(0deg,rgba(8,9,8,.32),transparent 35%),linear-gradient(90deg,rgba(8,9,8,.14),transparent 34%); }
-.home-services-visual img { display:block; width:100%; height:100%; object-fit:cover; object-position:63% center; filter:saturate(.84) brightness(.82); }
-.home-service-picker { position:absolute; z-index:2; left:clamp(14px,4%,30px); bottom:clamp(125px,18%,160px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 30px; width:min(84%,430px); }
-.home-service-choice { position:relative; display:flex; flex-direction:column; justify-content:center; gap:5px; min-width:0; padding:2px 20px 2px 0; color:var(--text); text-decoration:none; text-shadow:0 2px 9px rgba(0,0,0,.95); transition:color .2s,opacity .2s; }
-.home-service-choice::after { content:'↗'; position:absolute; top:2px; right:2px; color:var(--accent); font:600 13px/1 var(--body); opacity:0; transition:transform .2s,opacity .2s; }
-.home-service-choice:hover,.home-service-choice:focus-visible { color:var(--accent); }
-.home-service-choice:hover::after,.home-service-choice:focus-visible::after { transform:translate(2px,-2px); opacity:1; }
-.home-service-choice:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-.home-service-choice-code { color:var(--accent); font:700 9px/1.4 var(--mono); letter-spacing:.09em; }
-.home-service-choice strong { max-width:24ch; font:600 16px/1.25 var(--display); }
-.home-service-choice small { max-width:36ch; color:rgba(243,240,231,.82); font:400 11px/1.45 var(--body); }
-.home-services-visual figcaption { position:absolute; z-index:2; right:18px; bottom:18px; color:var(--accent); font:700 10px/1.5 var(--mono); letter-spacing:.12em; }
+.home-services-feature { display:block; }
+.home-services-visual { position:relative; width:calc(100% + clamp(0px,5vw,76px)); aspect-ratio:3/2; min-width:0; margin:0 calc(clamp(0px,2.5vw,38px) * -1); overflow:hidden; background:var(--bg); isolation:isolate; }
+.home-services-visual::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:none; }
+.home-services-scene { display:block; width:100%; height:100%; overflow:visible; }
+.home-services-scene .scene-code { fill:#e6ff54; font:700 17px/1 var(--mono); letter-spacing:1.8px; }
+.home-services-scene .scene-title { fill:#f5f1e3; font:700 27px/1 var(--display); letter-spacing:-.5px; }
+.home-services-scene .scene-detail { fill:#f5efdc; opacity:.94; font:500 15px/1.2 var(--body); letter-spacing:.1px; }
+.home-services-scene a { cursor:pointer; background:none!important; backdrop-filter:none!important; -webkit-backdrop-filter:none!important; filter:none; box-shadow:none; }
+.home-services-scene a path { fill:transparent; stroke:none; pointer-events:all; }
+.home-services-scene a text { transition:fill .2s ease; }
+.home-services-scene a:hover .scene-title { fill:#e6ff54; }
+.home-services-scene a:hover path { fill:transparent; }
+.home-services-scene a:focus-visible { outline:none; }
+.home-services-scene a:focus-visible path { fill:transparent; stroke:#d9ff28; stroke-width:3; }
 .page[data-slug="home"] .home-scenarios-section .wrap { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:clamp(36px,7vw,100px); align-items:start; }
 .home-scenarios-copy { display:grid; gap:24px; padding-top:12px; }
 .home-scenarios-copy p { display:grid; grid-template-columns:40px minmax(0,1fr); column-gap:16px; row-gap:4px; margin:0; max-width:68ch; color:var(--muted); line-height:1.7; }
@@ -1098,27 +1110,23 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:850px) {
   .page[data-slug="home"] .home-principles-section .wrap,
   .page[data-slug="home"] .home-scenarios-section .wrap { grid-template-columns:1fr; gap:24px; }
-  .home-principles-copy { gap:20px 28px; }
-  .home-services-feature { grid-template-columns:1fr; }
-  .home-services-visual { height:clamp(360px,70vw,540px); }
+  .home-services-feature { display:block; }
 }
 @media(max-width:560px) {
-  .home-principles-copy { grid-template-columns:1fr; gap:18px; }
-  .home-principles-copy p { max-width:56ch; }
-  .home-service-title { align-items:flex-start; flex-direction:column; gap:5px; }
-  .home-service-title>span { flex-basis:auto; }
-  .home-service-row p,.home-service-facts { margin-left:0; }
-  .home-services-visual { height:340px; }
-  .home-service-picker { left:12px; bottom:42px; width:min(94%,430px); gap:17px 20px; }
-  .home-service-choice { padding-right:16px; }
-  .home-service-choice::after { top:2px; right:0; font-size:12px; }
-  .home-service-choice-code { font-size:8px; }
-  .home-service-choice strong { font-size:14px; }
-  .home-service-choice small { font-size:10px; }
+  .home-principle-slide { min-height:300px; padding:26px 23px 82px; }
+  .home-principle-slide h3 { margin-top:26px; }
+  .home-principle-dots { top:22px; right:22px; }
+  .home-principle-controls { right:18px; bottom:17px; gap:8px; }
+  .home-services-visual { width:calc(100% + 28px); margin-inline:-14px; aspect-ratio:3/2; }
   .home-scenarios-copy { gap:20px; }
   .home-scenarios-copy p { grid-template-columns:32px minmax(0,1fr); column-gap:12px; }
 }
 
+/* Remove outer section seams, retaining outlines inside interactive controls. */
+.page > section, .page > footer, .page > header.nav { border-top:0!important; border-bottom:0!important; }
+.about-opening-visual img { object-position:72% top; filter:grayscale(.35) contrast(1.03); }
+.about-opening-visual::after { background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.92) 25%,rgba(9,10,9,.42) 50%,transparent 76%),linear-gradient(0deg,#090a09 0%,transparent 22%); }
+@media(max-width:560px) { .about-opening-visual img {object-position:68% top;} }
 </style>
 </head>
 <body>
@@ -1179,13 +1187,75 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   <div class="wrap">
     <div class="home-principles-intro rise"><div class="eyebrow">02 · Принципы</div><h2>Системный подход к цифровым продуктам</h2><p class="lead">Сначала разбираемся в задаче бизнеса, затем проектируем решение и доводим его до предсказуемого запуска.</p></div>
     <div class="home-principles-copy">
-      <p><strong>Задача.</strong> Выясняем, где теряются время, данные или обращения клиентов, и определяем измеримый результат.</p>
-      <p><strong>Система.</strong> Продумываем роли, пользовательские сценарии и связи между уже используемыми инструментами.</p>
-      <p><strong>Детали.</strong> Проверяем интерфейс, данные и ключевые сценарии до передачи решения команде.</p>
-      <p><strong>Честная работа.</strong> До старта согласуем объём, этапы, стоимость и сроки; изменения фиксируем отдельно.</p>
+      <div class="home-principles-carousel" data-principle-carousel>
+        <div class="home-principles-track" data-principle-track tabindex="0" role="region" aria-label="Принципы CodeDev. Листайте по горизонтали">
+          <article class="home-principle-slide" aria-roledescription="слайд" aria-label="1 из 4">
+            <span class="home-principle-index">01 / ПРИНЦИП</span><h3>Задача</h3><p>Выясняем, где теряются время, данные или обращения клиентов, и определяем измеримый результат.</p>
+          </article>
+          <article class="home-principle-slide" aria-roledescription="слайд" aria-label="2 из 4">
+            <span class="home-principle-index">02 / ПРИНЦИП</span><h3>Система</h3><p>Продумываем роли, пользовательские сценарии и связи между уже используемыми инструментами.</p>
+          </article>
+          <article class="home-principle-slide" aria-roledescription="слайд" aria-label="3 из 4">
+            <span class="home-principle-index">03 / ПРИНЦИП</span><h3>Детали</h3><p>Проверяем интерфейс, данные и ключевые сценарии до передачи решения команде.</p>
+          </article>
+          <article class="home-principle-slide" aria-roledescription="слайд" aria-label="4 из 4">
+            <span class="home-principle-index">04 / ПРИНЦИП</span><h3>Честная работа</h3><p>До старта согласуем объём, этапы, стоимость и сроки; изменения фиксируем отдельно.</p>
+          </article>
+        </div>
+        <div class="home-principle-dots" aria-label="Выбрать принцип">
+          <button class="home-principle-dot" type="button" aria-label="Принцип 1: Задача" aria-current="true" data-principle-go="0"></button>
+          <button class="home-principle-dot" type="button" aria-label="Принцип 2: Система" aria-current="false" data-principle-go="1"></button>
+          <button class="home-principle-dot" type="button" aria-label="Принцип 3: Детали" aria-current="false" data-principle-go="2"></button>
+          <button class="home-principle-dot" type="button" aria-label="Принцип 4: Честная работа" aria-current="false" data-principle-go="3"></button>
+        </div>
+        <div class="home-principle-controls">
+          <span class="home-principle-count" aria-live="polite"><strong data-principle-current>01</strong> / 04</span>
+          <button class="home-principle-nav" type="button" aria-label="Предыдущий принцип" data-principle-prev>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="home-principle-nav" type="button" aria-label="Следующий принцип" data-principle-next>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+(() => {
+  document.querySelectorAll('[data-principle-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-principle-track]');
+    const slides = [...track.querySelectorAll('.home-principle-slide')];
+    const dots = [...carousel.querySelectorAll('[data-principle-go]')];
+    const counter = carousel.querySelector('[data-principle-current]');
+    let active = 0;
+    const go = index => {
+      active = (index + slides.length) % slides.length;
+      track.scrollTo({ left: slides[active].offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === active)));
+      counter.textContent = String(active + 1).padStart(2, '0');
+    };
+    carousel.querySelector('[data-principle-prev]').addEventListener('click', () => go(active - 1));
+    carousel.querySelector('[data-principle-next]').addEventListener('click', () => go(active + 1));
+    dots.forEach(dot => dot.addEventListener('click', () => go(Number(dot.dataset.principleGo))));
+    let settle;
+    track.addEventListener('scroll', () => {
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        const next = Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / track.clientWidth)));
+        active = next;
+        dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === active)));
+        counter.textContent = String(active + 1).padStart(2, '0');
+      }, 80);
+    }, { passive: true });
+    track.addEventListener('keydown', event => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); go(active + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); go(active - 1); }
+    });
+  });
+})();
+</script>
 
 <!-- УСЛУГИ И ОРИЕНТИРЫ -->
 <section class="sec home-services-section" id="services">
@@ -1196,29 +1266,39 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <p class="lead">Разрабатываем веб-продукты, создаём и настраиваем CRM, подключаем AI к рабочим процессам и объединяем сервисы через интеграции.</p>
     </div>
     <div class="home-services-feature">
-      <div class="home-services-list">
-        <article class="home-service-row rise"><div class="home-service-title"><span>01 · CRM</span><h3>Настройка CRM</h3></div><p>Адаптируем воронки, карточки клиентов, автоматические действия и отчёты под процессы продаж и сервиса.</p><div class="home-service-facts"><span>от 60 000 ₽</span><span>Срок — по объёму работ</span></div></article>
-        <article class="home-service-row rise"><div class="home-service-title"><span>02 · AI</span><h3>AI-внедрение</h3></div><p>Подключаем AI-помощников к CRM, сайту и базе знаний для обработки типовых запросов и поддержки сотрудников.</p><div class="home-service-facts"><span>от 30 000 ₽</span><span>Срок — от 2–3 недель</span></div></article>
-        <article class="home-service-row rise"><div class="home-service-title"><span>03 · WEB</span><h3>Сайты и веб-сервисы</h3></div><p>Создаём корпоративные сайты, личные кабинеты и веб-приложения для клиентов и сотрудников.</p><div class="home-service-facts"><span>от 50 000 ₽</span><span>Срок — от 3 недель</span></div></article>
-        <article class="home-service-row rise"><div class="home-service-title"><span>04 · API</span><h3>Интеграции</h3></div><p>Связываем формы, CRM, телефонию, мессенджеры и учётные системы через API и готовые коннекторы.</p><div class="home-service-facts"><span>Стоимость — по задаче</span><span>Срок — по объёму работ</span></div></article>
-      </div>
       <figure class="home-services-visual rise">
-        <img src="/assets/codedev-service-system-v2.png" alt="Цифровые инструменты объединены в единую систему для бизнеса" width="1536" height="1024" loading="lazy" decoding="async">
-        <nav class="home-service-picker" aria-label="Перейти к услуге и её стоимости">
-          <a class="home-service-choice" href="#/prices" aria-label="Настройка CRM: воронки, клиенты и отчёты">
-            <span class="home-service-choice-code">01 · CRM</span><strong>Настройка CRM</strong><small>Воронки, клиенты и отчёты</small>
-          </a>
-          <a class="home-service-choice" href="#/prices" aria-label="AI-внедрение: помощники и автоматизация рутины">
-            <span class="home-service-choice-code">02 · AI</span><strong>AI-внедрение</strong><small>Помощники и автоматизация рутины</small>
-          </a>
-          <a class="home-service-choice" href="#/prices" aria-label="Сайты и веб-сервисы: сайты, кабинеты и приложения">
-            <span class="home-service-choice-code">03 · WEB</span><strong>Сайты и веб-сервисы</strong><small>Сайт, кабинет или приложение</small>
-          </a>
-          <a class="home-service-choice" href="#/prices" aria-label="Интеграции: CRM, телефония и сервисы">
-            <span class="home-service-choice-code">04 · API</span><strong>Интеграции</strong><small>CRM, телефония и сервисы</small>
-          </a>
-        </nav>
-        <figcaption>CRM · AI · WEB · API</figcaption>
+        <svg class="home-services-scene" viewBox="0 0 1536 1024" role="group" aria-label="Интерактивная сцена услуг CodeDev">
+          <defs>
+            <linearGradient id="scene-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9df"/><stop offset=".58" stop-color="#f3efdf"/><stop offset="1" stop-color="#cbd0b2"/></linearGradient>
+            <linearGradient id="scene-fade-x" x1="0" y1="0" x2="1536" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="black"/><stop offset=".09" stop-color="white"/><stop offset=".87" stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+            <linearGradient id="scene-fade-y" x1="0" y1="0" x2="0" y2="1024" gradientUnits="userSpaceOnUse"><stop stop-color="black"/><stop offset=".08" stop-color="white"/><stop offset=".82" stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+            <mask id="scene-soft-x"><rect width="1536" height="1024" fill="url(#scene-fade-x)"/></mask>
+            <mask id="scene-soft-edges"><g mask="url(#scene-soft-x)"><rect width="1536" height="1024" fill="url(#scene-fade-y)"/></g></mask>
+            <filter id="scene-depth" x="-20%" y="-35%" width="145%" height="190%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/><feOffset in="blur" dx="1" dy="6" result="shadow"/><feFlood flood-color="#090a05" flood-opacity=".9" result="shade"/><feComposite in="shade" in2="shadow" operator="in" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <g mask="url(#scene-soft-edges)">
+            <image href="/assets/codedev-service-system-v5.png" x="0" y="0" width="1536" height="1024" preserveAspectRatio="none"/>
+            <g class="scene-copy">
+  <!-- Baselines follow each screen's plane, in the artwork coordinate system. -->
+  <a href="#/prices" aria-label="Узнать стоимость настройки CRM" transform="matrix(1 .23 0 1 190 111)">
+   <path d="M16 5H188Q202 5 202 19V113Q202 127 188 127H16Q5 127 5 113V19Q5 5 16 5Z"/>
+   <g pointer-events="none"><text class="scene-code" x="17" y="28">01 · CRM</text><text class="scene-title" x="17" y="62">Настройка CRM</text><text class="scene-detail" x="17" y="91">Воронки · клиенты</text><text class="scene-detail" x="17" y="113">Автоматизация · отчёты</text></g>
+  </a>
+  <a href="#/prices" aria-label="Узнать стоимость AI-внедрения" transform="matrix(1 .24 0 1 458 162)">
+   <path d="M18 5H217Q232 5 232 20V141Q232 157 217 157H18Q5 157 5 141V20Q5 5 18 5Z"/>
+   <g pointer-events="none"><text class="scene-code" x="20" y="33">02 · AI</text><text class="scene-title" x="20" y="71">AI-внедрение</text><text class="scene-detail" x="20" y="105">Помощники для бизнеса</text><text class="scene-detail" x="20" y="129">Автоматизация процессов</text></g>
+  </a>
+  <a href="#/prices" aria-label="Узнать стоимость сайтов и веб-сервисов" transform="matrix(1 .26 0 1 190 303)">
+   <path d="M16 5H188Q202 5 202 19V108Q202 122 188 122H16Q5 122 5 108V19Q5 5 16 5Z"/>
+   <g pointer-events="none"><text class="scene-code" x="17" y="25">03 · WEB</text><text class="scene-title" x="17" y="57">Сайты и сервисы</text><text class="scene-detail" x="17" y="86">Сайты · веб-приложения</text><text class="scene-detail" x="17" y="108">Личные кабинеты</text></g>
+  </a>
+  <a href="#/prices" aria-label="Узнать стоимость интеграций" transform="matrix(1 .25 0 1 458 369)">
+   <path d="M18 5H217Q232 5 232 20V145Q232 161 217 161H18Q5 161 5 145V20Q5 5 18 5Z"/>
+   <g pointer-events="none"><text class="scene-code" x="20" y="33">04 · API</text><text class="scene-title" x="20" y="71">Интеграции</text><text class="scene-detail" x="20" y="105">CRM · телефония · сервисы</text><text class="scene-detail" x="20" y="129">Данные в одной системе</text></g>
+  </a>
+ </g>
+ </g>
+        </svg>
       </figure>
     </div>
   </div>
@@ -2874,11 +2954,11 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <h1>Помогаем бизнесу превращать сложные процессы в понятные цифровые решения</h1>
       <p class="lead">CodeDev разрабатывает и настраивает CRM, внедряет AI в рабочие процессы, создаёт веб-сервисы и объединяет системы компании.</p>
     </div>
+  </div>
     <figure class="about-opening-visual" aria-label="Цифровой человеческий портрет из исходного референса CodeDev">
       <img src="assets/code-digital-face-v2.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1672" height="941" fetchpriority="high" decoding="async">
       <figcaption><span>CODE.SYSTEMS</span><span>IT · CRM · AI · WEB</span></figcaption>
     </figure>
-  </div>
 </section>
 
 <section class="sec numen-section" style="background:var(--bg-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
@@ -3500,6 +3580,18 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
    viewer.setAttribute('loading-anim','true');
    viewer.setAttribute('aria-label','3D-робот Spline');
    stage.replaceChildren(viewer);
+   // The viewer's branding lives in its open shadow root, outside page CSS.
+   const removeViewerBadge = () => {
+    const root = viewer.shadowRoot;
+    if (!root || root.getElementById('codedev-viewer-style')) return;
+    const style = document.createElement('style');
+    style.id = 'codedev-viewer-style';
+    style.textContent = '#logo { display:none!important; visibility:hidden!important; pointer-events:none!important; }';
+    root.append(style);
+   };
+   removeViewerBadge();
+   viewer.addEventListener('load', removeViewerBadge);
+   customElements.whenDefined('spline-viewer').then(removeViewerBadge);
    scene.classList.add('robot-active');
   } catch (error) {
    loading = false;
