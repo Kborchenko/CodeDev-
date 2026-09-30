@@ -57,8 +57,8 @@
 .page[data-slug="home"] .hero { padding:0; border-bottom:1px solid var(--border); }
 .page[data-slug="home"] .hero-grid { max-width:1440px; min-height:520px; grid-template-columns:.95fr 1.05fr; gap:0; padding:0; align-items:stretch; }
 .page[data-slug="home"] .hero-grid > div:first-child { padding:76px clamp(28px,6vw,88px) 64px; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--border); }
-.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:#090A09 url('/assets/code-digital-face.webp') 68% center/cover no-repeat; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; overflow:hidden; }
-.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:1; opacity:.18; pointer-events:none; background:linear-gradient(rgba(217,255,40,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(217,255,40,.045) 1px,transparent 1px); background-size:42px 42px; }
+.page[data-slug="home"] .term { position:relative; min-height:520px; border:0; border-radius:0; box-shadow:none; background:radial-gradient(ellipse at 72% 66%,rgba(166,128,28,.15),rgba(92,70,16,.08) 30%,transparent 58%),#090A09; display:flex; flex-direction:column; justify-content:flex-end; isolation:isolate; overflow:hidden; }
+.page[data-slug="home"] .term::before { content:""; position:absolute; inset:0; z-index:1; opacity:1; pointer-events:none; background:none; }
 .page[data-slug="home"] .term::after { content:none; }
 .page[data-slug="home"] .term-bar { position:absolute; inset:0 0 auto; background:transparent; border:0; padding:22px 28px; }
 .page[data-slug="home"] .term-bar,.page[data-slug="home"] .term-body { z-index:2; }
@@ -119,22 +119,6 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-}
-
-/* Фоновая сетка */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 64px 64px;
-  opacity: .25;
-  pointer-events: none;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
 }
 
 .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
@@ -757,27 +741,11 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 @media(max-width:600px) { .robot-stage { inset:410px -10% 0 -10%; } .robot-return { top:auto; bottom:245px; right:24px; } }
 
 
-/* Atmospheric backdrop for the robot: fine grid, mist and sparse particles. */
+/* Quiet black and muted-gold backdrop for the robot. */
 .page[data-slug="home"] .term.robot-preview::before {
- background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.94) 26%,transparent 65%),linear-gradient(rgba(165,180,145,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(165,180,145,.065) 1px,transparent 1px),radial-gradient(ellipse at 70% 70%,#242820 0%,#10130f 42%,#090a09 80%);
- background-size:100% 100%,88px 88px,88px 88px,100% 100%;
+ background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.96) 27%,rgba(9,10,9,.62) 47%,rgba(9,10,9,.08) 72%),radial-gradient(ellipse at 72% 68%,rgba(190,145,31,.18),rgba(102,75,18,.08) 32%,#090a09 76%);
 }
-.robot-atmosphere { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
-.robot-mist { position:absolute; inset:28% -10% -20% 28%; opacity:.55; filter:blur(28px); background:radial-gradient(ellipse at 45% 66%,#a0ada528,transparent 48%),radial-gradient(ellipse at 75% 30%,#a5b39320,transparent 43%),radial-gradient(ellipse at 25% 80%,#d1d7cb1c,transparent 37%); animation:robot-mist-drift 22s ease-in-out infinite alternate; }
-.robot-particle { position:absolute; width:2px; height:2px; background:#c1c9b3; opacity:.3; animation:robot-particle-drift 14s ease-in-out infinite alternate; }
-.robot-particle:nth-child(5n) { width:3px; height:3px; background:var(--accent); box-shadow:0 0 9px #d9ff2838; opacity:.55; }
-@keyframes robot-mist-drift { from { transform:translate3d(-2%,3%,0) scale(1); } to { transform:translate3d(4%,-3%,0) scale(1.08); } }
-@keyframes robot-particle-drift { from { transform:translate3d(0,0,0); opacity:.15; } to { transform:translate3d(12px,-22px,0); opacity:.6; } }
-@media(prefers-reduced-motion:reduce) { .robot-mist,.robot-particle { animation:none; } }
-@media(max-width:600px) { .robot-mist { inset:40% -20% -5% 0; } }
-
-
-.neuro-background { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-.robot-atmosphere.has-neuro::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#090a09 0%,rgba(9,10,9,.92) 28%,rgba(9,10,9,.25) 63%,rgba(9,10,9,.08)); }
-.has-neuro .robot-mist,.has-neuro .robot-particle { display:none; }
-@media(max-width:600px) { .robot-atmosphere.has-neuro::after { background:linear-gradient(180deg,#090a09 0%,rgba(9,10,9,.95) 35%,rgba(9,10,9,.12) 68%); } }
-
-
+.robot-atmosphere { position:absolute; inset:0; z-index:0; pointer-events:none; }
 .page[data-slug="home"] .term.robot-preview .term-body { width:280px; max-width:calc(100% - 32px); padding:12px 14px; margin:0 20px 20px 0; }
 .page[data-slug="home"] .term.robot-preview .solution-label { font-size:14px; margin-bottom:8px; }
 .page[data-slug="home"] .term.robot-preview .service-description { min-height:24px; font-size:14px; }
@@ -894,8 +862,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-destination-fact:last-child { border-bottom:0; }
 .home-destination-panel .home-destination-price-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:0; border:0; border-radius:0; background:transparent; backdrop-filter:none; }
 .home-destination-service-card { display:flex; flex-direction:column; gap:10px; min-width:0; min-height:122px; padding:16px; border:1px solid #ffffff17; border-radius:14px; background:linear-gradient(145deg,#171a12,#0b0d0b 85%); }
-.home-destination-service-card:nth-child(2) { background:radial-gradient(ellipse at 100% 0%,#ff9c4a20,transparent 66%),linear-gradient(145deg,#171713,#0b0d0b 85%); }
-.home-destination-service-card:nth-child(3) { background:radial-gradient(ellipse at 100% 0%,#a8bbff1b,transparent 66%),linear-gradient(145deg,#171713,#0b0d0b 85%); }
+.home-destination-service-card:nth-child(2) { background:radial-gradient(ellipse at 100% 0%,#b38c2520,transparent 66%),linear-gradient(145deg,#171711,#0b0d0b 85%); }
+.home-destination-service-card:nth-child(3) { background:radial-gradient(ellipse at 100% 0%,#d9ff2817,transparent 66%),linear-gradient(145deg,#171711,#0b0d0b 85%); }
 .home-destination-service-code { color:var(--accent); font:700 10px/1.3 var(--mono); letter-spacing:.08em; }
 .home-destination-service-card h3 { margin:0; color:var(--text); font:600 17px/1.2 var(--display); }
 .home-destination-service-card strong { margin-top:auto; color:var(--accent); font:700 14px/1.3 var(--body); }
@@ -907,6 +875,13 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-destination-cta:focus-visible { outline:2px solid #f3f0e7; outline-offset:4px; }
 @media(max-width:760px) { .home-destination { padding:18px 0; } .home-destination-panel { grid-template-columns:1fr; gap:24px; min-height:0; padding:28px 22px; border-radius:22px; } .home-destination-panel::before { right:10px; top:32px; transform:none; font-size:170px; } .home-destination-panel::after { right:-230px; top:-120px; } .home-destination-panel h2 { font-size:clamp(32px,9vw,44px); } .home-destination-side { padding:18px; } }
 @media(prefers-reduced-motion:reduce) { .home-destination-cta { transition:none; } }
+
+/* Calm, continuous homepage backdrop and fewer visual seams. */
+.page[data-slug="home"] { background:radial-gradient(ellipse at 72% 18%,rgba(168,126,24,.07),transparent 42%),#090A09; }
+.page[data-slug="home"] section { background:transparent!important; border-color:transparent!important; }
+.page[data-slug="home"] .sec { padding-block:58px; }
+.page[data-slug="home"] .sec-tight { padding-block:28px; }
+.page[data-slug="home"] .home-destination { padding-block:12px; border:0; }
 
 
 .about-opening { position:relative; min-height:clamp(560px,66vw,760px); display:flex; align-items:center; padding:0!important; overflow:hidden; border:0; }
@@ -969,9 +944,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-services-grid .card.service-card:nth-child(n) { grid-area:auto; }
 .home-services-grid .service-card { grid-area:auto; min-height:280px; justify-content:flex-start; padding:24px; border-radius:18px; background:linear-gradient(145deg,#171912,#0d0f0d 76%); }
 .home-services-grid .service-card:nth-child(1)::before { background:radial-gradient(ellipse at 100% 0%,#d9ff2830,transparent 62%); }
-.home-services-grid .service-card:nth-child(2)::before { background:radial-gradient(ellipse at 100% 0%,#ff9c4a2a,transparent 62%); }
-.home-services-grid .service-card:nth-child(3)::before { background:radial-gradient(ellipse at 100% 0%,#c9d5e52a,transparent 62%); }
-.home-services-grid .service-card:nth-child(4)::before { background:radial-gradient(ellipse at 100% 0%,#91b6ff29,transparent 62%); }
+.home-services-grid .service-card:nth-child(2)::before { background:radial-gradient(ellipse at 100% 0%,#b38c2524,transparent 62%); }
+.home-services-grid .service-card:nth-child(3)::before { background:radial-gradient(ellipse at 100% 0%,#d9ff2816,transparent 62%); }
+.home-services-grid .service-card:nth-child(4)::before { background:radial-gradient(ellipse at 100% 0%,#9f88201c,transparent 62%); }
 .service-card-meta { display:flex; justify-content:space-between; align-items:center; gap:12px; color:var(--accent); font:700 10px/1.4 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
 .service-card-meta span:last-child { color:var(--muted); text-align:right; }
 .home-services-grid .service-card h3 { margin:34px 0 9px; font-size:clamp(20px,2vw,26px); }
@@ -1122,21 +1097,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
   </div>
 </section>
-
-<section class="home-destination">
- <div class="wrap home-destination-inner">
-  <div><div class="eyebrow">КОМАНДА CODEDEV</div><h2>Создаём цифровые продукты вместе</h2><p class="home-destination-copy">Разработка, тестирование, поддержка и работа с партнёрами. Посмотрите направления, требования и условия работы в команде.</p></div>
-  <div><div class="home-destination-points"><span>Открытые и планируемые вакансии</span><span>Понятные задачи, этапы отбора и условия</span></div><a class="home-main-action" href="#/team">Собираем команду</a></div>
- </div>
-</section>
-
-<section class="home-destination">
- <div class="wrap home-destination-inner">
-  <div><div class="eyebrow">УСЛУГИ И СТОИМОСТЬ</div><h2>Оцените бюджет до начала проекта</h2><p class="home-destination-copy">Сайты и веб-приложения, CRM и внутренние системы, AI-интеграции. На отдельной странице собраны ориентиры по стоимости, срокам и составу работ.</p></div>
-  <div><div class="home-destination-points"><span>Понятный диапазон цен для каждого направления</span><span>Крупные веб-проекты вынесены отдельно</span></div><a class="home-main-action" href="#/prices">Узнать цену</a></div>
- </div>
-</section>
-
 
 <section class="home-destination home-destination-prices" aria-labelledby="home-prices-title"><div class="wrap"><div class="home-destination-panel" data-number="01">
  <div class="home-destination-copycol"><div class="home-destination-kicker">Услуги · стоимость · сроки</div><h2 id="home-prices-title">Цены на разработку и интеграции</h2><p>Предварительные ориентиры для сайтов, веб-приложений, CRM и AI-интеграций. Посмотрите, что входит в работы и сколько обычно занимает запуск.</p></div>
@@ -3354,27 +3314,7 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
 (() => {
  const scene = document.querySelector('.page[data-slug="home"] .term');
  if (!scene) return;
- const atmosphere = document.createElement('div');
- atmosphere.className = 'robot-atmosphere';
- atmosphere.setAttribute('aria-hidden','true');
- const mist = document.createElement('div');
- mist.className = 'robot-mist';
- atmosphere.append(mist);
- for (let i=0;i<48;i++) {
-  const particle = document.createElement('span');
-  particle.className = 'robot-particle';
-  particle.style.left = `${32+(i*37%67)}%`;
-  particle.style.top = `${4+(i*29%91)}%`;
-  particle.style.animationDelay = `${-(i%14)}s`;
-  atmosphere.append(particle);
- }
  scene.classList.add('robot-preview');
- scene.prepend(atmosphere);
- const atmosphereObserver = new IntersectionObserver((entries) => {
-  const visible = entries[0].isIntersecting;
-  atmosphere.querySelectorAll('.robot-mist,.robot-particle').forEach(el => { el.style.animationPlayState = visible?'running':'paused'; });
- });
- atmosphereObserver.observe(scene);
  const stage = document.createElement('div');
  stage.className = 'robot-stage';
  stage.setAttribute('aria-label','Интерактивный 3D-робот');
@@ -3410,7 +3350,6 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
 })();
 </script>
 
-<script is:inline src="/assets/neuro-background.js?v=2"></script>
 
 <script is:inline>
 (() => {
