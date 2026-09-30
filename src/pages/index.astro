@@ -892,6 +892,15 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-destination-facts { display:grid; gap:0; }
 .home-destination-fact { display:flex; justify-content:space-between; gap:18px; padding:15px 0; border-bottom:1px solid #ffffff16; color:#c6c9bd; font-size:14px; line-height:1.45; }
 .home-destination-fact:last-child { border-bottom:0; }
+.home-destination-panel .home-destination-price-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:0; border:0; border-radius:0; background:transparent; backdrop-filter:none; }
+.home-destination-service-card { display:flex; flex-direction:column; gap:10px; min-width:0; min-height:122px; padding:16px; border:1px solid #ffffff17; border-radius:14px; background:linear-gradient(145deg,#171a12,#0b0d0b 85%); }
+.home-destination-service-card:nth-child(2) { background:radial-gradient(ellipse at 100% 0%,#ff9c4a20,transparent 66%),linear-gradient(145deg,#171713,#0b0d0b 85%); }
+.home-destination-service-card:nth-child(3) { background:radial-gradient(ellipse at 100% 0%,#a8bbff1b,transparent 66%),linear-gradient(145deg,#171713,#0b0d0b 85%); }
+.home-destination-service-code { color:var(--accent); font:700 10px/1.3 var(--mono); letter-spacing:.08em; }
+.home-destination-service-card h3 { margin:0; color:var(--text); font:600 17px/1.2 var(--display); }
+.home-destination-service-card strong { margin-top:auto; color:var(--accent); font:700 14px/1.3 var(--body); }
+.home-destination-panel .home-destination-price-grid .home-destination-cta { grid-column:1/-1; }
+@media(max-width:520px) { .home-destination-panel .home-destination-price-grid { grid-template-columns:minmax(0,1fr); } .home-destination-service-card { min-height:106px; } }
 .home-destination-fact strong { color:var(--accent); font-size:15px; white-space:nowrap; }
 .home-destination-cta { display:flex; align-items:center; justify-content:center; min-height:62px; padding:16px 24px; border:1px solid #eeff99; border-radius:999px; background:linear-gradient(110deg,#d9ff28,#efff8d 48%,#b8e600); color:#090a09; font:700 17px/1.2 var(--display); text-decoration:none; box-shadow:0 0 18px #d9ff2830; transition:transform .25s ease,box-shadow .3s ease; }
 @media(hover:hover) { .home-destination-cta:hover { transform:translateY(-2px); box-shadow:0 0 0 1px #f3f0e7,0 0 20px #d9ff2890,0 0 50px #d9ff2850; } }
@@ -1131,7 +1140,13 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 
 <section class="home-destination home-destination-prices" aria-labelledby="home-prices-title"><div class="wrap"><div class="home-destination-panel" data-number="01">
  <div class="home-destination-copycol"><div class="home-destination-kicker">Услуги · стоимость · сроки</div><h2 id="home-prices-title">Цены на разработку и интеграции</h2><p>Предварительные ориентиры для сайтов, веб-приложений, CRM и AI-интеграций. Посмотрите, что входит в работы и сколько обычно занимает запуск.</p></div>
- <div class="home-destination-side"><div class="home-destination-facts"><div class="home-destination-fact"><span>Сайт для бизнеса</span><strong>50 000–200 000 ₽</strong></div><div class="home-destination-fact"><span>Веб-приложение</span><strong>от 90 000 ₽</strong></div><div class="home-destination-fact"><span>AI-интеграция</span><strong>от 30 000 ₽</strong></div></div><a class="home-destination-cta" href="#/prices">Все услуги и цены</a></div>
+ <div class="home-destination-side home-destination-price-grid">
+  <article class="home-destination-service-card"><span class="home-destination-service-code">01 · WEB</span><h3>Сайт для бизнеса</h3><strong>50 000–200 000 ₽</strong></article>
+  <article class="home-destination-service-card"><span class="home-destination-service-code">02 · APP</span><h3>Веб-приложение</h3><strong>от 90 000 ₽</strong></article>
+  <article class="home-destination-service-card"><span class="home-destination-service-code">03 · CRM</span><h3>Настройка CRM</h3><strong>от 60 000 ₽</strong></article>
+  <article class="home-destination-service-card"><span class="home-destination-service-code">04 · AI</span><h3>AI-интеграция</h3><strong>от 30 000 ₽</strong></article>
+  <a class="home-destination-cta" href="#/prices">Все услуги и цены</a>
+ </div>
  </div></div></section>
 
 <section class="home-destination home-destination-team" aria-labelledby="home-team-title"><div class="wrap"><div class="home-destination-panel" data-number="02">
