@@ -674,6 +674,19 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .numen-project-details dd { margin:0; text-align:right; }
 .numen-project-site { display:block; padding:20px 0 0; margin-top:8px; border-top:1px solid var(--border); color:var(--accent); font-size:14px; text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
 @media(max-width:520px) { .numen-project-details > div { grid-template-columns:1fr; gap:5px; } .numen-project-details dd { text-align:left; } .numen-project-name { margin-top:24px; } }
+.numen-site-figure { min-width:0; margin:0; overflow:hidden; border:1px solid var(--border-hi); border-radius:14px; background:#0b0c0b; box-shadow:0 24px 64px #0005; }
+.numen-site-chrome { height:42px; display:flex; align-items:center; gap:7px; padding:0 14px; border-bottom:1px solid #ffffff12; background:#111310; }
+.numen-site-chrome i { width:8px; height:8px; border-radius:50%; background:#53564e; }
+.numen-site-chrome i:first-child { background:#a7665c; }
+.numen-site-chrome i:nth-child(2) { background:#b9a25b; }
+.numen-site-address { width:min(42%,260px); margin:auto; padding:5px 12px; border-radius:999px; background:#090a09; color:#a5a69e; font:11px/1.4 var(--mono); text-align:center; }
+.numen-site-viewport { position:relative; aspect-ratio:1.38; overflow:hidden; background:#101018; }
+.numen-site-viewport iframe { position:absolute; inset:0 auto auto 0; width:180%; height:175%; border:0; transform:scale(.57143); transform-origin:top left; pointer-events:none; }
+.numen-site-figure figcaption { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:13px 16px; color:var(--muted); font:600 10px/1.5 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+.numen-site-figure figcaption a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+.numen-site-figure figcaption a:hover { text-decoration:underline; text-underline-offset:4px; }
+@media(max-width:760px) { .numen-site-viewport { aspect-ratio:1.15; } .numen-site-viewport iframe { width:225%; height:220%; transform:scale(.45455); } }
+@media(max-width:520px) { .numen-site-viewport { aspect-ratio:1.1; } .numen-site-chrome { height:36px; } .numen-site-figure figcaption { align-items:flex-start; flex-direction:column; gap:5px; } }
 
 /* Expanded first screen: shared artwork and draggable navigation. */
 .page[data-slug="home"] .hero-grid { position:relative; isolation:isolate; min-height:650px; display:flex; align-items:center; overflow:hidden; }
@@ -2798,14 +2811,13 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <p>Разработка проекта завершена. TaskSync — самостоятельный продукт технического директора CodeDev, который выступил его основателем и разработчиком. Подробнее о продукте — на сайте Numen Pulse.</p>
       <a class="btn btn-ghost numen-link" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Посмотреть Numen Pulse</a>
     </div>
-    <article class="numen-preview numen-project" aria-label="Завершённый проект TaskSync от Numen Pulse">
-      <div class="numen-preview-top"><span>NUMEN PULSE</span><span class="numen-project-status">Проект завершён</span></div>
-      <h3 class="numen-project-name">TaskSync</h3>
-      <p class="numen-project-description">Приложение для управления задачами и совместной работы команды.</p>
-      <ul class="numen-project-features"><li>Управление задачами</li><li>Распределение нагрузки</li><li>Синхронизация команды</li></ul>
-      <dl class="numen-project-details"><div><dt>Формат</dt><dd>Самостоятельный продукт</dd></div><div><dt>Основатель и разработчик</dt><dd>Технический директор CodeDev</dd></div></dl>
-      <a class="numen-project-site" href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть сайт проекта · numenpulse.ru</a>
-    </article>
+    <figure class="numen-site-figure" aria-label="Предпросмотр сайта Numen Pulse и приложения TaskSync">
+      <div class="numen-site-chrome" aria-hidden="true"><i></i><i></i><i></i><span class="numen-site-address">numenpulse.ru</span></div>
+      <div class="numen-site-viewport">
+        <iframe src="https://numenpulse.ru/" title="Страница сайта Numen Pulse с презентацией TaskSync" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+      <figcaption><span>NUMEN PULSE · TASKSYNC</span><a href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть сайт ↗</a></figcaption>
+    </figure>
   </div>
 </section>
 
