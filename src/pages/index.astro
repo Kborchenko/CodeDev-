@@ -239,6 +239,7 @@ h3 { font-size: 21px; letter-spacing: -.02em; }
   border: 1px solid var(--border-hi); display: grid; place-items: center;
   font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 18px;
 }
+.card-ico-arrow svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 
 /* Статистика */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
@@ -943,7 +944,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   .page .wrap { padding-inline:16px; }
   .home-destination-fact { flex-direction:column; gap:4px; }
   .home-destination-fact strong { text-align:left; }
-  .service-price-table { min-width:560px; }
 }
 
 /* Varied bento layouts for the three key homepage card groups. */
@@ -1088,7 +1088,9 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .home-services-feature { display:block; }
 .home-services-visual { position:relative; width:calc(100% + clamp(0px,5vw,76px)); aspect-ratio:3/2; min-width:0; margin:0 calc(clamp(0px,2.5vw,38px) * -1); overflow:hidden; background:var(--bg); isolation:isolate; }
 .home-services-visual::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:none; }
-.home-services-scene { display:block; width:100%; height:100%; overflow:visible; }
+.home-services-art { position:absolute; inset:0; z-index:0; display:block; width:100%; height:100%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 87%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 87%,transparent 100%); }
+.home-services-art img { display:block; width:100%; height:100%; object-fit:fill; }
+.home-services-scene { position:relative; z-index:1; display:block; width:100%; height:100%; overflow:visible; }
 .home-services-scene .scene-code { fill:#e6ff54; font:700 17px/1 var(--mono); letter-spacing:1.8px; }
 .home-services-scene .scene-title { fill:#f5f1e3; font:700 27px/1 var(--display); letter-spacing:-.5px; }
 .home-services-scene .scene-detail { fill:#f5efdc; opacity:.94; font:500 15px/1.2 var(--body); letter-spacing:.1px; }
@@ -1267,6 +1269,10 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
     <div class="home-services-feature">
       <figure class="home-services-visual rise">
+        <picture class="home-services-art" aria-hidden="true">
+          <source srcset="/assets/codedev-service-system-v5.webp" type="image/webp">
+          <img src="/assets/codedev-service-system-v5.png" alt="" width="1536" height="1024" loading="lazy" decoding="async">
+        </picture>
         <svg class="home-services-scene" viewBox="0 0 1536 1024" role="group" aria-label="Интерактивная сцена услуг CodeDev">
           <defs>
             <linearGradient id="scene-face" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9df"/><stop offset=".58" stop-color="#f3efdf"/><stop offset="1" stop-color="#cbd0b2"/></linearGradient>
@@ -1277,7 +1283,6 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
             <filter id="scene-depth" x="-20%" y="-35%" width="145%" height="190%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/><feOffset in="blur" dx="1" dy="6" result="shadow"/><feFlood flood-color="#090a05" flood-opacity=".9" result="shade"/><feComposite in="shade" in2="shadow" operator="in" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           </defs>
           <g mask="url(#scene-soft-edges)">
-            <image href="/assets/codedev-service-system-v5.png" x="0" y="0" width="1536" height="1024" preserveAspectRatio="none"/>
             <g class="scene-copy">
   <!-- Baselines follow each screen's plane, in the artwork coordinate system. -->
   <a href="#/prices" aria-label="Узнать стоимость настройки CRM" transform="matrix(1 .23 0 1 190 111)">
@@ -1510,7 +1515,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="team-opening-status"><span><strong>02</strong> набора открыто сейчас</span><span><strong>04</strong> откроются после 30.11.2026</span></div>
     </div>
     <figure class="team-intro-visual" aria-label="Иллюстрация сотрудничества человека и искусственного интеллекта">
-      <img src="assets/team-ai-hands.jpg" alt="Рука человека и цифровая рука AI соприкасаются на фоне сети данных">
+      <img src="assets/team-ai-hands.jpg" alt="Рука человека и цифровая рука AI соприкасаются на фоне сети данных" loading="lazy" decoding="async">
       <figcaption>CODE.SYSTEMS / 002</figcaption>
     </figure>
   </div>
@@ -1586,7 +1591,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
         собираете вводные и передаёте проект техническому директору.</p>
         <div class="vac-pay">от 90 000 ₽<small>после обучения · наставник ещё 2–3 месяца</small></div>
       </div>
-      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее</span></div>
     </a>
 
     <a class="vac rise" href="#/vacancy-support">
@@ -1601,7 +1606,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
         вопросы по проекту. Ничего продавать и звонить не нужно, все ответы есть в инструкции.</p>
         <div class="vac-pay">55 000 – 90 000 ₽<small>опыт не нужен · работа с телефона, ПК или ноутбука</small></div>
       </div>
-      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее →</span></div>
+      <div class="vac-side"><span class="btn btn-ghost btn-sm">Подробнее</span></div>
     </a>
 
     <article class="vac vac-closed rise" aria-label="Обучение программированию. Набор откроется после 30 ноября 2026 года">
@@ -1932,17 +1937,17 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
     <div class="grid-3">
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Аналитик</h3>
         <p>Работа с требованиями: что именно хочет клиент и как это описать команде.</p>
       </div>
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Автотестирование</h3>
         <p>Учитесь писать код, который проверяет продукт за вас. Первый шаг в разработку.</p>
       </div>
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Разработка</h3>
         <p>Переходите на трек обучения программированию и идёте по грейдам до middle.</p>
       </div>
@@ -2440,17 +2445,17 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
     <div class="grid-3">
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Менеджер по партнёрам</h3>
         <p>От сопровождения — к первому разговору с партнёром и сбору задачи.</p>
       </div>
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Тестировщик</h3>
         <p>Проверяете продукт до клиента: кнопки, формы, баги. Обучение 2–3 недели.</p>
       </div>
       <div class="card rise">
-        <div class="card-ico">→</div>
+        <div class="card-ico card-ico-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
         <h3>Разработка</h3>
         <p>Переходите на трек обучения программированию и идёте по грейдам до middle.</p>
       </div>
@@ -2956,7 +2961,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
     </div>
   </div>
     <figure class="about-opening-visual" aria-label="Цифровой человеческий портрет из исходного референса CodeDev">
-      <img src="assets/code-digital-face-v2.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1672" height="941" fetchpriority="high" decoding="async">
+      <img src="assets/code-digital-face-v2.webp" alt="Цифровой человеческий портрет на тёмном фоне с лаймовыми деталями" width="1672" height="941" loading="lazy" decoding="async">
       <figcaption><span>CODE.SYSTEMS</span><span>IT · CRM · AI · WEB</span></figcaption>
     </figure>
 </section>
@@ -2977,7 +2982,7 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
       <div class="numen-site-viewport">
         <iframe src="/numenpulse/index.html" title="Исходная HTML-страница проекта TaskSync от Numen Pulse" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
-      <figcaption><span>NUMEN PULSE · TASKSYNC</span><a href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть сайт ↗</a></figcaption>
+      <figcaption><span>NUMEN PULSE · TASKSYNC</span><a href="https://numenpulse.ru/" target="_blank" rel="noopener noreferrer">Открыть сайт</a></figcaption>
     </figure>
   </div>
 </section>
@@ -3600,7 +3605,22 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
   }
  }
  launch.addEventListener('click',start);
- if (!matchMedia('(max-width:600px), (prefers-reduced-motion:reduce)').matches && !navigator.connection?.saveData) start();
+ const canAutoplay = !matchMedia('(max-width:600px), (prefers-reduced-motion:reduce)').matches && !navigator.connection?.saveData;
+ if (canAutoplay) {
+  const scheduleStart = () => {
+   if ('requestIdleCallback' in window) requestIdleCallback(() => start(), { timeout: 1800 });
+   else window.setTimeout(start, 500);
+  };
+  if ('IntersectionObserver' in window) {
+   const observer = new IntersectionObserver((entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+     observer.disconnect();
+     scheduleStart();
+    }
+   }, { rootMargin: '120px' });
+   observer.observe(scene);
+  } else scheduleStart();
+ }
 })();
 </script>
 
