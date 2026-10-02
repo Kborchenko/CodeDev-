@@ -1144,7 +1144,8 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
 .services-map-head p,.services-timeline-head p { max-width:600px; color:var(--muted); line-height:1.65; }
 .services-chart-summary { flex:0 0 auto; text-align:right; }
 .services-chart-summary strong { display:block; color:var(--accent); font:700 clamp(26px,3.5vw,42px)/1 var(--mono); letter-spacing:-.06em; }
-.services-chart-summary span { display:block; margin-top:8px; color:var(--muted); font-size:12px; }
+.services-chart-summary .services-summary-title { margin-top:8px; color:var(--text); font-family:var(--display); letter-spacing:-.02em; }
+.services-chart-summary>span { display:block; margin-top:8px; color:var(--muted); font-size:12px; }
 .services-price-caret { display:inline-block; width:2px; height:.82em; margin-left:5px; vertical-align:-.04em; background:var(--accent); animation:services-caret 1s steps(2,start) infinite; }
 @keyframes services-caret { to { visibility:hidden; } }
 .services-chart { position:relative; }
@@ -1604,41 +1605,41 @@ h1,h2,h3,h4 { font-family:var(--display); letter-spacing:-.02em; }
   <div class="wrap">
     <div class="services-map-head">
       <div><div class="eyebrow">Бюджет проекта</div><h2 id="services-cost-title">Стоимость по направлениям</h2><p>Диапазоны и стартовые бюджеты для первичной оценки. Точная смета зависит от состава функций и интеграций.</p></div>
-      <div class="services-chart-summary"><strong><span data-service-price>от 30 000 ₽</span><i class="services-price-caret" aria-hidden="true"></i></strong><span data-service-price-note>простая AI-интеграция с одним сервисом</span></div>
+      <div class="services-chart-summary"><strong><span data-service-price>от 30 000 ₽</span><i class="services-price-caret" aria-hidden="true"></i></strong><strong class="services-summary-title" data-service-title>AI-интеграция</strong><span data-service-price-note>подключение одного сервиса · 2–3 недели</span></div>
     </div>
     <div class="services-chart" role="group" aria-label="Диаграмма стоимости услуг, шкала до 400 тысяч рублей">
       <div class="services-chart-axis" aria-hidden="true"><span>Направление</span><div class="services-chart-scale"><span>0</span><span>100 тыс.</span><span>200 тыс.</span><span>300 тыс.</span><span>400 тыс. ₽</span></div><span>Цена · срок</span></div>
-      <article class="services-chart-row" data-service-option data-price="50—200 тыс. ₽" data-note="Сайт для бизнеса · 3–5 недель" role="button" tabindex="0" aria-pressed="false" aria-label="Сайт для бизнеса. Стоимость 50—200 тысяч рублей">
+      <article class="services-chart-row" data-service-option data-price="50—200 тыс. ₽" data-title="Сайт для бизнеса" data-note="Корпоративный сайт или сайт услуг · 3–5 недель" role="button" tabindex="0" aria-pressed="false" aria-label="Сайт для бизнеса. Стоимость 50—200 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">01 · WEB</span><span><strong>Сайт для бизнеса</strong><small>Корпоративный сайт или сайт услуг</small></span></div>
         <div class="services-chart-track" aria-label="от 50 до 200 тысяч рублей"><span class="services-chart-bar" style="--from:12.5%;--size:37.5%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">50—200 тыс. ₽</span><span class="services-chart-time">3–5 недель</span></div>
       </article>
-      <article class="services-chart-row" data-service-option data-price="90—250 тыс. ₽" data-note="Веб-приложение · 6–10 недель" role="button" tabindex="0" aria-pressed="false" aria-label="Веб-приложение. Стоимость 90—250 тысяч рублей">
+      <article class="services-chart-row" data-service-option data-price="90—250 тыс. ₽" data-title="Веб-приложение" data-note="Личный кабинет или сервис для клиентов · 6–10 недель" role="button" tabindex="0" aria-pressed="false" aria-label="Веб-приложение. Стоимость 90—250 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">02 · WEB</span><span><strong>Веб-приложение</strong><small>Личный кабинет или сервис для клиентов</small></span></div>
         <div class="services-chart-track" aria-label="от 90 до 250 тысяч рублей"><span class="services-chart-bar" style="--from:22.5%;--size:40%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">90—250 тыс. ₽</span><span class="services-chart-time">6–10 недель</span></div>
       </article>
-      <article class="services-chart-row" data-service-option data-price="от 60 тыс. ₽" data-note="Настройка CRM · срок зависит от состава работ" role="button" tabindex="0" aria-pressed="false" aria-label="Настройка CRM. Стоимость от 60 тысяч рублей">
+      <article class="services-chart-row" data-service-option data-price="от 60 тыс. ₽" data-title="Настройка CRM" data-note="Воронки, автоматизация и базовые интеграции · по составу работ" role="button" tabindex="0" aria-pressed="false" aria-label="Настройка CRM. Стоимость от 60 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">03 · CRM</span><span><strong>Настройка CRM</strong><small>Воронки, автоматизация и базовые интеграции</small></span></div>
         <div class="services-chart-track" aria-label="от 60 тысяч рублей, верхняя граница зависит от задачи"><span class="services-chart-open" style="--from:15%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">от 60 тыс. ₽</span><span class="services-chart-time">по составу работ</span></div>
       </article>
-      <article class="services-chart-row" data-service-option data-price="от 300 тыс. ₽" data-note="CRM или внутренняя система · от 6–8 недель" role="button" tabindex="0" aria-pressed="false" aria-label="CRM или внутренняя система. Стоимость от 300 тысяч рублей">
+      <article class="services-chart-row" data-service-option data-price="от 300 тыс. ₽" data-title="CRM или внутренняя система" data-note="Разработка под процессы компании · от 6–8 недель" role="button" tabindex="0" aria-pressed="false" aria-label="CRM или внутренняя система. Стоимость от 300 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">04 · CRM</span><span><strong>CRM или внутренняя система</strong><small>Разработка продукта под процессы компании</small></span></div>
         <div class="services-chart-track" aria-label="от 300 тысяч рублей, верхняя граница зависит от задачи"><span class="services-chart-open" style="--from:75%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">от 300 тыс. ₽</span><span class="services-chart-time">от 6–8 недель</span></div>
       </article>
-      <article class="services-chart-row is-selected" data-service-option data-price="от 30 тыс. ₽" data-note="AI-интеграция одного сервиса · 2–3 недели" role="button" tabindex="0" aria-pressed="true" aria-label="AI-интеграция. Стоимость от 30 тысяч рублей">
+      <article class="services-chart-row is-selected" data-service-option data-price="от 30 тыс. ₽" data-title="AI-интеграция" data-note="Подключение одного сервиса к рабочему процессу · 2–3 недели" role="button" tabindex="0" aria-pressed="true" aria-label="AI-интеграция. Стоимость от 30 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">05 · AI</span><span><strong>AI-интеграция</strong><small>Подключение одного сервиса к рабочему процессу</small></span></div>
         <div class="services-chart-track" aria-label="от 30 тысяч рублей, верхняя граница зависит от задачи"><span class="services-chart-open" style="--from:7.5%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">от 30 тыс. ₽</span><span class="services-chart-time">2–3 недели</span></div>
       </article>
-      <article class="services-chart-row" data-service-option data-price="от 150 тыс. ₽" data-note="AI-агент и автоматизация · срок после оценки" role="button" tabindex="0" aria-pressed="false" aria-label="AI-агент и автоматизация. Стоимость от 150 тысяч рублей">
+      <article class="services-chart-row" data-service-option data-price="от 150 тыс. ₽" data-title="AI-агент и автоматизация" data-note="Несколько этапов или бизнес-сценариев · после оценки" role="button" tabindex="0" aria-pressed="false" aria-label="AI-агент и автоматизация. Стоимость от 150 тысяч рублей">
         <div class="services-chart-name"><span class="services-chart-code">06 · AI</span><span><strong>AI-агент и автоматизация</strong><small>Несколько этапов или бизнес-сценариев</small></span></div>
         <div class="services-chart-track" aria-label="от 150 тысяч рублей, верхняя граница зависит от задачи"><span class="services-chart-open" style="--from:37.5%"></span></div>
         <div class="services-chart-values"><span class="services-chart-price">от 150 тыс. ₽</span><span class="services-chart-time">после оценки</span></div>
       </article>
-      <article class="services-chart-row services-chart-row--custom" data-service-option data-price="по оценке" data-note="Интеграции и обмен данными · стоимость после разбора задачи" role="button" tabindex="0" aria-pressed="false" aria-label="Интеграции и обмен данными. Стоимость после оценки состава работ">
+      <article class="services-chart-row services-chart-row--custom" data-service-option data-price="по оценке" data-title="Интеграции и обмен данными" data-note="CRM, телефония, сайт, мессенджеры и учётные системы · после разбора задачи" role="button" tabindex="0" aria-pressed="false" aria-label="Интеграции и обмен данными. Стоимость после оценки состава работ">
         <div class="services-chart-name"><span class="services-chart-code">07 · API</span><span><strong>Интеграции и обмен данными</strong><small>CRM, телефония, сайт, мессенджеры и учётные системы</small></span></div>
         <div class="services-chart-track" aria-label="Индивидуальная оценка"><span class="services-custom-mark">по составу работ</span></div>
         <div class="services-chart-values"><span class="services-chart-price">по оценке</span><span class="services-chart-time">после разбора задачи</span></div>
@@ -3840,27 +3841,44 @@ document.querySelectorAll('.page[data-slug="home"] .hero-cta .btn').forEach((but
 (() => {
  const options = [...document.querySelectorAll('[data-service-option]')];
  const price = document.querySelector('[data-service-price]');
+ const title = document.querySelector('[data-service-title]');
  const note = document.querySelector('[data-service-price-note]');
- if (!options.length || !price || !note) return;
- let timer;
+ if (!options.length || !price || !title || !note) return;
+ let timer, titleTimer;
  const select = (row) => {
   window.clearInterval(timer);
+  window.clearInterval(titleTimer);
   options.forEach((option) => {
    const active = option === row;
    option.classList.toggle('is-selected', active);
    option.setAttribute('aria-pressed', String(active));
   });
   const value = row.dataset.price || '';
-  note.textContent = row.dataset.note || '';
+  const label = row.dataset.title || '';
+  const detail = row.dataset.note || '';
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
    price.textContent = value;
+   title.textContent = label;
+   note.textContent = detail;
    return;
   }
   price.textContent = '';
+  title.textContent = '';
+  note.textContent = '';
   let index = 0;
   timer = window.setInterval(() => {
    price.textContent += value[index++];
-   if (index >= value.length) window.clearInterval(timer);
+   if (index >= value.length) {
+    window.clearInterval(timer);
+    let titleIndex = 0;
+    titleTimer = window.setInterval(() => {
+     title.textContent += label[titleIndex++];
+     if (titleIndex >= label.length) {
+      window.clearInterval(titleTimer);
+      note.textContent = detail;
+     }
+    }, 26);
+   }
   }, 34);
  };
  options.forEach((row) => {
